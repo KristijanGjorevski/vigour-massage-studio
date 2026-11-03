@@ -118,8 +118,7 @@
       const drawer = header.querySelector('.vm-mobile-drawer');
       const navLinks = header.querySelectorAll('.vm-nav-item, .vm-mobile-nav-item');
       const availabilityBadge = header.querySelector('.vm-header-availability');
-      const shopDomain = header.dataset.shop || window.location.hostname;
-      const appUrl = header.dataset.appUrl;
+      const apiBase = header.dataset.apiBase || '/apps/vigour';
 
       // Detect and apply initial language based on client location
       let currentLang = detectClientLanguage(header);
@@ -194,9 +193,8 @@
       async function updateLiveAvailability() {
         if (!availabilityBadge) return;
         try {
-          const baseUrl = appUrl || window.location.origin;
           const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
-          const res = await fetch(`${baseUrl}/api/bookings?shop=${encodeURIComponent(shopDomain)}&date=${today}`, {
+          const res = await fetch(`${apiBase}/bookings?date=${today}`, {
             headers: { Accept: 'application/json' }
           });
           if (res.ok) {

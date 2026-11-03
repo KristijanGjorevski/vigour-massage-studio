@@ -4,7 +4,10 @@ import { useLoaderData, useFetcher } from "react-router";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
 import prisma from "../db.server";
+import { getAuthUrl } from "../services/googleCalendar.server";
 import styles from "../styles/dashboard.module.css";
+
+const ALLOWED_STATUSES = ["confirmed", "completed", "cancelled"];
 
 const VIGOUR_DEFAULT_SERVICES = [
   {
@@ -109,26 +112,42 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData();
   const intent = formData.get("intent");
 
+  if (intent === "google_connect") {
+    const googleAuthUrl = await getAuthUrl(shop);
+    if (!googleAuthUrl) {
+      return {
+        success: false,
+        message: "Google OAuth не е конфигуриран (GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET).",
+      };
+    }
+    return { success: true, googleAuthUrl };
+  }
+
   if (intent === "update_status") {
     const appointmentId = formData.get("appointmentId") as string;
     const newStatus = formData.get("status") as string;
 
-    if (appointmentId && newStatus) {
-      await prisma.appointment.update({
-        where: { id: appointmentId },
+    if (appointmentId && ALLOWED_STATUSES.includes(newStatus)) {
+      // Scoped by shop: an ID from another shop matches nothing.
+      const { count } = await prisma.appointment.updateMany({
+        where: { id: appointmentId, shop },
         data: { status: newStatus },
       });
-      return { success: true, message: `Статусот е променет во: ${newStatus}` };
+      if (count > 0) {
+        return { success: true, message: `Статусот е променет во: ${newStatus}` };
+      }
     }
   }
 
   if (intent === "delete_appointment") {
     const appointmentId = formData.get("appointmentId") as string;
     if (appointmentId) {
-      await prisma.appointment.delete({
-        where: { id: appointmentId },
+      const { count } = await prisma.appointment.deleteMany({
+        where: { id: appointmentId, shop },
       });
-      return { success: true, message: "Терминот е избришан" };
+      if (count > 0) {
+        return { success: true, message: "Терминот е избришан" };
+      }
     }
   }
 
@@ -156,8 +175,9 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function VigourDashboard() {
-  const { shop, services, appointments, isGoogleConnected, metrics } = useLoaderData<typeof loader>();
-  const fetcher = useFetcher<{ success?: boolean; message?: string }>();
+  const { services, appointments, isGoogleConnected, metrics } = useLoaderData<typeof loader>();
+  const fetcher = useFetcher<{ success?: boolean; message?: string; googleAuthUrl?: string }>();
+  const googleFetcher = useFetcher<{ success?: boolean; message?: string; googleAuthUrl?: string }>();
   const shopify = useAppBridge();
   const [activeTab, setActiveTab] = useState<"appointments" | "services" | "google" | "blocks">("appointments");
   const [showNewServiceModal, setShowNewServiceModal] = useState(false);
@@ -167,6 +187,33 @@ export default function VigourDashboard() {
       shopify.toast.show(fetcher.data.message);
     }
   }, [fetcher.data, shopify]);
+
+  // Google can't load inside the admin iframe → open consent in the top window.
+  useEffect(() => {
+    const data = googleFetcher.data;
+    if (!data) return;
+    if (data.googleAuthUrl) {
+      window.open(data.googleAuthUrl, "_top");
+    } else if (data.message && shopify) {
+      shopify.toast.show(data.message, { isError: true });
+    }
+  }, [googleFetcher.data, shopify]);
+
+  // Result of the Google OAuth round-trip (?google=success / ?google_error=…)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (!shopify) return;
+    if (params.get("google") === "success") {
+      shopify.toast.show("Google Calendar е успешно поврзан");
+    } else if (params.get("google_error")) {
+      shopify.toast.show(`Google Calendar: ${params.get("google_error")}`, { isError: true });
+    }
+  }, [shopify]);
+
+  const connectGoogle = () => {
+    googleFetcher.submit({ intent: "google_connect" }, { method: "POST" });
+  };
+  const isConnectingGoogle = googleFetcher.state !== "idle";
 
   const handleStatusChange = (appointmentId: string, status: string) => {
     fetcher.submit(
@@ -216,20 +263,23 @@ export default function VigourDashboard() {
               )}
             </div>
           </div>
-          <a
-            href={`/api/google-auth?shop=${encodeURIComponent(shop)}`}
+          <button
+            type="button"
+            onClick={connectGoogle}
+            disabled={isConnectingGoogle}
             style={{
               padding: "8px 18px",
               background: isGoogleConnected ? "#2E7D32" : "#243F3A",
               color: "#fff",
+              border: "none",
               borderRadius: "20px",
-              textDecoration: "none",
+              cursor: "pointer",
               fontWeight: 700,
               fontSize: "0.88rem"
             }}
           >
             {isGoogleConnected ? "Ре-авторизирај Календар" : "Поврзи Google Calendar"}
-          </a>
+          </button>
         </div>
 
         {/* Top Metrics Grid */}
@@ -475,8 +525,10 @@ export default function VigourDashboard() {
               </ul>
             </div>
 
-            <a
-              href={`/api/google-auth?shop=${encodeURIComponent(shop)}`}
+            <button
+              type="button"
+              onClick={connectGoogle}
+              disabled={isConnectingGoogle}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -484,13 +536,14 @@ export default function VigourDashboard() {
                 padding: "12px 24px",
                 background: "#243F3A",
                 color: "#fff",
+                border: "none",
                 borderRadius: "30px",
-                textDecoration: "none",
+                cursor: "pointer",
                 fontWeight: 700
               }}
             >
               <span>{isGoogleConnected ? "✓ Ре-авторизирај Google Calendar" : "Поврзи Google Calendar"}</span>
-            </a>
+            </button>
           </div>
         )}
 

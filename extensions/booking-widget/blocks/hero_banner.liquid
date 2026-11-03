@@ -5,7 +5,7 @@
          id="vm-hero-{{ block.id }}"
          data-block-id="{{ block.id }}"
          data-shop="{{ shop.permanent_domain }}"
-         data-app-url="{{ block.settings.app_url | default: '' }}">
+         data-api-base="/apps/vigour">
 
   {%- if block.settings.background_image != blank -%}
     <div class="vm-hero-bg" 
@@ -134,8 +134,7 @@
     {"type": "text", "id": "stat3_num", "label": "Stat 3 number"},
     {"type": "text", "id": "stat3_label", "label": "Stat 3 label"},
     {"type": "image_picker", "id": "background_image", "label": "Background image"},
-    {"type": "range", "id": "bg_opacity", "label": "Background opacity (%)", "min": 5, "max": 50, "step": 5, "default": 20},
-    {"type": "text", "id": "app_url", "label": "Backend App URL"}
+    {"type": "range", "id": "bg_opacity", "label": "Background opacity (%)", "min": 5, "max": 50, "step": 5, "default": 20}
   ]
 }
 {% endschema %}
