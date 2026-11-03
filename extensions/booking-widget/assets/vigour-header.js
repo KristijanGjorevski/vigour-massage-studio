@@ -195,7 +195,7 @@
         if (!availabilityBadge) return;
         try {
           const baseUrl = appUrl || window.location.origin;
-          const today = new Date().toISOString().split('T')[0];
+          const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
           const res = await fetch(`${baseUrl}/api/bookings?shop=${encodeURIComponent(shopDomain)}&date=${today}`, {
             headers: { Accept: 'application/json' }
           });

@@ -108,40 +108,41 @@ export async function getAuthenticatedCalendar(shop: string) {
   return google.calendar({ version: "v3", auth: oauth2Client });
 }
 
+async function getCalendarId(shop: string): Promise<string> {
+  const rec = await prisma.googleAuth.findUnique({ where: { shop }, select: { calendarId: true } });
+  return rec?.calendarId || "primary";
+}
+
 /**
- * Returns busy slots from Darko's Google Calendar on a given date (YYYY-MM-DD)
+ * Busy intervals from Darko's Google Calendar between two instants.
+ * Uses the FreeBusy API, so events marked "free"/transparent are ignored and
+ * events of any length or start time block every slot they overlap.
  */
-export async function getDarkoBusySlots(shop: string, dateStr: string): Promise<string[]> {
+export async function getBusyIntervals(
+  shop: string,
+  timeMin: Date,
+  timeMax: Date,
+): Promise<{ start: Date; end: Date }[]> {
   try {
     const calendar = await getAuthenticatedCalendar(shop);
     if (!calendar) return [];
 
-    const timeMin = new Date(`${dateStr}T00:00:00Z`).toISOString();
-    const timeMax = new Date(`${dateStr}T23:59:59Z`).toISOString();
-
-    const response = await calendar.events.list({
-      calendarId: "primary",
-      timeMin,
-      timeMax,
-      singleEvents: true,
-      orderBy: "startTime",
+    const calendarId = await getCalendarId(shop);
+    const response = await calendar.freebusy.query({
+      requestBody: {
+        timeMin: timeMin.toISOString(),
+        timeMax: timeMax.toISOString(),
+        timeZone: "Europe/Skopje",
+        items: [{ id: calendarId }],
+      },
     });
 
-    const events = response.data.items || [];
-    const busySlots: string[] = [];
-
-    for (const ev of events) {
-      if (ev.start?.dateTime) {
-        const start = new Date(ev.start.dateTime);
-        const hours = String(start.getUTCHours()).padStart(2, "0");
-        const minutes = String(start.getUTCMinutes()).padStart(2, "0");
-        busySlots.push(`${hours}:${minutes}`);
-      }
-    }
-
-    return busySlots;
+    const busy = response.data.calendars?.[calendarId]?.busy || [];
+    return busy
+      .filter((b: any) => b.start && b.end)
+      .map((b: any) => ({ start: new Date(b.start), end: new Date(b.end) }));
   } catch (err) {
-    console.error("Error fetching Google Calendar busy slots:", err);
+    console.error("Error fetching Google Calendar busy intervals:", err);
     return [];
   }
 }
@@ -171,15 +172,17 @@ export async function createGoogleCalendarEvent(
       location: "Vigour Massage Studio, Скопје",
       start: {
         dateTime: appointment.startTime.toISOString(),
+        timeZone: "Europe/Skopje",
       },
       end: {
         dateTime: appointment.endTime.toISOString(),
+        timeZone: "Europe/Skopje",
       },
       colorId: "2", // Sage/Green color in Google Calendar
     };
 
     const res = await calendar.events.insert({
-      calendarId: "primary",
+      calendarId: await getCalendarId(shop),
       requestBody: event,
     });
 
