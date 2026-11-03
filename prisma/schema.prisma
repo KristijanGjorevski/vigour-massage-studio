@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
+// enough when changing adapters.
+// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.sqlite"
+}
+
+model Session {
+  id            String    @id
+  shop          String
+  state         String
+  isOnline      Boolean   @default(false)
+  scope         String?
+  expires       DateTime?
+  accessToken   String
+  userId        BigInt?
+  firstName     String?
+  lastName      String?
+  email         String?
+  accountOwner  Boolean   @default(false)
+  locale        String?
+  collaborator  Boolean?  @default(false)
+  emailVerified Boolean?  @default(false)
+  refreshToken        String?
+  refreshTokenExpires DateTime?
+}
+
+model Service {
+  id               String        @id @default(uuid())
+  shop             String
+  shopifyProductId String?
+  name             String
+  description      String?
+  price            Float
+  duration         Int           // minutes
+  createdAt        DateTime      @default(now())
+  appointments     Appointment[]
+
+  @@index([shop])
+}
+
+model Appointment {
+  id            String   @id @default(uuid())
+  shop          String
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  notes         String?
+  serviceId     String
+  service       Service  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  startTime     DateTime
+  endTime       DateTime
+  status        String   @default("confirmed") // confirmed, completed, cancelled
+  googleEventId String?  // ID of the event synced to Darko's Google Calendar
+  createdAt     DateTime @default(now())
+
+  @@index([shop])
+  @@index([startTime])
+}
+
+model GoogleAuth {
+  id           String   @id @default(uuid())
+  shop         String   @unique
+  accessToken  String
+  refreshToken String
+  tokenExpiry  DateTime
+  calendarId   String   @default("primary")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Program {
+  id          String     @id @default(uuid())
+  shop        String
+  title       String
+  description String?
+  price       Float      @default(0) // in MKD (0 = free)
+  category    String     // "neck_shoulders", "lower_back", "full_body", "post_massage"
+  difficulty  String     @default("почетник")
+  sortOrder   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  exercises   Exercise[]
+
+  @@index([shop])
+  @@index([category])
+}
+
+model Exercise {
+  id          String   @id @default(uuid())
+  shop        String
+  programId   String?
+  program     Program? @relation(fields: [programId], references: [id], onDelete: SetNull)
+  title       String
+  description String?
+  videoId     String   // YouTube video ID or URL
+  duration    Int      // seconds
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([shop])
+  @@index([programId])
+}
+
+model PainZone {
+  id              String   @id @default(uuid())
+  shop            String
+  zoneKey         String   // "neck", "upper_back", "lower_back", "shoulders", etc.
+  zoneName        String
+  description     String?
+  serviceIds      String   // Comma-separated service IDs or names
+  exerciseIds     String?
+  svgPathSelector String?
+  sortOrder       Int      @default(0)
+
+  @@unique([shop, zoneKey])
+  @@index([shop])
+}
+
+

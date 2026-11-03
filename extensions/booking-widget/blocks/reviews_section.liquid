@@ -1,0 +1,140 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'reviews-section.css' | asset_url | stylesheet_tag }}
+
+<section class="vm-block-wrapper vm-reviews-section" 
+         id="vm-reviews-{{ block.id }}" 
+         data-block-id="{{ block.id }}">
+  <div class="vm-container">
+    
+    <div class="vm-reviews-header">
+      <div class="vm-eyebrow">
+        {% render 'vigour-icons', name: 'star' %}
+        <span>{{ block.settings.eyebrow | default: 'ИСКУСТВА НА КЛИЕНТИТЕ' }}</span>
+      </div>
+      <h2 class="vm-heading-lg vm-reviews-title">
+        {{ block.settings.heading | default: 'Што велат за нашите третмани' }}
+      </h2>
+      <p class="vm-reviews-subtitle">
+        {{ block.settings.subheading | default: 'Искрени впечатоци од луѓе кои ја вратија леснотијата во своето тело со индивидуалниот пристап во Vigour.' }}
+      </p>
+    </div>
+
+    <div class="vm-reviews-carousel-wrap">
+      <div class="vm-reviews-track">
+        
+        <div class="vm-review-card">
+          <div class="vm-review-stars">
+            {% for i in (1..5) %}
+              {% render 'vigour-icons', name: 'star' %}
+            {% endfor %}
+          </div>
+          <p class="vm-review-text">
+            „После месеци константна болка во вратот и главоболки од 8 часа дневно пред компјутер, уште по првиот третман кај Дарко почувствував огромно олеснување. Точно знае каде е проблемот и со каков притисок да пристапи.“
+          </p>
+          <div class="vm-review-author">
+            <div class="vm-review-avatar">СК</div>
+            <div class="vm-review-info">
+              <span class="vm-review-name">
+                Стефан К.
+                <span class="vm-review-badge-verified">{% render 'vigour-icons', name: 'check' %}</span>
+              </span>
+              <span class="vm-review-meta">Спортска масажа · Скопје</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vm-review-card">
+          <div class="vm-review-stars">
+            {% for i in (1..5) %}
+              {% render 'vigour-icons', name: 'star' %}
+            {% endfor %}
+          </div>
+          <p class="vm-review-text">
+            „Амбиентот е совршено смирувачки, а релакс масажата е на ниво на врвен спа центар. Дарко е исклучително професионален и внимателен. Се чувствував целосно препородена по 60 минути.“
+          </p>
+          <div class="vm-review-author">
+            <div class="vm-review-avatar">ЕМ</div>
+            <div class="vm-review-info">
+              <span class="vm-review-name">
+                Елена М.
+                <span class="vm-review-badge-verified">{% render 'vigour-icons', name: 'check' %}</span>
+              </span>
+              <span class="vm-review-meta">Релакс масажа (цело тело)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vm-review-card">
+          <div class="vm-review-stars">
+            {% for i in (1..5) %}
+              {% render 'vigour-icons', name: 'star' %}
+            {% endfor %}
+          </div>
+          <p class="vm-review-text">
+            „Како рекреативен тркач, спортската масажа во Vigour ми е задолжителен ритуал за регенерација. Длабок притисок врз нозете и грбот, без непотребна болка, и одлични совети за вежби дома.“
+          </p>
+          <div class="vm-review-author">
+            <div class="vm-review-avatar">АП</div>
+            <div class="vm-review-info">
+              <span class="vm-review-name">
+                Александар П.
+                <span class="vm-review-badge-verified">{% render 'vigour-icons', name: 'check' %}</span>
+              </span>
+              <span class="vm-review-meta">Спортска масажа · Аеродром</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="vm-review-card">
+          <div class="vm-review-stars">
+            {% for i in (1..5) %}
+              {% render 'vigour-icons', name: 'star' %}
+            {% endfor %}
+          </div>
+          <p class="vm-review-text">
+            „Масажата на стапала и рефлексологијата се неверојатно искуство! Стојам цел ден на нозе и чувствував постојан замор. Ефектот беше моментален, чекорот веднаш ми олесна. Чисто 10/10!“
+          </p>
+          <div class="vm-review-author">
+            <div class="vm-review-avatar">МТ</div>
+            <div class="vm-review-info">
+              <span class="vm-review-name">
+                Марија Т.
+                <span class="vm-review-badge-verified">{% render 'vigour-icons', name: 'check' %}</span>
+              </span>
+              <span class="vm-review-meta">Масажа на стапала · Карпош</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="vm-carousel-controls">
+        <button type="button" class="vm-carousel-arrow vm-carousel-prev" aria-label="Претходно">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+
+        <div class="vm-carousel-dots"></div>
+
+        <button type="button" class="vm-carousel-arrow vm-carousel-next" aria-label="Следно">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script src="{{ 'reviews-section.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VM Reviews",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "textarea", "id": "subheading", "label": "Subheading"}
+  ]
+}
+{% endschema %}

@@ -1,0 +1,82 @@
+{
+  "general": {
+    "currency_symbol": "MKD",
+    "minutes_suffix": "min",
+    "book_now": "Book Appointment",
+    "view_services": "View Treatments",
+    "learn_more": "Learn more",
+    "read_more": "Read more",
+    "contact_us": "Contact Us"
+  },
+  "hero": {
+    "badge": "VIGOUR MASSAGE STUDIO · SKOPJE",
+    "title": "Professional Massage for Your Body Renewal",
+    "subtitle": "Relieve back, neck, and muscular pain with expert therapeutic and relaxation techniques tailored to your body.",
+    "cta_primary": "Book Now",
+    "cta_secondary": "View Services",
+    "next_slot_label": "Next Available Slot:",
+    "next_slot_loading": "Checking availability...",
+    "next_slot_today": "Today",
+    "next_slot_tomorrow": "Tomorrow",
+    "next_slot_none": "Inquire via phone or Viber",
+    "stats_clients": "Satisfied Clients",
+    "stats_rating": "Satisfaction Rating",
+    "stats_experience": "Years Experience"
+  },
+  "services": {
+    "eyebrow": "OUR TREATMENTS",
+    "title": "Services & Pricing",
+    "subtitle": "Choose targeted massage according to your needs — from deep relaxation to athletic relief.",
+    "tab_all": "All Services",
+    "tab_relax": "Relax",
+    "tab_sports": "Sports",
+    "tab_special": "Special",
+    "duration": "Duration",
+    "price": "Price",
+    "book_cta": "Reserve",
+    "card_discount_notice": "5% discount on card payments"
+  },
+  "founder": {
+    "eyebrow": "ABOUT THE THERAPIST",
+    "name": "Darko",
+    "title": "Founder & Certified Massage Therapist",
+    "bio": "Passionate about human anatomy and restorative bodywork, my mission at Vigour is to help you relieve chronic pain, ease tension, and restore natural mobility.",
+    "philosophy": "“Every body tells a story of stress and fatigue — genuine recovery begins with mindful listening and targeted touch.”",
+    "instagram_btn": "Follow on Instagram"
+  },
+  "how_it_works": {
+    "eyebrow": "SIMPLE PROCESS",
+    "title": "How to Book in 3 Easy Steps",
+    "subtitle": "Fast, seamless, and clear — pick the perfect slot for your wellness routine.",
+    "step1_num": "01",
+    "step1_title": "Choose Treatment",
+    "step1_desc": "Browse our treatments or consult our interactive pain map for recommendations.",
+    "step2_num": "02",
+    "step2_title": "Reserve Online",
+    "step2_desc": "Select the day and available hour that fits your schedule.",
+    "step3_num": "03",
+    "step3_title": "Arrive & Relax",
+    "step3_desc": "Visit our Skopje studio. Pay in cash or card (5% discount with card)."
+  },
+  "booking": {
+    "title": "Book Your Massage Session",
+    "subtitle": "Select your treatment, date and time for restorative relaxation.",
+    "step_service": "1. Select Treatment",
+    "step_date": "2. Select Date",
+    "step_time": "3. Select Available Slot",
+    "step_info": "4. Your Information",
+    "select_service_placeholder": "Select a treatment...",
+    "loading_slots": "Loading available slots...",
+    "no_slots": "No available slots on this date. Please pick another day.",
+    "name_placeholder": "Full Name *",
+    "email_placeholder": "Email Address *",
+    "phone_placeholder": "Phone Number *",
+    "notes_placeholder": "Focus areas (neck, back), injuries, or special notes...",
+    "button": "Confirm Appointment",
+    "submitting": "Submitting...",
+    "guarantee": "🔒 Secure reservation • Pay at salon (cash / card) • Free cancellation up to 24h prior",
+    "success_title": "Appointment Confirmed!",
+    "success_msg": "Thank you for trusting Vigour Massage Studio. A confirmation email has been sent.",
+    "book_another": "Book Another Treatment"
+  }
+}

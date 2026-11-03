@@ -1,0 +1,151 @@
+/* ==========================================================================
+   Pricing & Packages — Vigour Massage Studio (Informational, No Checkout)
+   ========================================================================== */
+
+.vm-packages-section {
+  padding: 95px 0 85px;
+  background-color: var(--vm-white);
+  position: relative;
+}
+
+.vm-packages-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 52px;
+}
+
+.vm-packages-header .vm-eyebrow {
+  justify-content: center;
+}
+
+.vm-packages-title {
+  color: var(--vm-green-deep);
+  margin-bottom: 14px;
+}
+
+.vm-packages-subtitle {
+  color: var(--vm-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Category Tabs (Пакети третмани vs Подарок Ваучери) */
+.vm-packages-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.vm-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+}
+
+.vm-package-card {
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-lg);
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-card);
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: var(--vm-transition-slow);
+}
+
+.vm-package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--vm-shadow-elevated);
+  border-color: var(--vm-green-mid);
+}
+
+.vm-package-card.featured {
+  border: 2px solid var(--vm-gold);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF8F5 100%);
+}
+
+.vm-package-featured-badge {
+  position: absolute;
+  top: -14px;
+  right: 24px;
+  background: var(--vm-gold);
+  color: var(--vm-green-dark);
+  padding: 4px 14px;
+  border-radius: var(--vm-radius-pill);
+  font-family: var(--vm-font-heading);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vm-package-title {
+  font-family: var(--vm-font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--vm-green-deep);
+  margin-bottom: 8px;
+}
+
+.vm-package-desc {
+  font-size: 0.92rem;
+  color: var(--vm-text-muted);
+  line-height: 1.55;
+  margin-bottom: 24px;
+}
+
+.vm-package-price-wrap {
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed rgba(36, 63, 58, 0.15);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.vm-package-price {
+  font-family: var(--vm-font-heading);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--vm-green-deep);
+  line-height: 1;
+}
+
+.vm-package-savings {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--vm-status-available);
+  background: var(--vm-status-available-bg);
+  padding: 4px 10px;
+  border-radius: var(--vm-radius-pill);
+}
+
+.vm-package-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.vm-package-feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--vm-text-secondary);
+}
+
+.vm-package-feature-item svg {
+  color: var(--vm-green-mid);
+  flex-shrink: 0;
+}
+
+.vm-package-card .vm-btn-primary {
+  width: 100%;
+}

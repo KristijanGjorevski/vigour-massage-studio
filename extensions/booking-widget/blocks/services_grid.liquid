@@ -1,0 +1,157 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'services-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="vm-block-wrapper vm-services-section" 
+         id="vigour-services" 
+         data-block-id="{{ block.id }}">
+  <div class="vm-container">
+    
+    <div class="vm-services-header">
+      <div class="vm-eyebrow">
+        {% render 'vigour-icons', name: 'spark' %}
+        <span>{{ block.settings.eyebrow | default: 'НАШИТЕ ТРЕТМАНИ' }}</span>
+      </div>
+      <h2 class="vm-heading-lg vm-services-title">
+        {{ block.settings.heading | default: 'Професионални третмани и ценовник' }}
+      </h2>
+      <p class="vm-services-subtitle">
+        {{ block.settings.subheading | default: 'Секој третман е насочен кон длабинско ослободување на мускулната напнатост, подобра циркулација и целосно регенерирање на вашето тело.' }}
+      </p>
+    </div>
+
+    {%- if block.settings.show_tabs -%}
+      <div class="vm-services-tabs">
+        <button type="button" class="vm-tab-btn active" data-category="all">Сите третмани</button>
+        <button type="button" class="vm-tab-btn" data-category="relax">Релакс масажи</button>
+        <button type="button" class="vm-tab-btn" data-category="sports">Спортски масажи</button>
+        <button type="button" class="vm-tab-btn" data-category="special">Специјални третмани</button>
+      </div>
+    {%- endif -%}
+
+    <div class="vm-services-grid">
+
+      {% render 'service-card',
+        category: 'relax',
+        badge: 'Најбарано',
+        icon: 'spark',
+        video_label: 'Видео техника',
+        title: 'Релакс Масажа',
+        variant: 'Цело тело',
+        desc: 'Нежни, флуидни движења за ослободување од стрес, смирување на нервниот систем и подобрување на циркулацијата на целото тело.',
+        duration: '60 мин',
+        benefit: 'Длабока релаксација',
+        price: '1.300 ден.',
+        card_price: '1.235 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Релакс масажа - Цело тело'
+      %}
+
+      {% render 'service-card',
+        category: 'sports',
+        badge: 'Интензивно',
+        badge_style: 'background: var(--vm-green-deep); color: var(--vm-white);',
+        icon: 'shield',
+        media_style: 'background: linear-gradient(135deg, #192D29 0%, #243F3A 100%);',
+        video_label: 'Видео техника',
+        title: 'Спортска Масажа',
+        variant: 'Цело тело',
+        desc: 'Длабоко-ткивен притисок, истегнување и таргетирање на мускулните јазли (trigger points) за забрзано закрепнување по тренинг или напор.',
+        duration: '60 мин',
+        benefit: 'Длабоко ткиво',
+        price: '1.500 ден.',
+        card_price: '1.425 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Спортска масажа - Цело тело'
+      %}
+
+      {% render 'service-card',
+        category: 'relax',
+        icon: 'spark',
+        title: 'Релакс Масажа',
+        variant: 'Грб & Врат',
+        desc: 'Фокусиран третман на грбот, рамениот појас и вратот за брзо олеснување на затегнатоста предизвикана од долго седење во канцеларија.',
+        duration: '45 мин',
+        benefit: 'Олеснување на грб',
+        price: '800 ден.',
+        card_price: '760 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Релакс масажа - Грб'
+      %}
+
+      {% render 'service-card',
+        category: 'sports',
+        icon: 'shield',
+        title: 'Спортска Масажа',
+        variant: 'Грб & Рамена',
+        desc: "Интензивна терапија за 'рбетниот столб, лопатките и трапезите. Го зголемува опсегот на движење и ја намалува болката во мускулите.",
+        duration: '45 мин',
+        benefit: 'Терапевтски притисок',
+        price: '1.000 ден.',
+        card_price: '950 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Спортска масажа - Грб'
+      %}
+
+      {% render 'service-card',
+        category: 'special',
+        icon: 'spark',
+        title: 'Масажа на Стапала',
+        variant: 'Рефлексологија',
+        desc: 'Стимулација на рефлексните точки на стапалата што го ослободува заморот во нозете и го стимулира балансот на целиот организам.',
+        duration: '45 мин',
+        benefit: 'Тешки нозе & циркулација',
+        price: '500 ден.',
+        card_price: '475 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Масажа на стапала'
+      %}
+
+      {% render 'service-card',
+        category: 'special',
+        badge: 'Премиум избор',
+        badge_style: 'background: var(--vm-gold); color: var(--vm-green-dark);',
+        icon: 'spark',
+        media_style: 'background: linear-gradient(135deg, #243F3A 0%, #192D29 100%);',
+        video_label: 'Комплетен ритуал',
+        title: 'Премиум Масажа',
+        variant: 'Цело тело напред & назад',
+        pill_style: 'background: var(--vm-gold-soft); color: var(--vm-green-dark);',
+        desc: 'Најкомплетниот спа ритуал: комбинација на терапевтски притисок и релакс техники за целото тело, рацете, нозете, вратот и скалпот.',
+        duration: '75 мин',
+        benefit: 'Комплетна регенерација',
+        price: '2.500 ден.',
+        card_price: '2.375 ден. со картичка',
+        booking_link: block.settings.booking_link,
+        service_id: 'Премиум масажа - Цело тело'
+      %}
+
+    </div>
+
+    {%- if block.settings.show_card_discount -%}
+      <div class="vm-services-notice-bar">
+        {% render 'vigour-icons', name: 'tag' %}
+        <span>
+          <strong>Специјална поволност:</strong> Добијте <strong>5% попуст</strong> за секое плаќање со кредитна или дебитна картичка во студиото!
+        </span>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<script src="{{ 'services-grid.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VM Services Grid",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "textarea", "id": "subheading", "label": "Subheading"},
+    {"type": "checkbox", "id": "show_tabs", "label": "Show category tabs", "default": true},
+    {"type": "checkbox", "id": "show_card_discount", "label": "Show card discount bar", "default": true},
+    {"type": "text", "id": "booking_link", "label": "Booking link"}
+  ]
+}
+{% endschema %}

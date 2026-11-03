@@ -1,0 +1,146 @@
+/* ==========================================================================
+   Vigour Footer — Official Footer Section
+   ========================================================================== */
+
+.vm-footer-wrapper {
+  background-color: #1E3631;
+  color: var(--vm-greige);
+  padding: 80px 0 36px;
+  font-family: var(--vm-font-body);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.vm-footer-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* 4-Column Grid */
+.vm-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 60px;
+}
+
+/* Column 1: Brand Info */
+.vm-footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 360px;
+}
+
+.vm-footer-logo-link {
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.vm-footer-tagline {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #DDD2C8;
+  opacity: 0.9;
+  margin: 0;
+}
+
+/* Link Columns */
+.vm-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vm-footer-col-title {
+  font-family: var(--vm-font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vm-white);
+  margin: 0 0 4px 0;
+}
+
+.vm-footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vm-footer-link-item a {
+  color: var(--vm-greige);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: var(--vm-transition);
+  display: inline-block;
+}
+
+.vm-footer-link-item a:hover {
+  color: var(--vm-white);
+  transform: translateX(3px);
+}
+
+.vm-footer-contact-item {
+  color: var(--vm-greige);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.vm-footer-contact-item a {
+  color: var(--vm-greige);
+  text-decoration: none;
+  transition: var(--vm-transition);
+}
+
+.vm-footer-contact-item a:hover {
+  color: var(--vm-white);
+}
+
+/* Bottom Bar */
+.vm-footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.85rem;
+  color: rgba(221, 210, 200, 0.7);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.vm-footer-bottom a {
+  color: var(--vm-greige);
+  text-decoration: none;
+  transition: var(--vm-transition);
+}
+
+.vm-footer-bottom a:hover {
+  color: var(--vm-white);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .vm-footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .vm-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .vm-footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+}

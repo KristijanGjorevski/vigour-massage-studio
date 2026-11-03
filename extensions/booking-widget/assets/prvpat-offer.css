@@ -1,0 +1,131 @@
+/* ==========================================================================
+   PRVPAT Offer Banner — Vigour Massage Studio
+   Matches exact mockup card above the footer
+   ========================================================================== */
+
+.vm-prvpat-section {
+  padding: 60px 0 80px;
+  background-color: var(--vm-cream);
+  position: relative;
+}
+
+.vm-prvpat-box {
+  background-color: #243F3A;
+  border-radius: 28px;
+  padding: 56px 64px;
+  color: var(--vm-white);
+  box-shadow: 0 16px 36px rgba(36, 63, 58, 0.16);
+}
+
+.vm-prvpat-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.65fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.vm-prvpat-title {
+  color: var(--vm-white);
+  font-family: var(--vm-font-heading);
+  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.01em;
+}
+
+.vm-prvpat-desc {
+  color: #DDD2C8;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  max-width: 540px;
+}
+
+.vm-prvpat-code-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed rgba(255, 255, 255, 0.6);
+  border-radius: var(--vm-radius-pill);
+  padding: 8px 24px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.vm-prvpat-code {
+  font-family: var(--vm-font-heading);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--vm-white);
+}
+
+/* Actions Right */
+.vm-prvpat-actions-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 320px;
+  margin-left: auto;
+}
+
+.vm-prvpat-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 32px;
+  background-color: var(--vm-white);
+  color: #243F3A !important;
+  font-family: var(--vm-font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--vm-radius-pill);
+  text-decoration: none;
+  transition: var(--vm-transition);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.vm-prvpat-btn-primary:hover {
+  background-color: #F5EFEB;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+}
+
+.vm-prvpat-btn-outline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  background-color: transparent;
+  color: var(--vm-white) !important;
+  font-family: var(--vm-font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: var(--vm-radius-pill);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: var(--vm-transition);
+  text-align: center;
+}
+
+.vm-prvpat-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--vm-white);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .vm-prvpat-box {
+    padding: 40px 28px;
+  }
+  .vm-prvpat-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .vm-prvpat-actions-col {
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
