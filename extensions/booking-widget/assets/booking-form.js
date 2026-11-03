@@ -38,8 +38,8 @@
 
       let servicesList = [];
 
-      // Set min date to today
-      const today = new Date().toISOString().split("T")[0];
+      // Set min date to today (studio local date, not UTC)
+      const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Skopje" }).format(new Date());
       if (dateInput) {
         dateInput.min = today;
         dateInput.value = today;
@@ -177,7 +177,8 @@
         if (selectedSlotInput) selectedSlotInput.value = "";
 
         try {
-          const endpoint = `${apiBase}/api/bookings?shop=${encodeURIComponent(shop)}&date=${date}`;
+          const serviceParam = serviceSelect && serviceSelect.value ? `&serviceId=${encodeURIComponent(serviceSelect.value)}` : "";
+          const endpoint = `${apiBase}/api/bookings?shop=${encodeURIComponent(shop)}&date=${date}${serviceParam}`;
           const res = await fetch(endpoint);
           const data = await res.json();
           renderSlots(data.availableSlots || []);
@@ -212,7 +213,11 @@
       }
 
       if (serviceSelect) {
-        serviceSelect.addEventListener("change", updateServiceMeta);
+        serviceSelect.addEventListener("change", () => {
+          updateServiceMeta();
+          // Longer treatments may not fit every slot — refresh availability
+          if (dateInput && dateInput.value) fetchSlotsForDate(dateInput.value);
+        });
       }
 
       if (dateInput) {

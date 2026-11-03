@@ -1,12 +1,22 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import prisma from "../db.server";
-import { getDarkoBusySlots, createGoogleCalendarEvent } from "../services/googleCalendar.server";
+import { createGoogleCalendarEvent } from "../services/googleCalendar.server";
+import {
+  WORKING_SLOTS,
+  findNextFreeSlot,
+  getAvailableSlots,
+  isValidDateStr,
+  isValidTimeStr,
+  studioTimeToUtc,
+} from "../services/schedule.server";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
+
+const DEFAULT_DURATION_MIN = 60;
 
 // Vigour Massage Studio Default Seed Services (from Flyer in MKD)
 const VIGOUR_SERVICES = [
@@ -48,16 +58,18 @@ const VIGOUR_SERVICES = [
   },
 ];
 
-const WORKING_SLOTS = [
-  "10:00",
-  "11:15",
-  "12:30",
-  "14:00",
-  "15:15",
-  "16:30",
-  "17:45",
-  "19:00",
-];
+function json(body: unknown, status = 200) {
+  return Response.json(body, { status, headers: corsHeaders });
+}
+
+async function getOrSeedServices(shop: string) {
+  let services = await prisma.service.findMany({ where: { shop }, orderBy: { price: "asc" } });
+  if (services.length === 0) {
+    await prisma.service.createMany({ data: VIGOUR_SERVICES.map((s) => ({ shop, ...s })) });
+    services = await prisma.service.findMany({ where: { shop }, orderBy: { price: "asc" } });
+  }
+  return services;
+}
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   if (request.method === "OPTIONS") {
@@ -67,136 +79,36 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const shop = url.searchParams.get("shop") || "najdo-website.myshopify.com";
   const dateStr = url.searchParams.get("date");
+  const serviceId = url.searchParams.get("serviceId");
   const nextSlotReq = url.searchParams.get("nextSlot") === "true";
 
-  // Fetch or Seed Services
-  let services = await prisma.service.findMany({
-    where: { shop },
-    orderBy: { price: "asc" },
-  });
+  const services = await getOrSeedServices(shop);
 
-  if (services.length === 0) {
-    await prisma.service.createMany({
-      data: VIGOUR_SERVICES.map((s) => ({
-        shop,
-        ...s,
-      })),
-    });
-
-    services = await prisma.service.findMany({
-      where: { shop },
-      orderBy: { price: "asc" },
-    });
-  }
-
-  // Handle Next Free Slot request for Hero banner
+  // Next free slot for the hero banner (based on the entry-level service)
   if (nextSlotReq) {
-    const today = new Date();
-    const todayStr = today.toISOString().split("T")[0];
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowStr = tomorrow.toISOString().split("T")[0];
-
-    // Check today first
-    let targetDateStr = todayStr;
-    const currentHour = today.getHours();
-    
-    // If after 18:00, recommend tomorrow morning
-    if (currentHour >= 18) {
-      targetDateStr = tomorrowStr;
-    }
-
-    // Get busy slots from DB and Google Calendar
-    const [existingAppointments, gcalBusy] = await Promise.all([
-      prisma.appointment.findMany({
-        where: {
-          shop,
-          status: { in: ["confirmed", "pending"] },
-          startTime: {
-            gte: new Date(`${targetDateStr}T00:00:00.000Z`),
-            lt: new Date(`${targetDateStr}T23:59:59.000Z`),
-          },
-        },
-      }),
-      getDarkoBusySlots(shop, targetDateStr),
-    ]);
-
-    const bookedHours = new Set<string>();
-    existingAppointments.forEach((app) => {
-      const d = new Date(app.startTime);
-      bookedHours.add(`${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`);
-    });
-    gcalBusy.forEach((s) => bookedHours.add(s));
-
-    // Find next available slot
-    let nextAvailableTime = WORKING_SLOTS.find((slot) => {
-      if (bookedHours.has(slot)) return false;
-      if (targetDateStr === todayStr) {
-        const [h, m] = slot.split(":").map(Number);
-        if (h <= currentHour) return false;
-      }
-      return true;
-    });
-
-    if (!nextAvailableTime) {
-      // Look at tomorrow
-      targetDateStr = tomorrowStr;
-      nextAvailableTime = WORKING_SLOTS[0] || "10:00";
-    }
-
-    return Response.json(
-      {
-        success: true,
-        nextSlot: {
-          date: targetDateStr,
-          time: nextAvailableTime,
-          serviceName: services[0]?.name || "Релакс масажа",
-        },
+    const featured = services[0];
+    const next = await findNextFreeSlot(shop, featured?.duration ?? DEFAULT_DURATION_MIN);
+    return json({
+      success: true,
+      nextSlot: next && {
+        date: next.date,
+        time: next.time,
+        serviceName: featured?.name || "Релакс масажа",
       },
-      { headers: corsHeaders }
-    );
+    });
   }
 
-  // Calculate available slots for given date
+  // Available slots for a date, sized to the chosen service (if given)
   let availableSlots: string[] = [];
   if (dateStr) {
-    const targetDate = new Date(`${dateStr}T00:00:00.000Z`);
-    const nextDay = new Date(targetDate);
-    nextDay.setDate(nextDay.getDate() + 1);
-
-    const [existingAppointments, gcalBusy] = await Promise.all([
-      prisma.appointment.findMany({
-        where: {
-          shop,
-          status: { in: ["confirmed", "pending"] },
-          startTime: {
-            gte: targetDate,
-            lt: nextDay,
-          },
-        },
-      }),
-      getDarkoBusySlots(shop, dateStr),
-    ]);
-
-    const bookedHours = new Set<string>();
-    existingAppointments.forEach((app) => {
-      const d = new Date(app.startTime);
-      bookedHours.add(`${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`);
-    });
-    gcalBusy.forEach((slot) => bookedHours.add(slot));
-
-    availableSlots = WORKING_SLOTS.filter((slot) => !bookedHours.has(slot));
+    if (!isValidDateStr(dateStr)) {
+      return json({ error: "Невалиден датум." }, 400);
+    }
+    const selected = serviceId ? services.find((s) => s.id === serviceId) : undefined;
+    availableSlots = await getAvailableSlots(shop, dateStr, selected?.duration ?? DEFAULT_DURATION_MIN);
   }
 
-  return Response.json(
-    {
-      success: true,
-      shop,
-      services,
-      availableSlots,
-    },
-    { headers: corsHeaders }
-  );
+  return json({ success: true, shop, services, availableSlots });
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -205,111 +117,91 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   }
 
   if (request.method !== "POST") {
-    return Response.json(
-      { error: "Method not allowed" },
-      { status: 405, headers: corsHeaders }
-    );
+    return json({ error: "Method not allowed" }, 405);
   }
 
   try {
     const body = await request.json();
-    const {
-      shop,
-      serviceId,
-      customerName,
-      customerEmail,
-      customerPhone,
-      date,
-      timeSlot,
-      notes,
-    } = body;
+    const { shop, serviceId, customerName, customerEmail, customerPhone, date, timeSlot, notes } = body ?? {};
 
     if (!shop || !serviceId || !customerName || !customerEmail || !date || !timeSlot) {
-      return Response.json(
-        { error: "Недостасуваат задолжителни податоци за резервација." },
-        { status: 400, headers: corsHeaders }
-      );
+      return json({ error: "Недостасуваат задолжителни податоци за резервација." }, 400);
     }
 
-    let service = await prisma.service.findUnique({
-      where: { id: serviceId },
-    });
+    if (!isValidDateStr(date) || !isValidTimeStr(timeSlot) || !WORKING_SLOTS.includes(timeSlot)) {
+      return json({ error: "Невалиден датум или термин." }, 400);
+    }
 
+    const service = await prisma.service.findFirst({ where: { id: serviceId, shop } });
     if (!service) {
-      // Fallback: look up by name or return first active service
-      service = await prisma.service.findFirst({
-        where: { shop },
-      });
+      return json({ error: "Избраниот третман не постои. Освежете ја страната и обидете се повторно." }, 400);
     }
 
-    const duration = service ? service.duration : 60;
-    const startDateTime = new Date(`${date}T${timeSlot}:00.000Z`);
-    const endDateTime = new Date(startDateTime.getTime() + duration * 60 * 1000);
+    // Re-check availability (DB + Google Calendar) at booking time
+    const freeSlots = await getAvailableSlots(shop, date, service.duration);
+    if (!freeSlots.includes(timeSlot)) {
+      return json({ error: "Овој термин е веќе зафатен. Ве молиме изберете друг час." }, 409);
+    }
 
-    // Check collision in DB
-    const collision = await prisma.appointment.findFirst({
-      where: {
-        shop,
-        status: { in: ["confirmed", "pending"] },
-        startTime: startDateTime,
-      },
+    const startTime = studioTimeToUtc(date, timeSlot);
+    const endTime = new Date(startTime.getTime() + service.duration * 60_000);
+
+    // Create the appointment, guarding against a parallel booking for the same time
+    const appointment = await prisma.$transaction(async (tx) => {
+      const clash = await tx.appointment.findFirst({
+        where: {
+          shop,
+          status: { in: ["confirmed", "pending"] },
+          startTime: { lt: endTime },
+          endTime: { gt: startTime },
+        },
+      });
+      if (clash) return null;
+
+      return tx.appointment.create({
+        data: {
+          shop,
+          serviceId: service.id,
+          customerName: String(customerName).trim(),
+          customerEmail: String(customerEmail).trim(),
+          customerPhone: customerPhone ? String(customerPhone).trim() : null,
+          notes: notes ? String(notes).trim() : null,
+          startTime,
+          endTime,
+          status: "confirmed",
+        },
+        include: { service: true },
+      });
     });
 
-    if (collision) {
-      return Response.json(
-        { error: "Овој термин е веќе зафатен. Ве молиме изберете друг час." },
-        { status: 409, headers: corsHeaders }
-      );
+    if (!appointment) {
+      return json({ error: "Овој термин е веќе зафатен. Ве молиме изберете друг час." }, 409);
     }
 
-    // Google Calendar Sync: insert event
-    let googleEventId: string | null = null;
-    try {
-      googleEventId = await createGoogleCalendarEvent(shop, {
-        customerName,
-        customerEmail,
-        customerPhone,
-        notes,
-        serviceName: service ? service.name : "Масажа",
-        startTime: startDateTime,
-        endTime: endDateTime,
-      });
-    } catch (gcalErr) {
-      console.warn("Could not sync appointment to Google Calendar:", gcalErr);
-    }
-
-    // Create DB Appointment
-    const appointment = await prisma.appointment.create({
-      data: {
-        shop,
-        serviceId: service ? service.id : serviceId,
-        customerName,
-        customerEmail,
-        customerPhone: customerPhone || null,
-        notes: notes || null,
-        startTime: startDateTime,
-        endTime: endDateTime,
-        status: "confirmed",
-        googleEventId,
-      },
-      include: {
-        service: true,
-      },
+    // Google Calendar sync (best effort — booking stands even if this fails)
+    const googleEventId = await createGoogleCalendarEvent(shop, {
+      customerName: appointment.customerName,
+      customerEmail: appointment.customerEmail,
+      customerPhone: appointment.customerPhone,
+      notes: appointment.notes,
+      serviceName: service.name,
+      startTime,
+      endTime,
     });
+    if (googleEventId) {
+      await prisma.appointment.update({ where: { id: appointment.id }, data: { googleEventId } });
+    }
 
-    return Response.json(
+    return json(
       {
         success: true,
         message: "Терминот е успешно потврден!",
-        appointment,
+        appointment: { ...appointment, googleEventId },
       },
-      { status: 201, headers: corsHeaders }
+      201,
     );
   } catch (error) {
     console.error("Error creating appointment:", error);
-    return Response.json(
-      { error: "Грешка при процесирање на резервацијата. Обидете се повторно." },
-      { status: 500, headers: corsHeaders }
-    );
+    return json({ error: "Грешка при процесирање на резервацијата. Обидете се повторно." }, 500);
   }
 };

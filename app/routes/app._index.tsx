@@ -313,12 +313,14 @@ export default function VigourDashboard() {
                   {appointments.map((app) => {
                     const start = new Date(app.startTime);
                     const formattedDate = start.toLocaleDateString("mk-MK", {
+                      timeZone: "Europe/Skopje",
                       weekday: "short",
                       day: "numeric",
                       month: "short",
                       year: "numeric",
                     });
                     const formattedTime = start.toLocaleTimeString("mk-MK", {
+                      timeZone: "Europe/Skopje",
                       hour: "2-digit",
                       minute: "2-digit",
                     });
