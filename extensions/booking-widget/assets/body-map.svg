@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 580" class="vm-body-svg" aria-label="Интерактивна мапа на телото">
+  <defs>
+    <!-- Zone Gradients & Glows -->
+    <radialGradient id="vm-pin-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C5A880" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#2F5A51" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#243F3A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="vm-active-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Body Silhouette (Aesthetic human back silhouette for therapeutic massage) -->
+  <g class="vm-svg-body-base" opacity="0.95">
+    <!-- Head -->
+    <path d="M 170 30 C 150 30, 142 46, 142 66 C 142 86, 152 102, 170 102 C 188 102, 198 86, 198 66 C 198 46, 190 30, 170 30 Z" fill="#DDD2C8" />
+    
+    <!-- Torso, Arms & Legs Silhouette -->
+    <path d="M 160 104 C 145 108, 120 116, 96 134 C 82 144, 76 168, 72 200 C 66 244, 60 300, 58 350 C 56 366, 68 372, 78 356 C 88 340, 96 300, 102 260 C 104 246, 114 242, 118 256 C 122 274, 126 312, 126 350 C 126 380, 124 430, 122 490 C 120 524, 128 546, 138 546 C 148 546, 152 524, 154 480 C 156 438, 160 390, 170 350 C 180 390, 184 438, 186 480 C 188 524, 192 546, 202 546 C 212 546, 220 524, 218 490 C 216 430, 214 380, 214 350 C 214 312, 218 274, 222 256 C 226 242, 236 246, 238 260 C 244 300, 252 340, 262 356 C 272 372, 284 366, 282 350 C 280 300, 274 244, 268 200 C 264 168, 258 144, 244 134 C 220 116, 195 108, 180 104 Z" fill="#DDD2C8" />
+
+    <!-- Spine subtle anatomical guideline -->
+    <line x1="170" y1="110" x2="170" y2="340" stroke="#C9BCB0" stroke-width="2" stroke-dasharray="4 4" opacity="0.6"/>
+  </g>
+
+  <!-- Interactive Zones -->
+  <!-- 1. Neck & Upper Cervical -->
+  <g class="vm-svg-zone-group" data-zone="neck">
+    <path class="vm-svg-zone" data-zone="neck" 
+          d="M 154 102 C 154 96, 186 96, 186 102 L 190 124 C 180 128, 160 128, 150 124 Z" />
+    <circle class="vm-svg-pin" data-zone="neck" cx="170" cy="112" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 2. Shoulders & Trapezius -->
+  <g class="vm-svg-zone-group" data-zone="shoulders">
+    <path class="vm-svg-zone" data-zone="shoulders" 
+          d="M 112 134 C 130 124, 150 122, 170 122 C 190 122, 210 124, 228 134 L 244 148 C 224 156, 204 156, 170 156 C 136 156, 116 156, 96 148 Z" />
+    <circle class="vm-svg-pin" data-zone="shoulders" cx="134" cy="142" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="shoulders" cx="206" cy="142" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 3. Upper Back & Scapula -->
+  <g class="vm-svg-zone-group" data-zone="upper_back">
+    <path class="vm-svg-zone" data-zone="upper_back" 
+          d="M 124 162 C 146 160, 194 160, 216 162 L 210 220 C 188 224, 152 224, 130 220 Z" />
+    <circle class="vm-svg-pin" data-zone="upper_back" cx="170" cy="190" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 4. Lower Back (Lumbar) -->
+  <g class="vm-svg-zone-group" data-zone="lower_back">
+    <path class="vm-svg-zone" data-zone="lower_back" 
+          d="M 132 226 C 152 226, 188 226, 208 226 L 214 286 C 190 292, 150 292, 126 286 Z" />
+    <circle class="vm-svg-pin" data-zone="lower_back" cx="170" cy="256" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 5. Hips & Gluteal Area -->
+  <g class="vm-svg-zone-group" data-zone="hips">
+    <path class="vm-svg-zone" data-zone="hips" 
+          d="M 126 292 C 150 294, 190 294, 214 292 L 218 348 C 196 358, 144 358, 122 348 Z" />
+    <circle class="vm-svg-pin" data-zone="hips" cx="146" cy="324" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="hips" cx="194" cy="324" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 6. Legs & Calves -->
+  <g class="vm-svg-zone-group" data-zone="legs">
+    <path class="vm-svg-zone" data-zone="legs" 
+          d="M 124 354 L 152 354 L 148 480 L 124 480 Z" />
+    <path class="vm-svg-zone" data-zone="legs" 
+          d="M 188 354 L 216 354 L 216 480 L 192 480 Z" />
+    <circle class="vm-svg-pin" data-zone="legs" cx="136" cy="420" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="legs" cx="204" cy="420" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+
+  <!-- 7. Feet & Ankles -->
+  <g class="vm-svg-zone-group" data-zone="feet">
+    <path class="vm-svg-zone" data-zone="feet" 
+          d="M 122 490 C 122 484, 150 484, 150 490 L 146 544 C 134 546, 124 536, 122 518 Z" />
+    <path class="vm-svg-zone" data-zone="feet" 
+          d="M 190 490 C 190 484, 218 484, 218 490 L 218 518 C 216 536, 206 546, 194 544 Z" />
+    <circle class="vm-svg-pin" data-zone="feet" cx="136" cy="520" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="feet" cx="204" cy="520" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+  </g>
+</svg>

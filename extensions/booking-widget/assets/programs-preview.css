@@ -1,0 +1,222 @@
+/* ==========================================================================
+   Programs Preview — Vigour Massage Studio (Video Exercises)
+   ========================================================================== */
+
+.vm-programs-section {
+  padding: 95px 0 85px;
+  background-color: var(--vm-white);
+  position: relative;
+}
+
+.vm-programs-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 52px;
+}
+
+.vm-programs-header .vm-eyebrow {
+  justify-content: center;
+}
+
+.vm-programs-title {
+  color: var(--vm-green-deep);
+  margin-bottom: 14px;
+}
+
+.vm-programs-subtitle {
+  color: var(--vm-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* Programs Grid */
+.vm-programs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 32px;
+}
+
+.vm-program-card {
+  background: var(--vm-cream-light);
+  border-radius: var(--vm-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-card);
+  transition: var(--vm-transition-slow);
+  display: flex;
+  flex-direction: column;
+}
+
+.vm-program-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--vm-shadow-elevated);
+  border-color: var(--vm-green-mid);
+}
+
+/* Card Media with Play button */
+.vm-program-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, var(--vm-green-deep) 0%, var(--vm-green-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.vm-program-play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--vm-gold);
+  color: var(--vm-green-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vm-program-media:hover .vm-program-play-btn {
+  transform: scale(1.15);
+  background: #E5CBA7;
+}
+
+.vm-program-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: rgba(36, 63, 58, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--vm-white);
+  padding: 4px 12px;
+  border-radius: var(--vm-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.vm-program-time-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  color: var(--vm-white);
+  padding: 4px 10px;
+  border-radius: var(--vm-radius-pill);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Card Body */
+.vm-program-body {
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.vm-program-card-title {
+  font-family: var(--vm-font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--vm-green-deep);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.vm-program-card-desc {
+  font-size: 0.92rem;
+  color: var(--vm-text-muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Exercises Mini List */
+.vm-program-exercise-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 12px 14px;
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-md);
+  border: 1px solid rgba(36, 63, 58, 0.08);
+}
+
+.vm-program-ex-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--vm-text-secondary);
+}
+
+.vm-program-ex-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.vm-program-ex-duration {
+  font-size: 0.78rem;
+  color: var(--vm-text-muted);
+}
+
+/* Video Modal */
+.vm-video-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(18, 32, 29, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 999999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.vm-video-modal.active {
+  display: flex;
+}
+
+.vm-video-modal-content {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--vm-radius-md);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.vm-video-modal-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: var(--vm-white);
+  font-size: 2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.vm-video-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

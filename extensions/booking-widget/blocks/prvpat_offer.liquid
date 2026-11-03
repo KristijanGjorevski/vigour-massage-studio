@@ -1,0 +1,52 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'prvpat-offer.css' | asset_url | stylesheet_tag }}
+
+<section class="vm-block-wrapper vm-prvpat-section" 
+         id="vm-prvpat-{{ block.id }}" 
+         data-block-id="{{ block.id }}">
+  <div class="vm-container">
+    <div class="vm-prvpat-box">
+      
+      <div class="vm-prvpat-grid">
+        <div class="vm-prvpat-text-col">
+          <h2 class="vm-prvpat-title">
+            {{ block.settings.heading | default: 'Првиот третман е 10% поевтин.' }}
+          </h2>
+
+          <p class="vm-prvpat-desc">
+            {{ block.settings.subheading | default: 'Закажи онлајн и внеси го кодот при плаќање. Важи за нови клиенти.' }}
+          </p>
+
+          <div class="vm-prvpat-code-badge">
+            <span class="vm-prvpat-code">{{ block.settings.promo_code | default: 'PRVPAT' }}</span>
+          </div>
+        </div>
+
+        <div class="vm-prvpat-actions-col">
+          <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-prvpat-btn-primary">
+            <span>{{ block.settings.cta_text | default: 'Закажи термин' }}</span>
+          </a>
+
+          <a href="viber://chat?number=38975304171" class="vm-prvpat-btn-outline">
+            <span>Прашај на Viber</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "VM First-Time Offer",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "textarea", "id": "subheading", "label": "Subheading"},
+    {"type": "text", "id": "promo_code", "label": "Promo code"},
+    {"type": "text", "id": "cta_text", "label": "CTA button text"},
+    {"type": "text", "id": "cta_link", "label": "CTA button link"}
+  ]
+}
+{% endschema %}

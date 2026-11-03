@@ -1,0 +1,276 @@
+/* ==========================================================================
+   Contact Section — Vigour Massage Studio (Viber-First)
+   ========================================================================== */
+
+.vm-contact-section {
+  padding: 95px 0 85px;
+  background-color: var(--vm-cream);
+  position: relative;
+}
+
+.vm-contact-header {
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 52px;
+}
+
+.vm-contact-header .vm-eyebrow {
+  justify-content: center;
+}
+
+.vm-contact-title {
+  color: var(--vm-green-deep);
+  margin-bottom: 14px;
+}
+
+.vm-contact-subtitle {
+  color: var(--vm-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.vm-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 40px;
+  align-items: stretch;
+}
+
+/* Contact Cards Left */
+.vm-contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Viber-First Hero Callout */
+.vm-viber-card {
+  background: linear-gradient(135deg, #7360F2 0%, #59267C 100%);
+  border-radius: var(--vm-radius-lg);
+  padding: 32px 28px;
+  color: var(--vm-white);
+  box-shadow: 0 10px 24px rgba(115, 96, 242, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vm-viber-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vm-viber-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vm-viber-title {
+  font-family: var(--vm-font-heading);
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.vm-viber-sub {
+  font-size: 0.88rem;
+  opacity: 0.9;
+}
+
+.vm-viber-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: var(--vm-white);
+  color: #59267C !important;
+  font-family: var(--vm-font-heading);
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: var(--vm-radius-pill);
+  text-decoration: none;
+  transition: var(--vm-transition);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.vm-viber-btn:hover {
+  background: #F2EEFB;
+  transform: translateY(-2px);
+}
+
+/* Secondary Contact Channels Grid */
+.vm-channels-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.vm-channel-box {
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-md);
+  padding: 20px;
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--vm-transition);
+}
+
+.vm-channel-box:hover {
+  border-color: var(--vm-green-deep);
+  transform: translateY(-3px);
+  box-shadow: var(--vm-shadow-card);
+}
+
+.vm-channel-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vm-channel-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--vm-cream);
+  color: var(--vm-green-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.vm-channel-name {
+  font-family: var(--vm-font-heading);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--vm-green-deep);
+}
+
+.vm-channel-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--vm-text-secondary);
+}
+
+/* Working Hours Card */
+.vm-hours-card {
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-md);
+  padding: 24px;
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-subtle);
+}
+
+.vm-hours-title {
+  font-family: var(--vm-font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--vm-green-deep);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vm-hours-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.vm-hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(36, 63, 58, 0.1);
+}
+
+.vm-hours-row.highlight {
+  color: var(--vm-green-deep);
+  font-weight: 700;
+}
+
+/* Map Column Right */
+.vm-contact-map-col {
+  display: flex;
+  flex-direction: column;
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-card);
+}
+
+.vm-map-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 380px;
+  background-color: var(--vm-greige);
+  position: relative;
+}
+
+.vm-map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  min-height: 380px;
+}
+
+.vm-map-meta {
+  padding: 24px 28px;
+  background: var(--vm-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--vm-border);
+}
+
+.vm-map-address {
+  font-size: 0.95rem;
+  color: var(--vm-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vm-map-directions-btn {
+  padding: 8px 18px;
+  border-radius: var(--vm-radius-pill);
+  background: var(--vm-cream);
+  color: var(--vm-green-deep);
+  font-family: var(--vm-font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--vm-transition);
+}
+
+.vm-map-directions-btn:hover {
+  background: var(--vm-green-deep);
+  color: var(--vm-white);
+}
+
+@media (max-width: 900px) {
+  .vm-contact-grid {
+    grid-template-columns: 1fr;
+  }
+  .vm-channels-grid {
+    grid-template-columns: 1fr;
+  }
+}

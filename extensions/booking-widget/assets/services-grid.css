@@ -1,0 +1,287 @@
+/* ==========================================================================
+   Services Grid — Vigour Massage Studio
+   ========================================================================== */
+
+.vm-services-section {
+  padding: 90px 0 80px;
+  background-color: var(--vm-cream);
+  position: relative;
+}
+
+.vm-services-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 48px;
+}
+
+.vm-services-header .vm-eyebrow {
+  justify-content: center;
+}
+
+.vm-services-title {
+  color: var(--vm-green-deep);
+  margin-bottom: 16px;
+}
+
+.vm-services-subtitle {
+  color: var(--vm-text-muted);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Category Filter Tabs */
+.vm-services-tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.vm-tab-btn {
+  padding: 10px 22px;
+  border-radius: var(--vm-radius-pill);
+  background: var(--vm-white);
+  border: 1.5px solid rgba(36, 63, 58, 0.15);
+  font-family: var(--vm-font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vm-text-secondary);
+  cursor: pointer;
+  transition: var(--vm-transition);
+}
+
+.vm-tab-btn:hover {
+  border-color: var(--vm-green-deep);
+  color: var(--vm-green-deep);
+}
+
+.vm-tab-btn.active {
+  background: var(--vm-green-deep);
+  color: var(--vm-white);
+  border-color: var(--vm-green-deep);
+  box-shadow: 0 4px 12px rgba(36, 63, 58, 0.2);
+}
+
+/* Services Grid */
+.vm-services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 32px;
+}
+
+/* Service Card */
+.vm-service-card {
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--vm-border);
+  box-shadow: var(--vm-shadow-card);
+  transition: var(--vm-transition-slow);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.vm-service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--vm-shadow-elevated);
+  border-color: rgba(36, 63, 58, 0.25);
+}
+
+/* Card Media / Thumbnail */
+.vm-service-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-color: var(--vm-green-deep);
+  overflow: hidden;
+}
+
+.vm-service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.vm-service-card:hover .vm-service-img {
+  transform: scale(1.05);
+}
+
+.vm-service-placeholder-media {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--vm-green-deep) 0%, var(--vm-green-mid) 100%);
+  color: var(--vm-gold);
+  position: relative;
+}
+
+.vm-media-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 12px;
+  border-radius: var(--vm-radius-pill);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  font-family: var(--vm-font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--vm-green-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  z-index: 2;
+}
+
+.vm-media-video-badge {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  padding: 6px 12px;
+  border-radius: var(--vm-radius-pill);
+  background: rgba(36, 63, 58, 0.85);
+  backdrop-filter: blur(8px);
+  color: var(--vm-white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+
+.vm-media-video-badge svg {
+  color: var(--vm-gold);
+}
+
+/* Card Body */
+.vm-service-body {
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.vm-service-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.vm-service-name {
+  font-family: var(--vm-font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--vm-green-deep);
+  line-height: 1.3;
+}
+
+.vm-service-variant-pill {
+  background: var(--vm-cream);
+  color: var(--vm-green-mid);
+  padding: 4px 10px;
+  border-radius: var(--vm-radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.vm-service-desc {
+  font-size: 0.92rem;
+  color: var(--vm-text-muted);
+  line-height: 1.55;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* Meta details row */
+.vm-service-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px dashed rgba(36, 63, 58, 0.15);
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+  color: var(--vm-text-secondary);
+}
+
+.vm-service-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vm-service-meta-item svg {
+  color: var(--vm-green-mid);
+}
+
+/* Price & Action footer */
+.vm-service-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: auto;
+}
+
+.vm-service-price-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.vm-service-price {
+  font-family: var(--vm-font-heading);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--vm-green-deep);
+  line-height: 1;
+}
+
+.vm-service-discount-tag {
+  font-size: 0.75rem;
+  color: var(--vm-status-available);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.vm-service-card .vm-btn-primary {
+  padding: 10px 20px;
+  font-size: 0.88rem;
+}
+
+/* Card Payment Callout Bar at Bottom of Section */
+.vm-services-notice-bar {
+  margin-top: 48px;
+  padding: 16px 24px;
+  background: var(--vm-white);
+  border-radius: var(--vm-radius-md);
+  border: 1px solid var(--vm-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--vm-text-secondary);
+}
+
+.vm-services-notice-bar strong {
+  color: var(--vm-green-deep);
+}
+
+@media (max-width: 768px) {
+  .vm-services-grid {
+    grid-template-columns: 1fr;
+  }
+  .vm-service-media {
+    height: 180px;
+  }
+}

@@ -1,0 +1,120 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'booking-form.css' | asset_url | stylesheet_tag }}
+
+<div class="vm-block-wrapper najdo-booking-container" 
+     id="najdo-booking-container" 
+     data-shop="{{ shop.permanent_domain }}"
+     data-app-url="{{ block.settings.app_url | default: '' }}"
+     style="--nj-primary: {{ block.settings.primary_color | default: '#243F3A' }}; --nj-accent: {{ block.settings.accent_color | default: '#C5A880' }};">
+  
+  <div class="najdo-booking-card">
+    <div class="najdo-booking-header">
+      <div class="vm-monogram-pill" style="color: var(--vm-gold); border-color: var(--vm-gold); margin-bottom: 12px;">VM</div>
+      <div class="najdo-badge">{{ block.settings.badge | default: 'VIGOUR MASSAGE STUDIO · СКОПЈЕ' }}</div>
+      <h2 class="najdo-title">{{ block.settings.title | default: 'Резервирај термин за масажа' }}</h2>
+      <p class="najdo-subtitle">{{ block.settings.description | default: 'Изберете третман, посакуван датум и слободен термин за целосно регенерирање на вашето тело.' }}</p>
+    </div>
+
+    <form class="najdo-form" id="najdo-form-{{ block.id }}">
+      
+      <div class="najdo-form-group">
+        <label class="najdo-label" for="najdo-service-{{ block.id }}">
+          <span class="step-num">1</span> Избери третман
+        </label>
+        <div class="najdo-select-wrapper">
+          <select id="najdo-service-{{ block.id }}" name="serviceId" class="najdo-select" required>
+            <option value="" disabled selected>Вчитување на третманите...</option>
+          </select>
+        </div>
+        <div id="najdo-service-meta-{{ block.id }}" class="najdo-service-meta"></div>
+      </div>
+
+      <div class="najdo-date-time-grid">
+        <div class="najdo-form-group">
+          <label class="najdo-label" for="najdo-date-{{ block.id }}">
+            <span class="step-num">2</span> Избери датум
+          </label>
+          <input type="date" id="najdo-date-{{ block.id }}" name="date" class="najdo-input" required />
+        </div>
+
+        <div class="najdo-form-group">
+          <label class="najdo-label">
+            <span class="step-num">3</span> Избери слободен час
+          </label>
+          <div id="najdo-slots-container-{{ block.id }}" class="najdo-slots-grid">
+            <div class="najdo-slots-empty">Прво изберете датум од календарот</div>
+          </div>
+          <input type="hidden" id="najdo-selected-slot-{{ block.id }}" name="timeSlot" required />
+        </div>
+      </div>
+
+      <div class="najdo-client-section">
+        <label class="najdo-label">
+          <span class="step-num">4</span> Ваши податоци
+        </label>
+        <div class="najdo-client-grid">
+          <div class="najdo-field">
+            <input type="text" id="najdo-name-{{ block.id }}" name="customerName" placeholder="Име и презиме *" class="najdo-input" required />
+          </div>
+          <div class="najdo-field">
+            <input type="email" id="najdo-email-{{ block.id }}" name="customerEmail" placeholder="Е-пошта *" class="najdo-input" required />
+          </div>
+          <div class="najdo-field">
+            <input type="tel" id="najdo-phone-{{ block.id }}" name="customerPhone" placeholder="Телефонски број (на пр. 075 304 171) *" class="najdo-input" required />
+          </div>
+          <div class="najdo-field full-width">
+            <textarea id="najdo-notes-{{ block.id }}" name="notes" placeholder="Фокус зони (врат, грб), повреди, напнатост или посебни напомени..." class="najdo-textarea" rows="2"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="vm-booking-discount-notice" style="background: rgba(46, 125, 50, 0.1); border: 1px solid rgba(46, 125, 50, 0.25); border-radius: var(--vm-radius-sm); padding: 10px 14px; font-size: 0.85rem; color: #1B5E20; display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+        {% render 'vigour-icons', name: 'tag' %}
+        <span><strong>Поволност:</strong> 5% попуст при плаќање со картичка во студиото!</span>
+      </div>
+
+      <div id="najdo-error-{{ block.id }}" class="najdo-alert-error" style="display: none;"></div>
+
+      <button type="submit" id="najdo-submit-btn-{{ block.id }}" class="najdo-submit-btn">
+        <span class="btn-text">{{ block.settings.button_text | default: 'Потврди Резервација' }}</span>
+        <span class="btn-spinner" style="display: none;"></span>
+      </button>
+
+      <p class="najdo-guarantee">
+        <span>🔒 Безбедна онлајн резервација</span> • <span>Плаќање во студио (кеш / картичка)</span> • <span>Бесплатно откажување до 24ч однапред</span>
+      </p>
+    </form>
+
+    <div id="najdo-success-{{ block.id }}" class="najdo-success-box" style="display: none;">
+      <div class="najdo-success-icon">✓</div>
+      <h3>Терминот е успешно резервиран!</h3>
+      <p class="success-message">Ви благодариме за довербата во Vigour Massage Studio. Потврда за вашиот термин е испратена на вашата е-пошта.</p>
+      
+      <div class="najdo-receipt-details" id="najdo-receipt-{{ block.id }}">
+        </div>
+
+      <button type="button" class="najdo-btn-secondary" id="najdo-new-booking-btn-{{ block.id }}">
+        Резервирај друг термин
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="{{ 'booking-form.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VM Booking Form",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "badge", "label": "Badge"},
+    {"type": "text", "id": "title", "label": "Title"},
+    {"type": "textarea", "id": "description", "label": "Description"},
+    {"type": "color", "id": "primary_color", "label": "Primary color", "default": "#243F3A"},
+    {"type": "color", "id": "accent_color", "label": "Accent color", "default": "#C5A880"},
+    {"type": "text", "id": "button_text", "label": "Button text"},
+    {"type": "text", "id": "app_url", "label": "Backend App URL"}
+  ]
+}
+{% endschema %}

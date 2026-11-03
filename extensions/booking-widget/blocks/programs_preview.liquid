@@ -1,0 +1,185 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'programs-preview.css' | asset_url | stylesheet_tag }}
+
+<section class="vm-block-wrapper vm-programs-section" 
+         id="vigour-programs" 
+         data-block-id="{{ block.id }}">
+  <div class="vm-container">
+    
+    <div class="vm-programs-header">
+      <div class="vm-eyebrow">
+        {% render 'vigour-icons', name: 'play' %}
+        <span>{{ block.settings.eyebrow | default: 'ВИДЕО ВЕЖБИ И РЕХАБИЛИТАЦИЈА' }}</span>
+      </div>
+      <h2 class="vm-heading-lg vm-programs-title">
+        {{ block.settings.heading | default: 'Програми за вежби и долгорочна мобилност' }}
+      </h2>
+      <p class="vm-programs-subtitle">
+        {{ block.settings.subheading | default: 'Масажата го ресетира телото, а правилните вежби го одржуваат резултатот. Погледнете ги кратките видео водичи за домашно закрепнување.' }}
+      </p>
+    </div>
+
+    <div class="vm-programs-grid">
+      
+      <div class="vm-program-card">
+        <div class="vm-program-media vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+          <div class="vm-program-badge">Почетник</div>
+          <div class="vm-program-play-btn">
+            {% render 'vigour-icons', name: 'play' %}
+          </div>
+          <div class="vm-program-time-badge">
+            {% render 'vigour-icons', name: 'clock' %}
+            <span>3 видеа · ~8 мин</span>
+          </div>
+        </div>
+        <div class="vm-program-body">
+          <h3 class="vm-program-card-title">Врат и Рамена: Канцелариска Декомпресија</h3>
+          <p class="vm-program-card-desc">
+            Кратки и ефективни дневни вежби за ослободување на напнатоста во горниот трапез по неколку часа седење пред монитор.
+          </p>
+
+          <div class="vm-program-exercise-list">
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>1. Истегнување на трапез</span>
+              </span>
+              <span class="vm-program-ex-duration">2 мин</span>
+            </div>
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>2. Кругови со лопатки</span>
+              </span>
+              <span class="vm-program-ex-duration">3 мин</span>
+            </div>
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>3. Изометриски вратни вежби</span>
+              </span>
+              <span class="vm-program-ex-duration">2.5 мин</span>
+            </div>
+          </div>
+
+          <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+            {% render 'vigour-icons', name: 'play' %}
+            <span>Пушти видео вежби</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="vm-program-card">
+        <div class="vm-program-media vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+          <div class="vm-program-badge" style="background: var(--vm-green-deep);">Среден</div>
+          <div class="vm-program-play-btn">
+            {% render 'vigour-icons', name: 'play' %}
+          </div>
+          <div class="vm-program-time-badge">
+            {% render 'vigour-icons', name: 'clock' %}
+            <span>3 видеа · ~10 мин</span>
+          </div>
+        </div>
+        <div class="vm-program-body">
+          <h3 class="vm-program-card-title">Долен Грб и Мобилност на Колкови</h3>
+          <p class="vm-program-card-desc">
+            Таргетирано ослободување на лумбалниот 'рбет, истегнување на пириформис (псевдо-ишијас) и активација на стабилизаторите на карлицата.
+          </p>
+
+          <div class="vm-program-exercise-list">
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>1. Мачка-Крава мобилизација</span>
+              </span>
+              <span class="vm-program-ex-duration">3 мин</span>
+            </div>
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>2. Пириформис истегнување</span>
+              </span>
+              <span class="vm-program-ex-duration">4 мин</span>
+            </div>
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>3. Глутеален мост за заштита</span>
+              </span>
+              <span class="vm-program-ex-duration">3 мин</span>
+            </div>
+          </div>
+
+          <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+            {% render 'vigour-icons', name: 'play' %}
+            <span>Пушти видео вежби</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="vm-program-card">
+        <div class="vm-program-media vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+          <div class="vm-program-badge">Сите нивоа</div>
+          <div class="vm-program-play-btn">
+            {% render 'vigour-icons', name: 'play' %}
+          </div>
+          <div class="vm-program-time-badge">
+            {% render 'vigour-icons', name: 'clock' %}
+            <span>2 видеа · ~6 мин</span>
+          </div>
+        </div>
+        <div class="vm-program-body">
+          <h3 class="vm-program-card-title">Пост-Масажна Нега и Регенерација</h3>
+          <p class="vm-program-card-desc">
+            Како правилно да го одржите ефектот по масажниот третман со лесни фасцијални позиции, дишење и соодветна хидратација.
+          </p>
+
+          <div class="vm-program-exercise-list">
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>1. Фасцијална декомпресија</span>
+              </span>
+              <span class="vm-program-ex-duration">3.5 мин</span>
+            </div>
+            <div class="vm-program-ex-item">
+              <span class="vm-program-ex-title">
+                {% render 'vigour-icons', name: 'play' %}
+                <span>2. Длабоко дијафрагмално дишење</span>
+              </span>
+              <span class="vm-program-ex-duration">2.5 мин</span>
+            </div>
+          </div>
+
+          <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
+            {% render 'vigour-icons', name: 'play' %}
+            <span>Пушти видео вежби</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vm-video-modal" aria-hidden="true">
+      <div class="vm-video-modal-content">
+        <button type="button" class="vm-video-modal-close" aria-label="Затвори видео">✕</button>
+        <iframe class="vm-video-iframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="{{ 'programs-preview.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VM Programs",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
+    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "textarea", "id": "subheading", "label": "Subheading"}
+  ]
+}
+{% endschema %}

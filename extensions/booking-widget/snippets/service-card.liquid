@@ -1,0 +1,45 @@
+<div class="vm-service-card" data-category="{{ category }}">
+  <div class="vm-service-media">
+    {%- if badge != blank -%}
+      <div class="vm-media-badge"{% if badge_style %} style="{{ badge_style }}"{% endif %}>{{ badge }}</div>
+    {%- endif -%}
+    <div class="vm-service-placeholder-media"{% if media_style %} style="{{ media_style }}"{% endif %}>
+      {% render 'vigour-icons', name: icon %}
+    </div>
+    {%- if video_label != blank -%}
+      <div class="vm-media-video-badge">
+        {% render 'vigour-icons', name: 'play' %}
+        <span>{{ video_label }}</span>
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="vm-service-body">
+    <div class="vm-service-top">
+      <h3 class="vm-service-name">{{ title }}</h3>
+      <span class="vm-service-variant-pill"{% if pill_style %} style="{{ pill_style }}"{% endif %}>{{ variant }}</span>
+    </div>
+    <p class="vm-service-desc">{{ desc }}</p>
+    <div class="vm-service-meta-row">
+      <div class="vm-service-meta-item">
+        {% render 'vigour-icons', name: 'clock' %}
+        <span>{{ duration }}</span>
+      </div>
+      <div class="vm-service-meta-item">
+        {% render 'vigour-icons', name: 'shield' %}
+        <span>{{ benefit }}</span>
+      </div>
+    </div>
+    <div class="vm-service-footer">
+      <div class="vm-service-price-wrap">
+        <span class="vm-service-price">{{ price }}</span>
+        <span class="vm-service-discount-tag">💳 {{ card_price }}</span>
+      </div>
+      <a href="{{ booking_link | default: '#najdo-booking-container' }}" 
+         class="vm-btn-primary vm-book-service-btn"
+         data-service-name="{{ service_id }}">
+        <span>Резервирај</span>
+        {% render 'vigour-icons', name: 'chevron-right' %}
+      </a>
+    </div>
+  </div>
+</div>
