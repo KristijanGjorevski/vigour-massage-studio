@@ -7,7 +7,14 @@ embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products,write_metaobjects,write_metaobject_definitions"
+scopes = "write_products,write_metaobjects,write_metaobject_definitions,write_app_proxy"
+
+# Storefront → app: https://{shop}/apps/vigour/* is forwarded (signed) to {app}/proxy/*
+# Handled by app/routes/proxy.*.ts. Theme blocks call /apps/vigour/bookings etc.
+[app_proxy]
+url = "/proxy"
+prefix = "apps"
+subpath = "vigour"
 
 [product.metafields.app.demo_info]
 type = "single_line_text_field"

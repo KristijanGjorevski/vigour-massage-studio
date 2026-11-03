@@ -6,7 +6,7 @@
         data-shop="{{ shop.permanent_domain }}"
         data-country="{{ localization.country.iso_code | default: '' }}"
         data-locale="{{ request.locale.iso_code | default: '' }}"
-        data-app-url="{{ block.settings.app_url | default: '' }}">
+        data-api-base="/apps/vigour">
   <div class="vm-header-container">
     
     <a href="{{ routes.root_url | default: '/' }}" class="vm-header-logo-link" aria-label="Vigour Massage Studio Почетна">
@@ -104,8 +104,7 @@
     {"type": "text", "id": "availability_text", "label": "Availability text"},
     {"type": "text", "id": "cta_text", "label": "CTA button text"},
     {"type": "text", "id": "cta_link", "label": "CTA button link"},
-    {"type": "checkbox", "id": "show_cart_icon", "label": "Show cart icon", "default": true},
-    {"type": "text", "id": "app_url", "label": "Backend App URL"}
+    {"type": "checkbox", "id": "show_cart_icon", "label": "Show cart icon", "default": true}
   ]
 }
 {% endschema %}

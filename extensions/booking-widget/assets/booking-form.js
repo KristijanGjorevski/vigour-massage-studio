@@ -18,9 +18,9 @@
       if (container.dataset.initialized) return;
       container.dataset.initialized = "true";
 
-      const shop = container.dataset.shop || window.location.hostname;
-      const customAppUrl = container.dataset.appUrl;
-      const apiBase = customAppUrl ? customAppUrl.replace(/\/$/, "") : "";
+      // Storefront → app via the Shopify App Proxy. Shopify signs each request and
+      // adds the shop server-side, so the client never sends (or can spoof) it.
+      const apiBase = container.dataset.apiBase || "/apps/vigour";
 
       const form = container.querySelector(".najdo-form");
       const serviceSelect = container.querySelector('select[name="serviceId"]');
@@ -103,7 +103,7 @@
       // Fetch services & initial slots
       async function loadServicesAndSlots() {
         try {
-          const endpoint = `${apiBase}/api/bookings?shop=${encodeURIComponent(shop)}&date=${dateInput.value}`;
+          const endpoint = `${apiBase}/bookings?date=${dateInput.value}`;
           const res = await fetch(endpoint, {
             headers: { Accept: "application/json" },
           });
@@ -178,7 +178,7 @@
 
         try {
           const serviceParam = serviceSelect && serviceSelect.value ? `&serviceId=${encodeURIComponent(serviceSelect.value)}` : "";
-          const endpoint = `${apiBase}/api/bookings?shop=${encodeURIComponent(shop)}&date=${date}${serviceParam}`;
+          const endpoint = `${apiBase}/bookings?date=${date}${serviceParam}`;
           const res = await fetch(endpoint);
           const data = await res.json();
           renderSlots(data.availableSlots || []);
@@ -254,7 +254,6 @@
           const notesInput = form.querySelector('textarea[name="notes"]');
 
           const formData = {
-            shop,
             serviceId: serviceSelect ? serviceSelect.value : '',
             customerName: customerNameInput ? customerNameInput.value.trim() : '',
             customerEmail: customerEmailInput ? customerEmailInput.value.trim() : '',
@@ -265,7 +264,7 @@
           };
 
           try {
-            const endpoint = `${apiBase}/api/bookings`;
+            const endpoint = `${apiBase}/bookings`;
             const res = await fetch(endpoint, {
               method: "POST",
               headers: {

@@ -1,11 +1,7 @@
-import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
+/** Storefront exercise programs, via the App Proxy: GET /apps/vigour/exercises[?category=…] */
+import type { LoaderFunctionArgs } from "react-router";
 import prisma from "../db.server";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
+import { requireProxyShop } from "../services/proxy.server";
 
 const DEFAULT_PROGRAMS = [
   {
@@ -90,12 +86,9 @@ const DEFAULT_PROGRAMS = [
 ];
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
-  }
+  const shop = await requireProxyShop(request);
 
   const url = new URL(request.url);
-  const shop = url.searchParams.get("shop") || "najdo-website.myshopify.com";
   const category = url.searchParams.get("category");
 
   // Query programs from DB
@@ -146,6 +139,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
       success: true,
       programs,
     },
-    { headers: corsHeaders }
+    { headers: { "Cache-Control": "no-store" } }
   );
 };

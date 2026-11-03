@@ -4,7 +4,7 @@
 <div class="vm-block-wrapper najdo-booking-container" 
      id="najdo-booking-container" 
      data-shop="{{ shop.permanent_domain }}"
-     data-app-url="{{ block.settings.app_url | default: '' }}"
+     data-api-base="/apps/vigour"
      style="--nj-primary: {{ block.settings.primary_color | default: '#243F3A' }}; --nj-accent: {{ block.settings.accent_color | default: '#C5A880' }};">
   
   <div class="najdo-booking-card">
@@ -113,8 +113,7 @@
     {"type": "textarea", "id": "description", "label": "Description"},
     {"type": "color", "id": "primary_color", "label": "Primary color", "default": "#243F3A"},
     {"type": "color", "id": "accent_color", "label": "Accent color", "default": "#C5A880"},
-    {"type": "text", "id": "button_text", "label": "Button text"},
-    {"type": "text", "id": "app_url", "label": "Backend App URL"}
+    {"type": "text", "id": "button_text", "label": "Button text"}
   ]
 }
 {% endschema %}

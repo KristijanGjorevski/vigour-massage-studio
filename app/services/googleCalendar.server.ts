@@ -1,3 +1,4 @@
+import { createHmac, randomBytes, timingSafeEqual } from "node:crypto";
 import prisma from "../db.server";
 
 // Dynamic import or require for googleapis so it runs cleanly across build & runtime environments
@@ -18,15 +19,62 @@ const SCOPES = [
   "https://www.googleapis.com/auth/calendar.readonly",
 ];
 
+/**
+ * Google OAuth client. Requires GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET.
+ * Redirect URI defaults to {SHOPIFY_APP_URL}/api/google-callback and must be
+ * registered exactly in Google Cloud Console (set GOOGLE_REDIRECT_URI to pin it).
+ */
 export async function getOAuth2Client() {
   const google = await getGoogleApi();
   if (!google) return null;
 
-  const clientId = process.env.GOOGLE_CLIENT_ID || "vigour-google-client-id";
-  const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "vigour-google-client-secret";
-  const redirectUri = process.env.GOOGLE_REDIRECT_URI || "http://localhost:3000/api/google-callback";
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const appUrl = (process.env.SHOPIFY_APP_URL || "").replace(/\/$/, "");
+  const redirectUri = process.env.GOOGLE_REDIRECT_URI || (appUrl && `${appUrl}/api/google-callback`);
+  if (!clientId || !clientSecret || !redirectUri) return null;
 
   return new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+}
+
+// ---- Signed OAuth state ---------------------------------------------------
+// The state round-trips through Google. Signing it (HMAC with the app secret)
+// means only our authenticated admin action can start a connection for a shop.
+
+const STATE_TTL_MS = 10 * 60 * 1000;
+
+function stateSecret(): string {
+  const secret = process.env.SHOPIFY_API_SECRET;
+  if (!secret) throw new Error("SHOPIFY_API_SECRET is not set");
+  return secret;
+}
+
+function sign(payload: string): string {
+  return createHmac("sha256", stateSecret()).update(payload).digest("base64url");
+}
+
+export function createOAuthState(shop: string): string {
+  const payload = Buffer.from(
+    JSON.stringify({ shop, exp: Date.now() + STATE_TTL_MS, n: randomBytes(8).toString("hex") }),
+  ).toString("base64url");
+  return `${payload}.${sign(payload)}`;
+}
+
+/** Returns the shop if the state is authentic and unexpired, else null. */
+export function verifyOAuthState(state: string | null): string | null {
+  if (!state) return null;
+  const [payload, sig] = state.split(".");
+  if (!payload || !sig) return null;
+  const expected = Buffer.from(sign(payload));
+  const given = Buffer.from(sig);
+  if (expected.length !== given.length || !timingSafeEqual(expected, given)) return null;
+  try {
+    const { shop, exp } = JSON.parse(Buffer.from(payload, "base64url").toString());
+    if (typeof shop !== "string" || typeof exp !== "number" || exp < Date.now()) return null;
+    return shop;
+  } catch {
+    return null;
+  }
 }
 
 export async function getAuthUrl(shop: string) {
@@ -37,7 +85,7 @@ export async function getAuthUrl(shop: string) {
     access_type: "offline",
     prompt: "consent",
     scope: SCOPES,
-    state: shop,
+    state: createOAuthState(shop),
   });
 }
 
@@ -139,8 +187,8 @@ export async function getBusyIntervals(
 
     const busy = response.data.calendars?.[calendarId]?.busy || [];
     return busy
-      .filter((b: any) => b.start && b.end)
-      .map((b: any) => ({ start: new Date(b.start), end: new Date(b.end) }));
+      .filter((b: { start?: string | null; end?: string | null }) => b.start && b.end)
+      .map((b: { start?: string | null; end?: string | null }) => ({ start: new Date(b.start!), end: new Date(b.end!) }));
   } catch (err) {
     console.error("Error fetching Google Calendar busy intervals:", err);
     return [];

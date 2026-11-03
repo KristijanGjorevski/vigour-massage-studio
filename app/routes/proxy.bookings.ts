@@ -1,6 +1,14 @@
+/**
+ * Storefront booking API, reached via the Shopify App Proxy:
+ *   GET  /apps/vigour/bookings?date=YYYY-MM-DD[&serviceId=…]  → services + free slots
+ *   GET  /apps/vigour/bookings?nextSlot=true                  → next free slot
+ *   POST /apps/vigour/bookings                                → create appointment
+ * Every request is signature-verified; the shop comes from Shopify, not the client.
+ */
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "react-router";
 import prisma from "../db.server";
 import { createGoogleCalendarEvent } from "../services/googleCalendar.server";
+import { requireProxyShop } from "../services/proxy.server";
 import {
   WORKING_SLOTS,
   findNextFreeSlot,
@@ -10,13 +18,10 @@ import {
   studioTimeToUtc,
 } from "../services/schedule.server";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
-};
-
 const DEFAULT_DURATION_MIN = 60;
+
+const MAX_LEN = { name: 100, email: 254, phone: 40, notes: 1000 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Vigour Massage Studio Default Seed Services (from Flyer in MKD)
 const VIGOUR_SERVICES = [
@@ -59,7 +64,8 @@ const VIGOUR_SERVICES = [
 ];
 
 function json(body: unknown, status = 200) {
-  return Response.json(body, { status, headers: corsHeaders });
+  // No caching: availability changes with every booking.
+  return Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 }
 
 async function getOrSeedServices(shop: string) {
@@ -72,12 +78,9 @@ async function getOrSeedServices(shop: string) {
 }
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
-  }
+  const shop = await requireProxyShop(request);
 
   const url = new URL(request.url);
-  const shop = url.searchParams.get("shop") || "najdo-website.myshopify.com";
   const dateStr = url.searchParams.get("date");
   const serviceId = url.searchParams.get("serviceId");
   const nextSlotReq = url.searchParams.get("nextSlot") === "true";
@@ -112,20 +115,32 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  if (request.method === "OPTIONS") {
-    return new Response(null, { status: 204, headers: corsHeaders });
-  }
-
   if (request.method !== "POST") {
     return json({ error: "Method not allowed" }, 405);
   }
 
-  try {
-    const body = await request.json();
-    const { shop, serviceId, customerName, customerEmail, customerPhone, date, timeSlot, notes } = body ?? {};
+  const shop = await requireProxyShop(request);
 
-    if (!shop || !serviceId || !customerName || !customerEmail || !date || !timeSlot) {
+  try {
+    const body = await request.json().catch(() => null);
+    const { serviceId, date, timeSlot } = body ?? {};
+    const customerName = typeof body?.customerName === "string" ? body.customerName.trim() : "";
+    const customerEmail = typeof body?.customerEmail === "string" ? body.customerEmail.trim() : "";
+    const customerPhone = typeof body?.customerPhone === "string" ? body.customerPhone.trim() : "";
+    const notes = typeof body?.notes === "string" ? body.notes.trim() : "";
+
+    if (typeof serviceId !== "string" || !serviceId || !customerName || !customerEmail || !date || !timeSlot) {
       return json({ error: "Недостасуваат задолжителни податоци за резервација." }, 400);
+    }
+
+    if (
+      !EMAIL_RE.test(customerEmail) ||
+      customerName.length > MAX_LEN.name ||
+      customerEmail.length > MAX_LEN.email ||
+      customerPhone.length > MAX_LEN.phone ||
+      notes.length > MAX_LEN.notes
+    ) {
+      return json({ error: "Проверете ги внесените податоци (име, е-пошта, телефон)." }, 400);
     }
 
     if (!isValidDateStr(date) || !isValidTimeStr(timeSlot) || !WORKING_SLOTS.includes(timeSlot)) {
@@ -162,10 +177,10 @@ export const action = async ({ request }: ActionFunctionArgs) => {
         data: {
           shop,
           serviceId: service.id,
-          customerName: String(customerName).trim(),
-          customerEmail: String(customerEmail).trim(),
-          customerPhone: customerPhone ? String(customerPhone).trim() : null,
-          notes: notes ? String(notes).trim() : null,
+          customerName,
+          customerEmail,
+          customerPhone: customerPhone || null,
+          notes: notes || null,
           startTime,
           endTime,
           status: "confirmed",

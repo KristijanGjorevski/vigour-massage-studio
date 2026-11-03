@@ -10,8 +10,7 @@
     
     heroElements.forEach(hero => {
       const blockId = hero.dataset.blockId;
-      const shopDomain = hero.dataset.shop;
-      const appUrl = hero.dataset.appUrl;
+      const apiBase = hero.dataset.apiBase || '/apps/vigour';
       const slotCard = hero.querySelector('.vm-hero-slot-card');
       const livePill = hero.querySelector('.vm-hero-live-pill');
 
@@ -46,8 +45,7 @@
 
       // Fetch next slot from API
       async function fetchNextSlot() {
-        const baseUrl = appUrl || window.location.origin;
-        const apiUrl = `${baseUrl}/api/bookings?shop=${encodeURIComponent(shopDomain || window.location.hostname)}&nextSlot=true`;
+        const apiUrl = `${apiBase}/bookings?nextSlot=true`;
 
         try {
           const res = await fetch(apiUrl, { credentials: 'omit' });
