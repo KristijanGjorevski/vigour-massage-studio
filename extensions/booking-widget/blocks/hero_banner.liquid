@@ -44,12 +44,13 @@
         </p>
 
         <div class="vm-hero-actions">
-          <a href="{{ block.settings.cta_primary_link | default: '#najdo-booking-container' }}" class="vm-btn-primary">
+          {%- comment -%} Dark background: primary is the light filled button, secondary a white outline (as in the prototype). {%- endcomment -%}
+          <a href="{{ block.settings.cta_primary_link | default: '#najdo-booking-container' }}" class="vm-btn-light">
             {% render 'vigour-icons', name: 'calendar' %}
             <span>{{ block.settings.cta_primary_text | default: 'Резервирај Сега' }}</span>
           </a>
 
-          <a href="{{ block.settings.cta_secondary_link | default: '#vigour-services' }}" class="vm-btn-light">
+          <a href="{{ block.settings.cta_secondary_link | default: '#vigour-services' }}" class="vm-btn-outline-light">
             {% render 'vigour-icons', name: 'arrow-right' %}
             <span>{{ block.settings.cta_secondary_text | default: 'Погледни Услуги' }}</span>
           </a>
