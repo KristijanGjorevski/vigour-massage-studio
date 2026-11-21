@@ -1,0 +1,1314 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Vigour Massage Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --house:#243F3A; --green:#2F5A51; --green-soft:#D5E0DA; --green-mist:#ECF1EE;
+  --skin:#DDD2C8; --skin-2:#EEE8E1; --blush:#C7B6A6; --blush-deep:#8A6A55;
+  --paper:#F7F3EE; --card:#FFFFFF; --ink:#1B2724; --muted:#56625D; --line:#E4DBD2;
+  --display:"Montserrat","Onest",system-ui,sans-serif;
+  --body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --accent:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --wrap:1180px;
+  --shadow:0 18px 40px -22px rgba(30,57,50,.45);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{overflow-x:clip}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:20px}
+a{color:var(--green)}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blush-deep);outline-offset:2px;border-radius:6px}
+.acc{font-family:var(--accent);font-style:italic;font-weight:600;color:var(--blush-deep);font-size:1.18em;letter-spacing:0;line-height:.9}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:.98rem;border:1.5px solid transparent;cursor:pointer;text-decoration:none;transition:background .2s,color .2s,transform .15s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--house)}
+.btn-ghost{background:transparent;color:var(--house);border-color:var(--house)}
+.btn-ghost:hover{background:var(--house);color:#fff}
+.btn-skin{background:var(--skin);color:var(--house)}
+.btn-skin:hover{background:var(--blush)}
+.btn-sm{padding:9px 16px;font-size:.9rem}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link-btn{background:none;border:0;padding:0;color:var(--green);font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
+/* demo ribbon */
+.ribbon{background:var(--house);color:#DCEBE4;font-size:.8rem}
+.ribbon .wrap{display:flex;gap:10px 16px;align-items:center;justify-content:space-between;padding-block:7px;flex-wrap:wrap}
+.notes-toggle{background:transparent;border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:999px;padding:4px 12px;font-size:.78rem;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.notes-toggle .sw{width:24px;height:14px;border-radius:7px;background:rgba(255,255,255,.3);position:relative;transition:.2s}
+.notes-toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:.2s}
+.notes-toggle[aria-pressed="true"]{background:var(--skin);color:var(--house);border-color:var(--skin)}
+.notes-toggle[aria-pressed="true"] .sw{background:var(--green)}
+.notes-toggle[aria-pressed="true"] .sw::after{left:12px}
+
+/* marketing notes */
+.mnote{display:none;border:1.5px dashed var(--blush-deep);background:#FAF4EC;color:#5E4636;border-radius:14px;padding:10px 14px;font-size:.84rem;line-height:1.45;margin-block:14px;max-width:72ch}
+.mnote::before{content:"Marketing note";display:block;font-weight:700;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;color:var(--blush-deep)}
+body.notes-on .mnote{display:block}
+
+/* header */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:rgba(252,247,243,.93);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;gap:18px;height:70px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--house);flex-shrink:0}
+.logo-mark{width:26px;height:38px;flex-shrink:0}
+.logo b{font-family:var(--display);font-weight:600;letter-spacing:.24em;font-size:1.02rem;display:block;line-height:1.1}
+.logo small{display:block;font-size:.58rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.foot .logo small{color:#AFC3BC}
+.logo i{font-family:var(--accent);font-size:1.3rem;color:var(--blush-deep);margin-left:3px;font-weight:600}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{padding:8px 13px;border-radius:999px;text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem}
+.nav a:hover{background:var(--green-mist)}
+.nav a.active{background:var(--green-soft);color:var(--house)}
+.head-actions{display:flex;align-items:center;gap:10px}
+.slot-chip{display:inline-flex;align-items:center;gap:7px;font-size:.8rem;color:var(--house);background:var(--green-mist);border-radius:999px;padding:6px 11px;white-space:nowrap}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(47,90,81,.5);animation:live 2s infinite}
+@keyframes live{0%{box-shadow:0 0 0 0 rgba(47,90,81,.45)}70%{box-shadow:0 0 0 8px rgba(47,90,81,0)}100%{box-shadow:0 0 0 0 rgba(47,90,81,0)}}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer;color:var(--house);flex-shrink:0}
+.cart-count{position:absolute;top:-4px;right:-4px;background:var(--blush-deep);color:#fff;font-size:.7rem;font-weight:700;min-width:20px;height:20px;border-radius:10px;display:grid;place-items:center;padding:0 5px}
+.burger{display:none}
+@media (max-width:1060px){ .slot-chip{display:none} }
+@media (max-width:900px){
+  .burger{display:grid}
+  .nav{position:absolute;top:100%;left:0;right:0;margin:0;flex-direction:column;background:var(--paper);padding:10px 20px 18px;border-bottom:1px solid var(--line);box-shadow:var(--shadow);display:none}
+  .nav.open{display:flex}
+  .nav a{padding:12px 14px;font-size:1.05rem}
+  .head-actions{margin-left:auto}
+  .head-book{display:none}
+}
+
+/* sections */
+.sec{padding-block:clamp(56px,8vw,96px)}
+.sec-tight{padding-block:clamp(40px,5vw,64px)}
+.eyebrow{font-size:.76rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--green)}
+.h{font-family:var(--display);font-weight:600;font-size:clamp(1.45rem,3.3vw,2.35rem);line-height:1.17;letter-spacing:-.015em;margin:.45em 0 .5em;color:var(--house)}
+.lead{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:32px}
+.page-hero{padding-block:48px 8px}
+.page-hero .h{font-size:clamp(1.7rem,4vw,2.9rem)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center;padding-block:44px 72px}
+.hero h1{font-family:var(--display);font-weight:700;font-size:clamp(1.8rem,4.6vw,3.5rem);line-height:1.1;letter-spacing:-.025em;color:var(--house);margin:14px 0 20px}
+.hero .lead{font-size:1.1rem}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:24px;color:var(--muted);font-size:.9rem}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.stars{color:#E0A33A;display:inline-flex}
+.arch-wrap{position:relative;max-width:430px;width:100%;margin-inline:auto}
+.arch{aspect-ratio:4/5;border-radius:50% 50% 26px 26px / 38% 38% 26px 26px;overflow:hidden;position:relative;
+  background:radial-gradient(120% 70% at 30% 18%,#F4EFEA 0%,rgba(244,239,234,0) 60%),radial-gradient(90% 60% at 80% 100%,#D5E0DA 0%,rgba(213,224,218,0) 70%),linear-gradient(172deg,#E6DDD4 0%,#D8CCC0 55%,#D3DED8 100%)}
+.arch svg{position:absolute;inset:0;width:100%;height:100%}
+.vert{fill:#C9B8A8;animation:relief 5s ease-in-out infinite}
+@keyframes relief{0%,100%{fill:#C9B8A8}35%,60%{fill:#2F5A51}}
+.arch-cap{position:absolute;left:0;right:0;bottom:18px;text-align:center;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--house);opacity:.7}
+.fc{position:absolute;background:var(--card);border-radius:16px;padding:11px 14px;box-shadow:var(--shadow);font-size:.84rem;display:flex;gap:10px;align-items:center;line-height:1.3;max-width:230px}
+.fc small{display:block;color:var(--muted);font-size:.74rem}
+.fc b{color:var(--house)}
+.fc1{top:16%;left:-26px}
+.fc2{bottom:14%;right:-20px}
+.fc-ico{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+@media (max-width:900px){.hero{grid-template-columns:1fr;gap:40px;padding-top:28px}.arch-wrap{max-width:360px}}
+@media (max-width:480px){.fc1{left:-8px}.fc2{right:-8px}}
+
+/* trust strip */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--line)}
+.trust div{padding:22px 20px;border-left:1px solid var(--line)}
+.trust div:first-child{border-left:0}
+.trust b{font-family:var(--display);font-weight:600;font-size:1.55rem;color:var(--house);display:block;font-variant-numeric:tabular-nums}
+.trust span{color:var(--muted);font-size:.88rem}
+@media (max-width:760px){.trust{grid-template-columns:1fr 1fr}.trust div:nth-child(3){border-left:0}.trust div:nth-child(n+3){border-top:1px solid var(--line)}}
+
+/* body map */
+.map-sec{background:linear-gradient(180deg,var(--paper) 0%,var(--skin-2) 100%)}
+.map-grid{display:grid;grid-template-columns:minmax(240px,360px) 1fr;gap:44px;align-items:start}
+.figure-panel{background:var(--skin);border-radius:30px;padding:22px 18px 14px;position:relative}
+.figure-panel svg{width:100%;height:auto;max-height:520px;display:block}
+.fig-hint{text-align:center;font-size:.8rem;color:var(--house);opacity:.75;margin-top:6px}
+.body-fig *{fill:#FBF8F5;stroke:#BFAF9F;stroke-width:1.5}
+.spine-v{fill:#D6C8BB}
+.hs{cursor:pointer;outline:none}
+.hs .glow{fill:url(#glow);opacity:0;transition:opacity .3s}
+.hs .dot{fill:var(--blush-deep);stroke:#fff;stroke-width:2.5;transition:fill .2s}
+.hs .ring{fill:none;stroke:var(--blush-deep);stroke-width:2;opacity:.55;transform-box:fill-box;transform-origin:center;animation:ring 2.4s ease-out infinite}
+.hs:hover .dot{fill:var(--green)}
+.hs.on .dot{fill:var(--green)}
+.hs.on .ring{stroke:var(--green)}
+.hs.on .glow{opacity:1}
+.hs:focus-visible .dot{stroke:var(--house);stroke-width:4}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(2.5);opacity:0}}
+.zone-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.chip-btn{border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;font-size:.92rem;cursor:pointer;color:var(--house);font-weight:500}
+.chip-btn:hover{border-color:var(--green)}
+.chip-btn[aria-pressed="true"]{background:var(--house);color:#fff;border-color:var(--house)}
+.result{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(20px,3vw,32px)}
+.result h3{font-family:var(--display);font-weight:600;font-size:1.5rem;color:var(--house)}
+.result .sym{font-size:1.06rem;margin-top:10px}
+.result .cause{color:var(--muted);margin-top:8px}
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
+.rec{border-radius:18px;padding:18px;background:var(--green-mist);display:flex;flex-direction:column;gap:8px}
+.rec.prog{background:var(--skin-2)}
+.rec .k{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;color:var(--green)}
+.rec.prog .k{color:var(--blush-deep)}
+.rec h4{font-size:1.06rem;color:var(--house)}
+.rec p{font-size:.88rem;color:var(--muted)}
+.rec .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;flex-wrap:wrap;padding-top:6px}
+.disclaimer{font-size:.8rem;color:var(--muted);margin-top:16px}
+@media (max-width:900px){.map-grid{grid-template-columns:1fr}.figure-panel{max-width:340px;margin-inline:auto;width:100%}}
+@media (max-width:560px){.rec-grid{grid-template-columns:1fr}}
+
+/* service cards */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.svc{display:grid;grid-template-columns:190px 1fr;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.thumb{position:relative;min-height:230px;border:0;padding:0;cursor:pointer;display:grid;place-items:center;overflow:hidden}
+.thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(30,57,50,0) 50%,rgba(30,57,50,.45) 100%)}
+.tone-1{background:radial-gradient(80% 60% at 30% 25%,#F2ECE6,transparent 70%),linear-gradient(160deg,#DCD0C4,#C9D6CF)}
+.tone-2{background:radial-gradient(80% 60% at 70% 20%,#DCE6E1,transparent 70%),linear-gradient(160deg,#3E6A60,#243F3A)}
+.tone-3{background:radial-gradient(80% 60% at 30% 80%,#EFE8E1,transparent 70%),linear-gradient(200deg,#C7B6A6,#EEE8E1)}
+.tone-4{background:radial-gradient(70% 60% at 60% 30%,#7FA096,transparent 70%),linear-gradient(160deg,#2F5A51,#243F3A)}
+.play{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;color:var(--house);box-shadow:0 10px 24px -10px rgba(0,0,0,.45);transition:transform .2s}
+.thumb:hover .play,.reel:hover .play{transform:scale(1.08)}
+.dur-tag{position:absolute;z-index:1;left:12px;bottom:12px;background:rgba(21,37,30,.78);color:#fff;font-size:.72rem;padding:4px 9px;border-radius:999px}
+.svc-body{padding:20px 22px;display:flex;flex-direction:column;gap:10px}
+.svc-body h3{font-size:1.14rem;color:var(--house)}
+.svc-body p{color:var(--muted);font-size:.92rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:.74rem;background:var(--skin-2);color:#75594A;padding:3px 9px;border-radius:999px}
+.seg{display:inline-flex;background:var(--green-mist);border-radius:999px;padding:3px;align-self:flex-start;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-size:.84rem;cursor:pointer;color:var(--house)}
+.seg button[aria-pressed="true"]{background:var(--card);box-shadow:0 1px 4px rgba(30,57,50,.18);font-weight:600}
+.price{font-family:var(--display);font-weight:600;font-size:1.22rem;color:var(--house);font-variant-numeric:tabular-nums}
+.price s{font-family:var(--body);font-size:.85rem;color:var(--muted);font-weight:400;margin-left:6px}
+.svc-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;flex-wrap:wrap;padding-top:4px}
+@media (max-width:980px){.svc-grid{grid-template-columns:1fr}}
+@media (max-width:560px){.svc{grid-template-columns:1fr}.thumb{min-height:170px}}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+
+/* reels */
+.reels-sec{background:var(--house);color:#E6F0EB}
+.reels-sec .h{color:#fff}
+.reels-sec .lead{color:#B9D2C6}
+.reels-sec .eyebrow{color:var(--blush)}
+.reels{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.reel{position:relative;aspect-ratio:9/16;border-radius:22px;overflow:hidden;border:0;padding:0;cursor:pointer;display:grid;place-items:center;text-align:left;max-width:100%}
+.reel .rc{position:absolute;z-index:1;left:14px;right:14px;bottom:14px;color:#fff}
+.reel .rc b{display:block;font-size:.98rem;line-height:1.3}
+.reel .rc small{opacity:.8;font-size:.76rem}
+.reel::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 45%,rgba(10,25,20,.75) 100%)}
+.reel .play{position:relative;z-index:1}
+@media (max-width:900px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:58%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.reel{scroll-snap-align:start}}
+@media (max-width:480px){.reels{grid-auto-columns:72%}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+.step{padding:22px;border-radius:22px;background:var(--card);border:1px solid var(--line)}
+.step .n{width:40px;height:40px;border-radius:50%;background:var(--green-soft);color:var(--house);display:grid;place-items:center;font-family:var(--display);font-weight:600;margin-bottom:14px}
+.step h4{color:var(--house);font-size:1.02rem;margin-bottom:6px}
+.step p{color:var(--muted);font-size:.9rem}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* founder */
+.founder{display:grid;grid-template-columns:.8fr 1.2fr;gap:52px;align-items:center}
+.portrait{aspect-ratio:4/5;border-radius:26px 26px 50% 50% / 26px 26px 34% 34%;background:radial-gradient(70% 50% at 50% 30%,#F1EBE5,transparent 70%),linear-gradient(170deg,#D3DED8,#DDD2C8);position:relative;display:grid;place-items:center;max-width:380px;width:100%}
+.ph-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--house);opacity:.65;text-align:center;padding:10px}
+.quote{font-family:var(--accent);font-style:italic;font-weight:500;font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.25;color:var(--house);margin:18px 0}
+.creds{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.cred{font-size:.84rem;padding:7px 12px;border-radius:12px;background:var(--green-mist);color:var(--house)}
+@media (max-width:900px){.founder{grid-template-columns:1fr;gap:28px}.portrait{max-width:300px}}
+
+/* reviews */
+.rev-top{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:24px}
+.rev-score{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 18px}
+.rev-score b{font-family:var(--display);font-size:2rem;font-weight:500;color:var(--house)}
+.reviews{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/3);gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+.review{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.review p{font-size:.95rem}
+.who{display:flex;align-items:center;gap:10px;margin-top:auto}
+.avatar{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:600;color:#fff;background:var(--green)}
+.who small{display:block;color:var(--muted);font-size:.78rem}
+.demo-tag{font-size:.74rem;background:#FAF4EC;color:var(--blush-deep);border:1px dashed var(--blush);border-radius:999px;padding:4px 10px}
+@media (max-width:900px){.reviews{grid-auto-columns:78%}}
+
+/* programs */
+.prog-list{display:flex;flex-direction:column;gap:26px}
+.prog{display:grid;grid-template-columns:.85fr 1.15fr;background:var(--card);border:1px solid var(--line);border-radius:28px;overflow:hidden}
+.prog-vis{position:relative;min-height:340px;border:0;padding:0;cursor:pointer;display:grid;place-items:center}
+.prog-vis .pv-cap{position:absolute;z-index:1;left:18px;bottom:18px;right:18px;color:#fff;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.prog-vis::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(15,30,25,.55) 100%)}
+.prog-body{padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:14px}
+.prog-body h3{font-family:var(--display);font-weight:600;font-size:1.45rem;color:var(--house)}
+.meta-row{display:flex;flex-wrap:wrap;gap:6px 14px;color:var(--muted);font-size:.86rem}
+.ticks{list-style:none;padding:0;margin:0;display:grid;gap:6px;font-size:.94rem}
+.ticks li{display:flex;gap:9px;align-items:flex-start}
+.ticks li svg{flex-shrink:0;margin-top:3px;color:var(--green)}
+details.curr{border:1px solid var(--line);border-radius:16px;padding:12px 16px;background:var(--paper)}
+details.curr summary{cursor:pointer;font-weight:600;color:var(--house)}
+details.curr ol{margin:10px 0 0;padding-left:20px;display:grid;gap:6px;font-size:.92rem;color:var(--muted)}
+.tiers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tier{border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;cursor:pointer;background:var(--card);text-align:left;display:flex;flex-direction:column;gap:3px}
+.tier b{color:var(--house);font-size:.95rem}
+.tier small{color:var(--muted);font-size:.8rem;line-height:1.35}
+.tier .tp{font-family:var(--display);font-weight:600;color:var(--house);margin-top:4px;font-variant-numeric:tabular-nums}
+.tier[aria-pressed="true"]{border-color:var(--green);background:var(--green-mist)}
+.buy-row{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
+@media (max-width:900px){.prog{grid-template-columns:1fr}.prog-vis{min-height:220px}}
+@media (max-width:480px){.tiers{grid-template-columns:1fr}}
+.prog-mini{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pm{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.pm h3{font-family:var(--display);font-weight:600;font-size:1.2rem;color:var(--house)}
+.pm p{color:var(--muted);font-size:.93rem}
+.pm .row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+@media (max-width:760px){.prog-mini{grid-template-columns:1fr}}
+
+/* shop */
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.prod{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column}
+.prod-vis{aspect-ratio:5/4;display:grid;place-items:center;position:relative}
+.prod-vis svg{width:56%;height:auto}
+.badge{position:absolute;top:12px;left:12px;background:var(--house);color:#fff;font-size:.74rem;font-weight:600;padding:4px 10px;border-radius:999px}
+.prod-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.prod-body h3{font-size:1.04rem;color:var(--house)}
+.prod-body p{color:var(--muted);font-size:.89rem}
+.prod-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:8px;flex-wrap:wrap}
+select,input,textarea{font:inherit;color:var(--ink);border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:var(--card);width:100%}
+select:focus,input:focus,textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
+.amounts{display:flex;gap:6px;flex-wrap:wrap}
+.amounts button{border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:6px 10px;font-size:.85rem;cursor:pointer}
+.amounts button[aria-pressed="true"]{border-color:var(--green);background:var(--green-mist);font-weight:600}
+
+/* booking */
+.book-layout{display:grid;grid-template-columns:210px 1fr 310px;gap:28px;align-items:start}
+.spine-steps{list-style:none;margin:0;padding:0;position:relative;display:flex;flex-direction:column;gap:26px}
+.spine-steps::before{content:"";position:absolute;left:17px;top:10px;bottom:10px;width:2px;background:var(--line)}
+.spine-steps li{display:flex;gap:14px;align-items:center;position:relative;color:var(--muted);font-size:.92rem}
+.spine-steps .v{width:36px;height:18px;border-radius:9px;background:var(--line);flex-shrink:0;display:grid;place-items:center;color:#fff;position:relative;z-index:1}
+.spine-steps li.cur{color:var(--house);font-weight:600}
+.spine-steps li.cur .v{background:var(--green)}
+.spine-steps li.done .v{background:var(--house)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(18px,3vw,30px)}
+.panel h3{font-family:var(--display);font-weight:600;font-size:1.3rem;color:var(--house);margin-bottom:6px}
+.panel .sub{color:var(--muted);margin-bottom:20px;font-size:.94rem}
+.opt-list{display:grid;gap:10px}
+.opt{border:1.5px solid var(--line);border-radius:16px;padding:14px 16px;background:var(--card);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;width:100%}
+.opt:hover{border-color:var(--green-soft)}
+.opt[aria-pressed="true"]{border-color:var(--green);background:var(--green-mist)}
+.opt b{color:var(--house)}
+.opt small{display:block;color:var(--muted);font-size:.82rem}
+.opt .p{font-family:var(--display);font-weight:600;color:var(--house);white-space:nowrap;font-variant-numeric:tabular-nums}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.lbl{font-size:.84rem;font-weight:600;color:var(--house)}
+.err{color:#B3261E;font-size:.84rem;min-height:1.2em}
+.nav-row{display:flex;justify-content:space-between;gap:12px;margin-top:24px;flex-wrap:wrap}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.cal-head b{font-family:var(--display);font-weight:600;color:var(--house);text-transform:capitalize}
+.cal-nav{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center}
+.cal-nav[disabled]{opacity:.35;cursor:not-allowed}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.dow{font-size:.74rem;text-align:center;color:var(--muted);padding-bottom:4px;font-weight:600}
+.day{aspect-ratio:1;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-variant-numeric:tabular-nums;font-size:.92rem;display:grid;place-items:center;position:relative;padding:0;max-width:100%}
+.day:hover:not([disabled]){border-color:var(--green)}
+.day[disabled]{opacity:.32;cursor:not-allowed;background:transparent}
+.day.today{box-shadow:inset 0 0 0 2px var(--blush)}
+.day[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.day .few{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--blush-deep)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:8px;margin-top:8px}
+.slot{border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:10px 0;cursor:pointer;font-variant-numeric:tabular-nums;font-weight:500}
+.slot:hover:not([disabled]){border-color:var(--green)}
+.slot[disabled]{text-decoration:line-through;opacity:.4;cursor:not-allowed}
+.slot[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:#fff}
+.summary{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;position:sticky;top:96px}
+.summary h4{font-family:var(--display);font-weight:600;color:var(--house);margin-bottom:14px}
+.sum-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:.9rem}
+.sum-row span:first-child{color:var(--muted)}
+.sum-row span:last-child{text-align:right;font-weight:500}
+.sum-total{display:flex;justify-content:space-between;align-items:baseline;padding-top:14px}
+.sum-total b{font-family:var(--display);font-weight:600;font-size:1.35rem;color:var(--house);font-variant-numeric:tabular-nums}
+.check-ok{width:64px;height:64px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;margin-bottom:16px}
+@media (max-width:1100px){.book-layout{grid-template-columns:1fr 300px}.spine-steps{grid-column:1/-1;flex-direction:row;gap:10px;overflow-x:auto}.spine-steps::before{display:none}.spine-steps li{flex-direction:column;gap:6px;min-width:84px;text-align:center;font-size:.8rem}}
+@media (max-width:820px){.book-layout{grid-template-columns:1fr}.summary{position:static}}
+@media (max-width:520px){.row-2{grid-template-columns:1fr}}
+
+/* checkout */
+.co-layout{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start}
+.co-sec{margin-bottom:22px}
+.co-sec h4{font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.item{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item-ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;color:var(--house)}
+.item b{display:block;font-size:.93rem;color:var(--house);line-height:1.3}
+.item small{color:var(--muted);font-size:.8rem}
+.item .ip{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;font-size:.92rem}
+.qty{display:inline-flex;align-items:center;gap:6px;margin-top:4px}
+.qty button{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;line-height:1}
+.rm{background:none;border:0;color:var(--muted);font-size:.78rem;cursor:pointer;text-decoration:underline;padding:0;margin-top:2px}
+.promo{display:flex;gap:8px;margin-top:14px}
+.promo input{flex:1;min-width:0}
+.card-fields{display:grid;gap:12px;margin-top:14px;padding:16px;border-radius:16px;background:var(--green-mist)}
+.secure{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);margin-top:10px}
+@media (max-width:900px){.co-layout{grid-template-columns:1fr}}
+
+/* contact */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.info-list{display:grid;gap:12px}
+.info{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.info .ico{width:40px;height:40px;border-radius:12px;background:var(--green-mist);color:var(--green);display:grid;place-items:center;flex-shrink:0}
+.info b{color:var(--house);display:block}
+.info span,.info a{font-size:.92rem;color:var(--muted)}
+.hours{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:4px}
+.hours td{padding:3px 0;color:var(--muted)}
+.hours td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.open-pill{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:middle}
+.map{border-radius:22px;overflow:hidden;position:relative;background:#E8EFEA;aspect-ratio:16/10;border:1px solid var(--line)}
+.map svg{width:100%;height:100%;display:block}
+.map a{position:absolute;right:12px;bottom:12px}
+.msg-btns{display:flex;gap:10px;flex-wrap:wrap}
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 20px}
+.faq summary{cursor:pointer;font-weight:600;color:var(--house)}
+.faq p{color:var(--muted);margin-top:8px;font-size:.94rem}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+
+/* cta band */
+.cta-band{background:var(--green);color:#fff;border-radius:32px;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.3fr .7fr;gap:28px;align-items:center;position:relative;overflow:hidden}
+.cta-band .h{color:#fff;margin-top:0}
+.cta-band p{color:#D5E0DA}
+.cta-band .code{display:inline-block;font-family:var(--display);letter-spacing:.12em;background:rgba(255,255,255,.14);border:1px dashed rgba(255,255,255,.6);padding:6px 12px;border-radius:10px;margin-top:10px}
+.cta-band .acts{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+.cta-band .btn-light{background:#fff;color:var(--house)}
+.cta-band .btn-line{border-color:rgba(255,255,255,.7);color:#fff;background:transparent}
+@media (max-width:760px){.cta-band{grid-template-columns:1fr}}
+
+/* footer */
+.foot{background:var(--house);color:#C5D8CF;margin-top:clamp(56px,8vw,96px);padding-block:56px 30px;font-size:.92rem}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:28px}
+.foot h5{color:#fff;font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;margin:0 0 12px}
+.foot a{color:#C5D8CF;text-decoration:none;display:block;padding:3px 0}
+.foot a:hover{color:#fff}
+.foot .logo{color:#fff;margin-bottom:12px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.14);margin-top:36px;padding-top:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#9DB8AC}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+/* mobile bar */
+.mbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(252,247,243,.97);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));gap:10px}
+.mbar .btn{flex:1}
+@media (max-width:760px){.mbar{display:flex}body{padding-bottom:76px}}
+
+/* modal + toast */
+.modal{position:fixed;inset:0;z-index:60;background:rgba(15,28,23,.78);display:grid;place-items:center;padding:16px}
+.player{width:min(880px,100%);background:#0F1E19;border-radius:22px;overflow:hidden;color:#fff;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.player.vertical{width:min(400px,100%)}
+.screen{aspect-ratio:16/9;position:relative;display:grid;place-items:center;text-align:center;padding:24px;overflow:hidden;
+  background:radial-gradient(60% 60% at 30% 30%,rgba(199,182,166,.5),transparent 70%),radial-gradient(60% 60% at 75% 70%,rgba(47,90,81,.7),transparent 70%),#243F3A;background-size:160% 160%}
+.vertical .screen{aspect-ratio:9/16;width:min(100%,calc(70vh * 9 / 16));margin-inline:auto}
+.playing .screen{animation:drift 9s ease-in-out infinite alternate}
+@keyframes drift{0%{background-position:0% 0%}100%{background-position:100% 100%}}
+.screen h3{font-family:var(--display);font-weight:600;font-size:clamp(1.1rem,3vw,1.7rem);max-width:22ch;margin-inline:auto}
+.screen .demo-l{position:absolute;top:14px;left:14px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.35);padding:4px 9px;border-radius:999px}
+.screen .sub-cap{margin-top:12px;font-size:.88rem;opacity:.85;max-width:40ch;margin-inline:auto}
+.controls{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.ctrl{width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.12);color:#fff;display:grid;place-items:center;cursor:pointer;flex-shrink:0}
+.track{flex:1;height:5px;background:rgba(255,255,255,.2);border-radius:3px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--blush)}
+.time{font-size:.8rem;font-variant-numeric:tabular-nums;opacity:.8;white-space:nowrap}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;z-index:70;background:var(--house);color:#fff;padding:12px 16px 12px 20px;border-radius:999px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);font-size:.92rem;max-width:calc(100% - 32px)}
+.toast button{background:var(--skin);color:var(--house);border:0;border-radius:999px;padding:6px 12px;font-weight:600;cursor:pointer;white-space:nowrap}
+@media (max-width:760px){.toast{bottom:88px}}
+
+.fade-in{animation:fin .35s ease both}
+@keyframes fin{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+
+<!-- DEMO RIBBON -->
+<div class="ribbon">
+  <div class="wrap">
+    <span>Demo preview for Vigour Massage Studio · photos, address, hours and reviews are placeholders</span>
+    <button class="notes-toggle" id="notesToggle" aria-pressed="false" type="button"><span class="sw"></span>Marketing notes</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="#home" aria-label="Vigour Massage Studio, почетна">
+      <svg class="logo-mark" viewBox="0 0 30 44" aria-hidden="true"><rect x="1.2" y="1.2" width="27.6" height="41.6" rx="13.8" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8.6 10.5V31M22.4 9.5V34M16 34.5 22.4 9.5" fill="none" stroke="currentColor" stroke-width=".9"/><path d="M8.6 10.5 16 34.5" fill="none" stroke="currentColor" stroke-width="3.4"/></svg>
+      <span><b>VIGOUR</b><small>massage studio</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Главна навигација">
+      <a href="#home">Почетна</a>
+      <a href="#services">Услуги</a>
+      <a href="#programs">Програми</a>
+      <a href="#shop">Продавница</a>
+      <a href="#contact">Контакт</a>
+    </nav>
+    <div class="head-actions">
+      <span class="slot-chip"><span class="live-dot"></span><span id="slotChip">Слободни термини денес</span></span>
+      <button class="icon-btn" id="cartBtn" type="button" aria-label="Кошничка">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <span class="cart-count" id="cartCount" hidden>0</span>
+      </button>
+      <a class="btn btn-primary btn-sm head-book" href="#booking">Закажи термин</a>
+      <button class="icon-btn burger" id="burger" type="button" aria-label="Мени" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ============ HOME ============ -->
+<section class="page" id="page-home">
+  <div class="wrap hero">
+    <div>
+      <span class="eyebrow">Масажа и рехабилитација · Скопје · од 2025</span>
+      <h1>Помалку болка. Повеќе <span class="acc">енергија.</span></h1>
+      <p class="lead">Релакс и спортска масажа во Скопје, плус програми за рехабилитација што ги продолжуваш дома. Закажи онлајн за една минута и плати со картичка или во готово.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#booking">Закажи термин онлајн</a>
+        <button class="btn btn-ghost" type="button" data-scroll="bodymap">Каде те боли?</button>
+      </div>
+      <div class="hero-meta">
+        <span><span class="stars" data-stars="5"></span> 4,9 на Google</span>
+        <span>Плаќање онлајн или во готово</span>
+        <span>Потврда веднаш на Viber</span>
+      </div>
+      <div class="mnote">One primary action (book) and one low-commitment action (pain map) for people not ready to book yet. The "next free slot" card is real availability from the calendar, which creates honest urgency. Goal math: going from 2 to 3 to 6 to 10 a day means roughly 100 to 150 extra bookings a month, so every page pushes toward the booking flow.</div>
+    </div>
+    <div class="arch-wrap">
+      <div class="arch" aria-hidden="true">
+        <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMid meet" id="heroSpine"></svg>
+        <div class="arch-cap">Фото / видео од студиото</div>
+      </div>
+      <div class="fc fc1">
+        <span class="fc-ico" style="background:var(--green-mist);color:var(--green)"><span class="live-dot"></span></span>
+        <span><small>Следен слободен термин</small><b id="nextSlot">Денес во 17:00</b></span>
+      </div>
+      <div class="fc fc2">
+        <span class="fc-ico" style="background:#F6EFE3;color:#E0A33A"><svg width="18" height="18" viewBox="0 0 20 20"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg></span>
+        <span><b>4,9 од 5</b><small>40+ рецензии на Google</small></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="trust">
+      <div><b>од 500 ден.</b><span>масажа на стапала, 45 минути</span></div>
+      <div><b>45 / 60 мин</b><span>грб или цело тело</span></div>
+      <div><b>4,9 ★</b><span>просечна оценка на Google</span></div>
+      <div><b>24/7</b><span>онлајн закажување, без чекање одговор</span></div>
+    </div>
+  </div>
+
+  <!-- body map -->
+  <section class="sec map-sec" id="bodymap">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Интерактивна мапа на болка</span>
+          <h2 class="h">Каде те боли? Кликни и види што ти препорачуваме.</h2>
+          <p class="lead">Избери го делот од телото што те мачи. Ќе ти покажеме најчеста причина, третман во студио и програма за дома.</p>
+        </div>
+      </div>
+      <div class="map-grid">
+        <div class="figure-panel">
+          <svg viewBox="0 0 220 440" role="group" aria-label="Тело, поглед од назад" id="bodySvg">
+            <defs><radialGradient id="glow"><stop offset="0" stop-color="#2F5A51" stop-opacity=".35"/><stop offset="1" stop-color="#2F5A51" stop-opacity="0"/></radialGradient></defs>
+            <g class="body-fig">
+              <rect x="28" y="96" width="22" height="150" rx="11" transform="rotate(7 39 96)"/>
+              <rect x="170" y="96" width="22" height="150" rx="11" transform="rotate(-7 181 96)"/>
+              <rect x="70" y="272" width="36" height="156" rx="18"/>
+              <rect x="114" y="272" width="36" height="156" rx="18"/>
+              <path d="M70 244 Q110 258 150 244 L156 284 Q110 300 64 284Z"/>
+              <path d="M62 92 Q110 80 158 92 Q172 98 170 118 L164 200 Q160 232 150 250 L70 250 Q60 232 56 200 L50 118 Q48 98 62 92Z"/>
+              <rect x="98" y="64" width="24" height="26" rx="9"/>
+              <ellipse cx="110" cy="40" rx="25" ry="29"/>
+            </g>
+            <g id="spineV"></g>
+            <g id="hotspots"></g>
+          </svg>
+          <p class="fig-hint">Поглед од назад · кликни на точка</p>
+        </div>
+        <div>
+          <div class="zone-chips" id="zoneChips" role="group" aria-label="Избери зона"></div>
+          <div class="result" id="zoneResult" aria-live="polite"></div>
+          <div class="mnote">This is the unique piece versus the Serbian reference. It's a self-diagnosis quiz and the highest-intent entry point on the site. Every click can fire a Meta Pixel / GA4 custom event (e.g. zone=lower_back), so we can retarget with the matching creative: lower back video to lower back clickers. It also gives us problem-specific landing URLs for ads.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- services teaser -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Третмани во студио</span>
+          <h2 class="h">Релакс или спортска. Грб или цело тело.</h2>
+          <p class="lead">Масажите на грб траат 45 минути, на цело тело 60. Кликни на видеото за да видиш како изгледа третманот пред да дојдеш.</p>
+        </div>
+        <a class="btn btn-ghost" href="#services">Сите услуги и цени</a>
+      </div>
+      <div class="svc-grid" id="homeServices"></div>
+    </div>
+  </section>
+
+  <!-- reels -->
+  <section class="sec reels-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Погледни пред да дојдеш</span>
+          <h2 class="h">Кратки видеа, одговори на тоа што најчесто не прашуваат.</h2>
+          <p class="lead">Истите видеа што ги гледаш на Instagram и TikTok, собрани на едно место.</p>
+        </div>
+      </div>
+      <div class="reels" id="reels"></div>
+      <div class="mnote" style="color:#5E4636">Same 9:16 clips we run on Instagram, TikTok and as Meta ads, so they get produced once and reused. Video on the site lowers first-visit anxiety ("what happens, do I undress, does it hurt"), which is the main blocker for new massage clients.</div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="sec">
+    <div class="wrap">
+      <span class="eyebrow">Како функционира</span>
+      <h2 class="h">Од клик до третман за помалку од една минута.</h2>
+      <div class="steps" style="margin-top:28px">
+        <div class="step"><div class="n">1</div><h4>Избери третман</h4><p>Или кликни на мапата на болка и ние ќе ти препорачаме.</p></div>
+        <div class="step"><div class="n">2</div><h4>Избери термин</h4><p>Гледаш слободни термини во живо. Без повикување и чекање одговор.</p></div>
+        <div class="step"><div class="n">3</div><h4>Плати како сакаш</h4><p>Онлајн со картичка и 5% попуст, или во студио во готово.</p></div>
+        <div class="step"><div class="n">4</div><h4>Дојди и олесни си</h4><p>Добиваш потсетник на Viber ден пред терминот.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- programs teaser -->
+  <section class="sec" style="background:var(--skin-2)">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Рехабилитација од дома</span>
+          <h2 class="h">Масажата носи <span class="acc">олеснување.</span> Вежбата носи решение.</h2>
+          <p class="lead">Видео програми што Дарко ги користи со своите клиенти. Купуваш еднаш, вежбаш од дома по 15 минути на ден.</p>
+        </div>
+        <a class="btn btn-ghost" href="#programs">Сите програми</a>
+      </div>
+      <div class="prog-mini" id="homePrograms"></div>
+      <div class="mnote">Digital programs sell while he's working on a client, so revenue isn't capped by hours in the chair. The "online + studio" tier bundles sessions, which feeds bookings back into the calendar.</div>
+    </div>
+  </section>
+
+  <!-- founder -->
+  <section class="sec">
+    <div class="wrap founder">
+      <div class="portrait"><span class="ph-label">Портрет на Дарко<br>во студиото</span></div>
+      <div>
+        <span class="eyebrow">Зад студиото</span>
+        <h2 class="h">Здраво, јас сум Дарко.</h2>
+        <p class="quote">„Не сакам да ми се враќаш затоа што те боли. Сакам да ми се враќаш затоа што ти е убаво.“</p>
+        <p class="lead">Масер и основач на Vigour. Работам со луѓе што седат по цел ден, со рекреативци и со спортисти. Секој третман го завршувам со една или две вежби што ги продолжуваш дома, за ефектот да трае подолго.</p>
+        <div class="creds"><span class="cred">Спортска масажа</span><span class="cred">Релакс масажа</span><span class="cred">Програми за рехабилитација</span><span class="cred">Основано 2025</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- reviews -->
+  <section class="sec" style="padding-top:0">
+    <div class="wrap">
+      <div class="rev-top">
+        <div>
+          <span class="eyebrow">Google рецензии</span>
+          <h2 class="h" style="margin-bottom:0">Што велат клиентите.</h2>
+        </div>
+        <div class="rev-score" style="margin-left:auto"><b>4,9</b><span><span class="stars" data-stars="5"></span><br><small style="color:var(--muted)">од 40+ рецензии</small></span></div>
+      </div>
+      <p style="margin-bottom:16px"><span class="demo-tag">Примерни рецензии за демото. На живата страница се повлекуваат вистинските од Google профилот.</span></p>
+      <div class="reviews" id="reviews"></div>
+      <div class="mnote">Pull reviews live from the Google Business Profile (widget or API). Process that feeds it: an automatic Viber message 2 hours after each visit with a direct review link. More reviews also push the studio up in Google Maps for "масажа Скопје", which is free booking traffic.</div>
+    </div>
+  </section>
+
+  <!-- CTA band -->
+  <section class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2 class="h">Првиот третман е 10% поевтин.</h2>
+        <p>Закажи онлајн и внеси го кодот при плаќање. Важи за нови клиенти.</p>
+        <span class="code">PRVPAT</span>
+      </div>
+      <div class="acts">
+        <a class="btn btn-light" href="#booking">Закажи термин</a>
+        <a class="btn btn-line" href="#contact">Прашај на Viber</a>
+      </div>
+    </div>
+    <div class="mnote">A dedicated code per channel (PRVPAT for the site, e.g. META10 for ads, IG10 for influencers) is the cheapest way to see which channel actually brings paying first-time clients.</div>
+  </section>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section class="page" id="page-services" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Услуги и цени</span>
+    <h1 class="h">Избери третман, погледни видео, закажи.</h1>
+    <p class="lead">Цените се во денари, според ценовникот во студиото. Масажите за цело тело траат 60 минути, останатите 45. Плаќаш онлајн со 5% попуст или во студио.</p>
+  </div>
+  <div class="wrap sec-tight">
+    <div class="svc-grid" id="allServices"></div>
+    <div class="mnote">Prices visible upfront (the Serbian site hides them). For a studio competing locally, visible prices filter out price shoppers before they call and make the ad click to booking path shorter. The back / full body toggle lets people upgrade themselves from 800 to 1.300 den. without anyone selling to them.</div>
+  </div>
+  <section class="wrap sec-tight">
+    <div class="cta-band" style="background:var(--house)">
+      <div><h2 class="h">Не си сигурен кој третман ти треба?</h2><p>Кликни на мапата на болка и за 10 секунди ќе добиеш препорака.</p></div>
+      <div class="acts"><a class="btn btn-light" href="#home" data-goto-map="1">Отвори мапа на болка</a></div>
+    </div>
+  </section>
+</section>
+
+<!-- ============ PROGRAMS ============ -->
+<section class="page" id="page-programs" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Програми за рехабилитација</span>
+    <h1 class="h">Вежбај од дома со <span class="acc">водство.</span></h1>
+    <p class="lead">Видео програми по недели, создадени од Дарко. Купи онлајн, добиј пристап веднаш и вежбај 15 минути на ден. Со пакетот „Онлајн + студио“ добиваш и третмани кај нас.</p>
+  </div>
+  <div class="wrap sec-tight">
+    <div class="steps" style="margin-bottom:34px">
+      <div class="step"><div class="n">1</div><h4>Купи програма</h4><p>Плаќање со картичка, пристап веднаш на е-пошта.</p></div>
+      <div class="step"><div class="n">2</div><h4>Гледај и вежбај</h4><p>Кратки видеа со објаснување, од телефон или ТВ.</p></div>
+      <div class="step"><div class="n">3</div><h4>Следи напредок</h4><p>Секоја недела нов сет вежби, потешко од претходниот.</p></div>
+      <div class="step"><div class="n">4</div><h4>Прашај го Дарко</h4><p>Viber поддршка за сите прашања за време на програмата.</p></div>
+    </div>
+    <div class="prog-list" id="programList"></div>
+    <div class="mnote">Program pages are also the best retargeting destination for people who clicked a pain zone but didn't book: lower price point, no appointment needed, and it builds trust for a later studio visit.</div>
+  </div>
+</section>
+
+<!-- ============ SHOP ============ -->
+<section class="page" id="page-shop" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Продавница</span>
+    <h1 class="h">Пакети, ваучери и опрема за дома.</h1>
+    <p class="lead">Заштеди со пакет третмани, подари здравје со ваучер или земи ја опремата што ја користиме во програмите.</p>
+  </div>
+  <div class="wrap sec-tight">
+    <div class="filters" id="shopFilters" role="group" aria-label="Категорија">
+      <button class="chip-btn" data-shop="all" aria-pressed="true" type="button">Сите</button>
+      <button class="chip-btn" data-shop="pack" aria-pressed="false" type="button">Пакети</button>
+      <button class="chip-btn" data-shop="voucher" aria-pressed="false" type="button">Ваучери</button>
+      <button class="chip-btn" data-shop="gear" aria-pressed="false" type="button">Опрема</button>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+    <div class="mnote">Packages and vouchers are the real reason this page exists: cash upfront plus guaranteed return visits. A 5 pack means 5 bookings already in the calendar. Voucher peaks to plan campaigns around: 8 March, Valentine's, Christmas / New Year, Mother's Day.</div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section class="page" id="page-booking" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Онлајн закажување</span>
+    <h1 class="h">Закажи термин</h1>
+  </div>
+  <div class="wrap sec-tight">
+    <div class="book-layout">
+      <ol class="spine-steps" id="bookSteps"></ol>
+      <div class="panel fade-in" id="bookPanel"></div>
+      <aside class="summary" id="bookSummary"></aside>
+    </div>
+    <div class="mnote">Built-in booking instead of sending people to an external Calendly page: fewer steps and we keep the Pixel / GA4 tracking on our own domain. In production this is Cal.com, SimplyBook.me or similar embedded in this spot. A small discount for paying online (5%) cuts no-shows, while cash stays available because the Macedonian market still leans cash.</div>
+  </div>
+</section>
+
+<!-- ============ CHECKOUT ============ -->
+<section class="page" id="page-checkout" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Плаќање</span>
+    <h1 class="h">Кошничка и плаќање</h1>
+  </div>
+  <div class="wrap sec-tight" id="checkoutRoot"></div>
+  <div class="wrap"><div class="mnote">Card payments in MK go through a local gateway (cPay by CaSys, via the studio's bank). The checkout fires the Purchase event with value, so Meta can optimize for buyers, not clicks.</div></div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="page" id="page-contact" hidden>
+  <div class="wrap page-hero">
+    <span class="eyebrow">Контакт</span>
+    <h1 class="h">Дојди, пиши или јави се.</h1>
+    <p class="lead">Најбрзо одговараме на Viber, обично во рок од 15 минути во работно време.</p>
+  </div>
+  <div class="wrap sec-tight contact-grid">
+    <div class="info-list">
+      <div class="info"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span><div><b>Адреса</b><span>ул. Пример бр. 12, 1000 Скопје<br><small>(адреса за пополнување)</small></span></div></div>
+      <div class="info"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h2.2l1.6 4-2 1.3a11 11 0 0 0 5.4 5.4l1.3-2 4 1.6v2.2A1.5 1.5 0 0 1 16.5 18 12.5 12.5 0 0 1 4 5.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></span><div><b>Телефон, Viber и WhatsApp</b><span style="user-select:all">+389 75 304 171</span><div class="msg-btns" style="margin-top:10px"><button class="btn btn-primary btn-sm" type="button" data-copy="+389 75 304 171">Копирај број</button><a class="btn btn-skin btn-sm" href="https://wa.me/38975304171" target="_blank" rel="noopener">WhatsApp</a></div></div></div>
+      <div class="info"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="16.8" cy="7.2" r="1" fill="currentColor"/></svg></span><div><b>Instagram</b><a href="https://www.instagram.com/vigour.massagestudio/" target="_blank" rel="noopener">@vigour.massagestudio</a></div></div>
+      <div class="info"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div style="flex:1"><b>Работно време <span class="open-pill" id="openPill"></span></b>
+        <table class="hours"><tr><td>Понеделник до петок</td><td>09:00 до 21:00</td></tr><tr><td>Сабота</td><td>10:00 до 16:00</td></tr><tr><td>Недела</td><td>затворено</td></tr></table></div></div>
+      <div class="map" aria-label="Мапа">
+        <svg viewBox="0 0 400 250" aria-hidden="true">
+          <rect width="400" height="250" fill="#E4EEE8"/>
+          <path d="M-10 170 C80 150 140 190 220 160 S360 120 420 140" stroke="#BFD9E6" stroke-width="18" fill="none"/>
+          <g stroke="#fff" stroke-width="9" fill="none"><path d="M0 70 H400"/><path d="M0 215 H400"/><path d="M90 0 V250"/><path d="M270 0 V250"/><path d="M160 0 L200 250"/></g>
+          <g fill="#D5E6DC"><rect x="100" y="80" width="50" height="60" rx="6"/><rect x="215" y="80" width="45" height="50" rx="6"/><rect x="285" y="10" width="100" height="50" rx="6"/><rect x="10" y="85" width="70" height="55" rx="6"/><rect x="290" y="180" width="95" height="28" rx="6"/></g>
+          <g transform="translate(182 102)"><circle r="24" fill="#2F5A51" opacity=".15"/><path d="M0 12 C-10 0 -12 -6 -12 -10 A12 12 0 0 1 12 -10 C12 -6 10 0 0 12Z" fill="#2F5A51"/><circle cy="-10" r="4.5" fill="#fff"/></g>
+        </svg>
+        <a class="btn btn-primary btn-sm" href="https://www.google.com/maps/search/?api=1&amp;query=Skopje" target="_blank" rel="noopener">Отвори во Google Maps</a>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Испрати порака</h3>
+      <p class="sub">Опиши го проблемот и ќе те контактираме во рок од 1 час во работно време.</p>
+      <form id="contactForm" novalidate>
+        <div style="display:grid;gap:14px">
+          <div class="row-2">
+            <div class="field"><label for="cName">Име</label><input id="cName" autocomplete="name" required></div>
+            <div class="field"><label for="cPhone">Телефон</label><input id="cPhone" type="tel" autocomplete="tel" required></div>
+          </div>
+          <div class="field"><label for="cTopic">Што те мачи?</label>
+            <select id="cTopic"><option>Болка во грб</option><option>Врат и рамена</option><option>Колк или колено</option><option>Спортска повреда</option><option>Сакам релаксација</option><option>Подарок ваучер</option><option>Друго</option></select></div>
+          <div class="field"><label for="cMsg">Порака</label><textarea id="cMsg" rows="4" placeholder="На пример: ме боли долниот грб веќе 2 месеци, најмногу наутро."></textarea></div>
+          <p class="err" id="cErr"></p>
+          <button class="btn btn-primary" type="submit">Испрати порака</button>
+        </div>
+      </form>
+      <div id="contactOk" hidden>
+        <div class="check-ok"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Пораката е примена (демо)</h3>
+        <p class="sub">На живата страница, Дарко ќе ти одговори во рок од 1 час. Ако ти е итно, закажи директно онлајн.</p>
+        <a class="btn btn-primary" href="#booking">Закажи термин</a>
+      </div>
+      <div class="mnote">Viber first, not email: it's the default messenger in MK and reply rates are far higher. The form qualifies the lead with "what bothers you", so the reply can include the right video.</div>
+    </div>
+  </div>
+  <section class="wrap sec-tight">
+    <span class="eyebrow">Чести прашања</span>
+    <h2 class="h">Пред првиот термин</h2>
+    <div class="faq">
+      <details><summary>Дали ми треба упат од лекар?</summary><p>Не. За масажа не треба упат. Ако имаш дијагноза или снимка, донеси ја на првиот третман.</p></details>
+      <details><summary>Колку трае третманот?</summary><p>Масажите на грб и на стапала траат 45 минути, а масажите на цело тело и премиум масажата 60 минути. Дојди 5 минути порано.</p></details>
+      <details><summary>Може ли да платам во готово?</summary><p>Да. При закажување избери „Плати во студио“. Онлајн плаќањето со картичка носи 5% попуст.</p></details>
+      <details><summary>Што ако не можам да дојдам?</summary><p>Бесплатно откажување или поместување до 12 часа пред терминот, со еден клик од пораката за потврда.</p></details>
+      <details><summary>Што да облечам?</summary><p>Удобна облека. Добиваш чисти крпи и приватен простор за пресоблекување.</p></details>
+    </div>
+  </section>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="#home"><svg class="logo-mark" viewBox="0 0 30 44" aria-hidden="true"><rect x="1.2" y="1.2" width="27.6" height="41.6" rx="13.8" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M8.6 10.5V31M22.4 9.5V34M16 34.5 22.4 9.5" fill="none" stroke="currentColor" stroke-width=".9"/><path d="M8.6 10.5 16 34.5" fill="none" stroke="currentColor" stroke-width="3.4"/></svg><span><b>VIGOUR</b><small>massage studio</small></span></a>
+        <p>Масажа и рехабилитација во Скопје, од 2025. Олеснување во студио, решение со вежби од дома.</p>
+      </div>
+      <div><h5>Услуги</h5><a href="#services">Релакс масажа</a><a href="#services">Спортска масажа</a><a href="#services">Масажа на стапала</a><a href="#services">Премиум масажа</a></div>
+      <div><h5>Студио</h5><a href="#programs">Програми</a><a href="#shop">Пакети и ваучери</a><a href="#booking">Онлајн закажување</a><a href="#contact">Контакт</a></div>
+      <div><h5>Контакт</h5><span>+389 75 304 171</span><br><span>@vigour.massagestudio</span><br><span>Скопје</span></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Vigour Massage Studio · Est. 2025</span><span>Плаќање со картичка преку cPay · <a href="https://www.instagram.com/vigour.massagestudio/" target="_blank" rel="noopener" style="display:inline">Instagram</a></span></div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a class="btn btn-primary" href="#booking">Закажи термин</a>
+  <a class="btn btn-skin" href="#contact">Viber</a>
+</div>
+
+<div class="modal" id="videoModal" hidden role="dialog" aria-modal="true" aria-labelledby="vTitle">
+  <div class="player" id="player">
+    <div class="screen">
+      <span class="demo-l">Demo · тука оди вистинското видео</span>
+      <div><h3 id="vTitle">Наслов</h3><p class="sub-cap" id="vSub"></p></div>
+    </div>
+    <div class="controls">
+      <button class="ctrl" id="vPlay" type="button" aria-label="Пушти"></button>
+      <div class="track"><i id="vBar"></i></div>
+      <span class="time" id="vTime">0:00 / 0:00</span>
+      <button class="ctrl" id="vClose" type="button" aria-label="Затвори"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden><span id="toastMsg"></span><button type="button" id="toastBtn">Кон плаќање</button></div>
+
+<script>
+(function(){
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const fmt=n=>Math.round(n).toLocaleString('de-DE')+' ден.';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MONTHS=['јануари','февруари','март','април','мај','јуни','јули','август','септември','октомври','ноември','декември'];
+const DOW=['Нед','Пон','Вто','Сре','Чет','Пет','Саб'];
+const ICON={
+  play:'<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>',
+  pause:'<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" fill="currentColor"/></svg>',
+  star:'<svg width="15" height="15" viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"/></svg>',
+  tick:'<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  tickS:'<svg width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  left:'<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  right:'<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  lock:'<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  cal:'<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 10h16M9 3.5v4M15 3.5v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+  gift:'<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M12 9v11M12 9c-2-4-6-4-6-1.5S10 9 12 9Zm0 0c2-4 6-4 6-1.5S14 9 12 9Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
+  bag:'<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'
+};
+
+/* ---------- DATA ---------- */
+const SERVICES=[
+ {id:'relax',name:'Релакс масажа',cats:['relax'],tone:3,def:'full',
+  opts:[{k:'back',l:'Грб',min:45,p:800},{k:'full',l:'Цело тело',min:60,p:1300}],
+  desc:'Бавни, долги потези со топло масло. Кога ти треба одмор за главата и телото.',tags:['Стрес','Сон','Подарок'],
+  video:{t:'Релакс масажа во Vigour',len:'0:40',sub:'Прошетка низ студиото и третманот, за да знаеш што те чека.'}},
+ {id:'sport',name:'Спортска масажа',cats:['pain','sport'],tone:4,def:'back',
+  opts:[{k:'back',l:'Грб',min:45,p:1000},{k:'full',l:'Цело тело',min:60,p:1500}],
+  desc:'Посилен притисок за затегнати мускули и тригер точки. За болка во грбот, вратот и рамената, и за сите што тренираат.',tags:['Болка во грб','Врат и рамена','Тренинг'],
+  video:{t:'Спортска масажа: дали боли?',len:'1:05',sub:'Колкав е притисокот, како се чувствуваш после и колку често да доаѓаш.'}},
+ {id:'feet',name:'Масажа на стапала',cats:['relax'],tone:1,def:'feet',
+  opts:[{k:'feet',l:'Стапала',min:45,p:500}],
+  desc:'45 минути само за стапалата. Олеснување после долг ден на нозе.',tags:['Уморни нозе','Цел ден на нозе'],
+  video:{t:'Зошто масажа на стапала',len:'0:35',sub:'Како 45 минути на стапалата го опуштаат целото тело.'}},
+ {id:'premium',name:'Премиум масажа',cats:['relax','sport'],tone:2,def:'premium',
+  opts:[{k:'premium',l:'Цело тело, напред и назад',min:60,p:2500}],
+  desc:'Целосна масажа на телото, предна и задна страна. Најкомплетниот третман во студиото.',tags:['Цело тело','Подарок','Најкомплетно'],
+  video:{t:'Што вклучува премиум масажата',len:'0:50',sub:'Предна и задна страна, од стапалата до вратот.'}}
+];
+const optOf=(s,k)=>s.opts.find(o=>o.k===k)||s.opts.find(o=>o.k===s.def);
+const optLbl=o=>o.l+' · '+o.min+' мин';
+const SVC=id=>SERVICES.find(s=>s.id===id);
+
+const PROGRAMS=[
+ {id:'back',name:'Здрав грб',weeks:6,videos:18,mins:15,level:'Почетно ниво',tone:1,preview:'1:45',
+  desc:'Програма за болка во долниот грб и ишијас. Од намалување на болката до јак кор што го штити грбот.',
+  forWho:['Работиш седејќи повеќе од 6 часа дневно','Те боли долниот грб наутро или после седење','Имаш ишијас или дискус хернија (со одобрение од лекар)'],
+  curr:['Недела 1 и 2: намалување на болката, дишење и нежна мобилност','Недела 3 и 4: стабилност на кор и колк','Недела 5 и 6: јакнење и навики за превенција'],
+  online:1990,plus:4490,sessVal:3000,plusNote:'+ 3 спортски масажи на грб'},
+ {id:'neck',name:'Врат и рамена',weeks:4,videos:12,mins:10,level:'Почетно ниво',tone:3,preview:'1:10',
+  desc:'За канцелариска болка во вратот и рамената. 10 минути дневно, може и на работа.',
+  forWho:['Работиш на компјутер','Често имаш главоболки од вратот','Рамената ти се „кај ушите“ на крајот од денот'],
+  curr:['Недела 1: ослободување на затегнатоста','Недела 2: мобилност на вратот и градниот дел','Недела 3 и 4: држење и јакнење на лопатките'],
+  online:1490,plus:3090,sessVal:2000,plusNote:'+ 2 спортски масажи на грб'},
+ {id:'knee',name:'Силно колено',weeks:8,videos:24,mins:20,level:'После повреда',tone:4,preview:'2:05',
+  desc:'Постепено враќање на силата и сигурноста во коленото после повреда или операција.',
+  forWho:['Имал си повреда на лигамент или менискус','Те боли коленото на скали или при трчање','Лекарот ти препорачал вежби'],
+  curr:['Недела 1 и 2: движење без болка и активирање на квадрицепсот','Недела 3 до 5: сила и баланс','Недела 6 до 8: скокови, промена на правец, враќање во спорт'],
+  online:2490,plus:6290,sessVal:4500,plusNote:'+ 3 спортски масажи на цело тело'},
+ {id:'mobility',name:'Мобилност 30+',weeks:4,videos:12,mins:15,level:'Сите нивоа',tone:2,preview:'0:58',
+  desc:'За колкови, грб и рамена што се вкочанети. Ќе се чувствуваш полесно уште од првата недела.',
+  forWho:['Се чувствуваш вкочанет наутро','Сакаш да почнеш со тренинг без повреда','Трчаш или играш рекреативно'],
+  curr:['Недела 1: колкови и глуждови','Недела 2: граден дел и рамена','Недела 3 и 4: комплетни рутини од 15 минути'],
+  online:1290,plus:3890,sessVal:3000,plusNote:'+ 2 спортски масажи на цело тело'}
+];
+const PROG=id=>PROGRAMS.find(p=>p.id===id);
+
+const ART={
+ oil:'<rect x="44" y="30" width="32" height="58" rx="8" fill="#2F5A51"/><rect x="52" y="17" width="16" height="15" rx="3" fill="#243F3A"/><rect x="50" y="48" width="20" height="24" rx="3" fill="#DDD2C8"/>',
+ ball:'<ellipse cx="60" cy="90" rx="26" ry="4" fill="#243F3A" opacity=".12"/><circle cx="60" cy="54" r="30" fill="#8A6A55"/><circle cx="49" cy="43" r="8" fill="#fff" opacity=".35"/>',
+ roller:'<ellipse cx="60" cy="84" rx="44" ry="4" fill="#243F3A" opacity=".12"/><rect x="14" y="36" width="92" height="34" rx="17" fill="#2F5A51"/><g stroke="#D5E0DA" stroke-width="3" stroke-linecap="round"><path d="M32 41v24M46 41v24M60 41v24M74 41v24M88 41v24"/></g>',
+ bands:'<g fill="none" stroke-width="7"><ellipse cx="48" cy="46" rx="30" ry="17" stroke="#C7B6A6"/><ellipse cx="68" cy="54" rx="30" ry="17" stroke="#2F5A51"/><ellipse cx="56" cy="63" rx="30" ry="17" stroke="#243F3A"/></g>',
+ voucher:'<rect x="12" y="24" width="96" height="58" rx="10" fill="#243F3A"/><rect x="76" y="24" width="10" height="58" fill="#C7B6A6"/><text x="22" y="52" font-family="Montserrat, sans-serif" font-weight="600" font-size="11" fill="#fff" letter-spacing="1.5">VIGOUR</text><text x="22" y="68" font-size="9" fill="#D5E0DA" font-family="Onest, sans-serif">ВАУЧЕР</text>',
+ pack:n=>`<rect x="30" y="36" width="72" height="46" rx="9" fill="#C7B6A6"/><rect x="23" y="29" width="72" height="46" rx="9" fill="#D5E0DA"/><rect x="16" y="22" width="72" height="46" rx="9" fill="#2F5A51"/><text x="52" y="52" text-anchor="middle" font-family="Montserrat, sans-serif" font-weight="600" font-size="15" fill="#fff">×${n}</text>`
+};
+const PRODUCTS=[
+ {id:'pack5',cat:'pack',name:'Пакет 5 спортски масажи на грб',desc:'45 минути по третман. Важи 4 месеци и може да се дели со партнер.',price:4250,was:5000,badge:'Заштеди 750 ден.',art:ART.pack(5),bg:'var(--green-mist)'},
+ {id:'pack10',cat:'pack',name:'Пакет 10 масажи на цело тело',desc:'Спортска или релакс, 60 минути. Важи 8 месеци.',price:12000,was:15000,badge:'Најисплатливо',art:ART.pack(10),bg:'var(--green-mist)'},
+ {id:'voucher',cat:'voucher',name:'Подарок ваучер',desc:'За масажа на грб, цело тело или премиум. Дигитален, со име, стигнува на е-пошта веднаш.',amounts:[800,1300,2500],badge:'Идеален подарок',art:ART.voucher,bg:'var(--skin)'},
+ {id:'oil',cat:'gear',name:'Vigour масажно масло 100 мл',desc:'Бадем и лаванда. Истото што го користиме во студиото.',price:690,art:ART.oil,bg:'var(--skin-2)'},
+ {id:'ball',cat:'gear',name:'Масажна топка',desc:'За тригер точки во рамената и стапалата. Се користи во програмите.',price:450,art:ART.ball,bg:'var(--skin-2)'},
+ {id:'roller',cat:'gear',name:'Фоум ролер',desc:'Средна тврдина, 33 см. За грб, бутови и листови.',price:1290,art:ART.roller,bg:'var(--skin-2)'},
+ {id:'bands',cat:'gear',name:'Сет еластични ленти',desc:'3 јачини. Потребни за програмите „Здрав грб“ и „Силно колено“.',price:890,art:ART.bands,bg:'var(--skin-2)'}
+];
+
+const ZONES=[
+ {key:'neck',name:'Врат',pts:[[110,78]],sym:'Вкочанет врат, главоболки, болка кога ја вртиш главата.',cause:'Најчесто: долго седење пред екран и глава наведната кон телефонот.',svc:'sport',opt:'back',prog:'neck'},
+ {key:'shoulders',name:'Рамена',pts:[[70,104],[150,104]],sym:'Затегнати рамена, болка кога ја креваш раката, „камен“ во трапезот.',cause:'Најчесто: стрес, лошо држење и тренинг без истегнување.',svc:'sport',opt:'back',prog:'neck'},
+ {key:'upper',name:'Горен грб',pts:[[110,136]],sym:'Печење меѓу лопатките и чувство на тежина на крајот од денот.',cause:'Најчесто: заоблено држење и слаби мускули на грбот.',svc:'sport',opt:'back',prog:'back'},
+ {key:'lower',name:'Долен грб',pts:[[110,212]],sym:'Тапа болка, вкочанетост наутро, болка кога се наведнуваш или долго седиш.',cause:'Најчесто: седентарна работа, слаб кор и скратени мускули на колкот.',svc:'sport',opt:'back',prog:'back'},
+ {key:'hips',name:'Колк и седало',pts:[[86,268],[134,268]],sym:'Болка во седалото или колкот, понекогаш се шири низ ногата.',cause:'Најчесто: затегнат пириформис и скратени флексори од седење.',svc:'sport',opt:'full',prog:'mobility'},
+ {key:'knees',name:'Колена',pts:[[88,352],[132,352]],sym:'Болка на скали, отекување, несигурност после повреда.',cause:'Најчесто: преоптоварување, стара повреда и слаби мускули на бутот.',svc:'sport',opt:'full',prog:'knee'},
+ {key:'feet',name:'Стапала',pts:[[88,418],[132,418]],sym:'Уморни, тешки стапала и болка во табаните после долг ден.',cause:'Најчесто: стоење на работа, несоодветни обувки или трчање.',svc:'feet',opt:'feet',prog:'mobility'}
+];
+const REELS=[
+ {t:'Што се случува на првиот третман?',len:'0:45',tone:2},
+ {t:'Терапевтска или релакс масажа?',len:'0:38',tone:3},
+ {t:'2 минути вежба за врат на работа',len:'2:05',tone:4},
+ {t:'Зошто те боли грбот кога седиш?',len:'1:10',tone:1}
+];
+const REVIEWS=[
+ {n:'Марија С.',c:'#2F5A51',w:'пред 2 недели',t:'Три години имав болка во долниот грб од седење. После 4 третмани и програмата „Здрав грб“ првпат спијам без болка.'},
+ {n:'Александар Т.',c:'#8A6A55',w:'пред 1 месец',t:'Трчам маратони и ова е единственото место каде навистина разбираат што ми треба пред трка. Спортската масажа е врвна.'},
+ {n:'Бојан Н.',c:'#243F3A',w:'пред 3 недели',t:'Закажав онлајн за една минута, платив со картичка, дојдов и немаше чекање. Така треба да изгледа.'},
+ {n:'Елена К.',c:'#7FA096',w:'пред 2 месеци',t:'Го подарив ваучерот на мајка ми, сега оди секој месец. Многу пријатен простор и професионален пристап.'},
+ {n:'Ивана П.',c:'#A58B77',w:'пред 5 дена',t:'Вратот ми беше блокиран од работа. Дарко ми покажа три вежби што ги правам секој ден и болката не се врати.'}
+];
+
+/* ---------- STATE ---------- */
+const freshBooking=()=>({step:1,svc:'sport',opt:'back',who:'najdo',date:null,time:null,name:'',phone:'',email:'',topic:'',note:'',first:false,pay:'card',done:false});
+const state={cart:[],svcDur:{},progTier:{},voucherAmt:1300,svcFilter:'all',shopFilter:'all',zone:'lower',promo:null,promoErr:'',
+  booking:freshBooking(),calMonth:null,coDone:null,coPay:'card',delivery:'pickup',co:{name:'',phone:'',email:'',address:''},scrollMap:false};
+
+/* ---------- AVAILABILITY ---------- */
+const today0=()=>{const d=new Date();d.setHours(0,0,0,0);return d;};
+const dkey=d=>d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+function hashN(s){let h=7;for(const c of s)h=(h*31+c.charCodeAt(0))%100003;return h;}
+function isOpen(d){const t=today0();const max=new Date(t);max.setDate(max.getDate()+60);return d.getDay()!==0&&d>=t&&d<=max;}
+function slotsFor(d){
+  if(!isOpen(d))return[];
+  const hrs=d.getDay()===6?[10,11,12,13,14,15]:[9,10,11,12,13,14,15,16,17,18,19,20];
+  const now=new Date();const isToday=dkey(d)===dkey(now);const k=dkey(d);
+  return hrs.map(h=>({h,label:String(h).padStart(2,'0')+':00',taken:(isToday&&h<=now.getHours())||(hashN(k+':'+h)%10<4)}));
+}
+const freeCount=d=>slotsFor(d).filter(s=>!s.taken).length;
+function dayLabel(d){const diff=Math.round((d-today0())/864e5);if(diff===0)return'Денес';if(diff===1)return'Утре';return DOW[d.getDay()]+', '+d.getDate()+' '+MONTHS[d.getMonth()];}
+function nextFree(){const t=today0();for(let i=0;i<21;i++){const d=new Date(t);d.setDate(t.getDate()+i);const s=slotsFor(d).find(x=>!x.taken);if(s)return{d,s};}return null;}
+
+/* ---------- RENDER: shared ---------- */
+function stars(){ $$('[data-stars]').forEach(el=>el.innerHTML=ICON.star.repeat(+el.dataset.stars)); }
+function heroSpine(){
+  let g='<path d="M36 70 Q100 38 164 70" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="2"/><circle cx="100" cy="176" r="34" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5"/><circle cx="100" cy="176" r="54" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/><circle cx="100" cy="176" r="76" fill="none" stroke="#fff" stroke-opacity=".18" stroke-width="1.5"/>';
+  for(let i=0;i<13;i++){const y=40+i*14.2;const x=100+Math.sin(i/12*Math.PI*1.1-.3)*9;const w=18+i*1.6;g+=`<rect class="vert" x="${(x-w/2).toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="9.5" rx="4.75" style="animation-delay:${(i*.18).toFixed(2)}s"/>`;}
+  $('#heroSpine').innerHTML=g;
+}
+function availability(){
+  const n=freeCount(today0());const nf=nextFree();
+  const nfTxt=nf?dayLabel(nf.d)+' во '+nf.s.label:'Јави се на Viber';
+  $('#nextSlot').textContent=nfTxt;
+  $('#slotChip').textContent=n>0?(n===1?'Уште 1 слободен термин денес':'Уште '+n+' слободни термини денес'):'Следен термин: '+nfTxt;
+  const now=new Date(),dw=now.getDay(),h=now.getHours();
+  const open=(dw>=1&&dw<=5&&h>=9&&h<21)||(dw===6&&h>=10&&h<16);
+  const p=$('#openPill');p.textContent=open?'Отворено сега':'Затворено сега';
+  p.style.background=open?'var(--green-soft)':'var(--skin)';p.style.color=open?'var(--house)':'var(--blush-deep)';
+}
+
+function svcCard(s){
+  const o=optOf(s,state.svcDur[s.id]);
+  const segs=s.opts.length>1?`<div class="seg" role="group" aria-label="Опција">${s.opts.map(x=>`<button type="button" data-opt="${s.id}:${x.k}" aria-pressed="${x.k===o.k}">${optLbl(x)}</button>`).join('')}</div>`:`<span class="tag" style="align-self:flex-start;background:var(--green-mist);color:var(--house)">${optLbl(o)}</span>`;
+  return `<article class="svc">
+    <button type="button" class="thumb tone-${s.tone}" data-video="svc:${s.id}" aria-label="Пушти видео: ${esc(s.video.t)}"><span class="play">${ICON.play}</span><span class="dur-tag">Видео · ${s.video.len}</span></button>
+    <div class="svc-body">
+      <h3>${s.name}</h3><p>${s.desc}</p>
+      <div class="tags">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      ${segs}
+      <div class="svc-foot"><span class="price">${fmt(o.p)}</span><button class="btn btn-primary btn-sm" type="button" data-book="${s.id}">Закажи</button></div>
+    </div></article>`;
+}
+function renderServices(){
+  const html=SERVICES.map(svcCard).join('');
+  $('#homeServices').innerHTML=html;$('#allServices').innerHTML=html;
+}
+function renderReels(){
+  $('#reels').innerHTML=REELS.map((r,i)=>`<button type="button" class="reel tone-${r.tone}" data-video="reel:${i}" aria-label="Пушти: ${esc(r.t)}"><span class="play">${ICON.play}</span><span class="rc"><b>${r.t}</b><small>${r.len} · Vigour</small></span></button>`).join('');
+}
+function renderReviews(){
+  $('#reviews').innerHTML=REVIEWS.map(r=>`<article class="review"><span class="stars">${ICON.star.repeat(5)}</span><p>${r.t}</p><div class="who"><span class="avatar" style="background:${r.c}">${r.n[0]}</span><span><b>${r.n}</b><small>Google · ${r.w}</small></span></div></article>`).join('');
+}
+
+/* ---------- BODY MAP ---------- */
+function buildBodyMap(){
+  let sp='';for(let i=0;i<13;i++)sp+=`<rect class="spine-v" x="${105-i*.25}" y="${94+i*12.4}" width="${10+i*.5}" height="8" rx="3"/>`;
+  $('#spineV').innerHTML=sp;
+  let hs='';
+  ZONES.forEach(z=>z.pts.forEach(([x,y],j)=>{
+    hs+=`<g class="hs" data-zone="${z.key}" ${j===0?`tabindex="0" role="button" aria-label="${z.name}"`:'aria-hidden="true"'}><circle class="glow" cx="${x}" cy="${y}" r="30"/><circle class="ring" cx="${x}" cy="${y}" r="9"/><circle class="dot" cx="${x}" cy="${y}" r="8"/></g>`;
+  }));
+  $('#hotspots').innerHTML=hs;
+  $('#zoneChips').innerHTML=ZONES.map(z=>`<button type="button" class="chip-btn" data-zone="${z.key}">${z.name}</button>`).join('');
+}
+function renderZone(){
+  const z=ZONES.find(x=>x.key===state.zone),s=SVC(z.svc),p=PROG(z.prog),o=optOf(s,z.opt);
+  $$('.hs').forEach(g=>g.classList.toggle('on',g.dataset.zone===z.key));
+  $$('#zoneChips [data-zone]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.zone===z.key));
+  $('#zoneResult').innerHTML=`<span class="eyebrow">Твојот избор</span><h3>${z.name}</h3><p class="sym">${z.sym}</p><p class="cause">${z.cause}</p>
+   <div class="rec-grid">
+    <div class="rec"><span class="k">Третман во студио</span><h4>${s.name}</h4><p>${o.l}, ${o.min} минути · ${fmt(o.p)}</p><div class="row"><button class="btn btn-primary btn-sm" type="button" data-book="${s.id}" data-bopt="${o.k}">Закажи</button><button class="link-btn" type="button" data-video="svc:${s.id}">Погледни видео</button></div></div>
+    <div class="rec prog"><span class="k">Програма за дома</span><h4>„${p.name}“</h4><p>${p.weeks} недели · ${p.videos} видеа · од ${fmt(p.online)}</p><div class="row"><a class="btn btn-ghost btn-sm" href="#programs">Види програма</a><button class="link-btn" type="button" data-video="prog:${p.id}">Преглед</button></div></div>
+   </div><p class="disclaimer">Ова е препорака, не дијагноза. На првиот третман правиме кратка проценка и планот го прилагодуваме на тебе.</p>`;
+}
+
+/* ---------- PROGRAMS ---------- */
+function renderPrograms(){
+  $('#homePrograms').innerHTML=['back','neck'].map(id=>{const p=PROG(id);return `<article class="pm"><span class="eyebrow">${p.weeks} недели · ${p.videos} видеа</span><h3>„${p.name}“</h3><p>${p.desc}</p><div class="row"><span class="price">од ${fmt(p.online)}</span><span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-skin btn-sm" type="button" data-video="prog:${p.id}">${ICON.play} Преглед</button><a class="btn btn-primary btn-sm" href="#programs">Види програма</a></span></div></article>`;}).join('');
+  $('#programList').innerHTML=PROGRAMS.map(p=>{
+    const tier=state.progTier[p.id]||'online';const price=tier==='plus'?p.plus:p.online;const save=p.online+p.sessVal-p.plus;
+    return `<article class="prog">
+      <button type="button" class="prog-vis tone-${p.tone}" data-video="prog:${p.id}" aria-label="Преглед на програмата ${esc(p.name)}"><span class="play">${ICON.play}</span><span class="pv-cap"><span>Погледни преглед</span><span>${p.preview}</span></span></button>
+      <div class="prog-body">
+        <div class="meta-row"><span>${p.weeks} недели</span><span>${p.videos} видеа</span><span>${p.mins} мин дневно</span><span>${p.level}</span></div>
+        <h3>„${p.name}“</h3><p style="color:var(--muted)">${p.desc}</p>
+        <ul class="ticks">${p.forWho.map(x=>`<li>${ICON.tick}<span>${x}</span></li>`).join('')}</ul>
+        <details class="curr"><summary>Што има во програмата</summary><ol>${p.curr.map(c=>`<li>${c}</li>`).join('')}</ol></details>
+        <div class="tiers" role="group" aria-label="Избери пакет">
+          <button type="button" class="tier" data-tier="${p.id}:online" aria-pressed="${tier==='online'}"><b>Онлајн</b><small>Видео програма, пристап 6 месеци, Viber поддршка</small><span class="tp">${fmt(p.online)}</span></button>
+          <button type="button" class="tier" data-tier="${p.id}:plus" aria-pressed="${tier==='plus'}"><b>Онлајн + студио</b><small>${p.plusNote} · заштедуваш ${fmt(save)}</small><span class="tp">${fmt(p.plus)}</span></button>
+        </div>
+        <div class="buy-row"><span class="price">${fmt(price)}</span><button class="btn btn-primary" type="button" data-buy="${p.id}">Купи програма</button></div>
+      </div></article>`;
+  }).join('');
+}
+
+/* ---------- SHOP ---------- */
+function renderShop(){
+  const f=state.shopFilter;
+  $$('#shopFilters [data-shop]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.shop===f));
+  $('#shopGrid').innerHTML=PRODUCTS.filter(p=>f==='all'||p.cat===f).map(p=>{
+    const isV=!!p.amounts;const price=isV?state.voucherAmt:p.price;
+    return `<article class="prod"><div class="prod-vis" style="background:${p.bg}">${p.badge?`<span class="badge">${p.badge}</span>`:''}<svg viewBox="0 0 120 100" aria-hidden="true">${p.art}</svg></div>
+      <div class="prod-body"><h3>${p.name}</h3><p>${p.desc}</p>
+      ${isV?`<div class="amounts" role="group" aria-label="Износ">${p.amounts.map(a=>`<button type="button" data-amt="${a}" aria-pressed="${a===state.voucherAmt}">${fmt(a)}</button>`).join('')}</div>`:''}
+      <div class="prod-foot"><span class="price">${fmt(price)}${p.was?`<s>${fmt(p.was)}</s>`:''}</span><button class="btn btn-primary btn-sm" type="button" data-add="${p.id}">Додај</button></div></div></article>`;
+  }).join('');
+}
+
+/* ---------- CART ---------- */
+function cartCount(){const n=state.cart.reduce((a,i)=>a+i.qty,0);const el=$('#cartCount');el.textContent=n;el.hidden=n===0;}
+function addToCart(item){const ex=state.cart.find(i=>i.id===item.id&&!i.fixed);if(ex)ex.qty++;else state.cart.push({qty:1,...item});cartCount();}
+let toastT=null;
+function toast(msg,btn){$('#toastMsg').textContent=msg;$('#toastBtn').hidden=!btn;$('#toast').hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>$('#toast').hidden=true,3800);}
+
+/* ---------- BOOKING ---------- */
+const STEPS=['Третман','Датум и час','Твои податоци','Плаќање'];
+const whoLabel=w=>w==='any'?'Прв слободен терапевт':'Дарко';
+const bOpt=()=>optOf(SVC(state.booking.svc),state.booking.opt);
+function bPrice(){return bOpt().p;}
+function renderBooking(){
+  const b=state.booking,s=SVC(b.svc),bo=bOpt();
+  $('#bookSteps').innerHTML=STEPS.map((l,i)=>{const n=i+1;const c=b.done||n<b.step?'done':n===b.step?'cur':'';return `<li class="${c}"><span class="v">${c==='done'?ICON.tickS:''}</span>${l}</li>`;}).join('');
+  const P=$('#bookPanel');P.classList.remove('fade-in');void P.offsetWidth;P.classList.add('fade-in');
+  let h='';
+  if(b.done){
+    const p=PROG(b.svc==='sport'?'back':'mobility');
+    h=`<div class="check-ok">${ICON.tick}</div><h3>Терминот е закажан! (демо)</h3>
+      <p class="sub">${s.name}, ${optLbl(bo)} · ${dayLabel(b.date)} во ${b.time} · ${whoLabel(b.who)}. Плаќање во студио: ${fmt(bPrice())}.</p>
+      <p>Потврда и потсетник 24 часа пред терминот стигнуваат на Viber на <b>${esc(b.phone)}</b>. Можеш да го поместиш терминот со еден клик од пораката.</p>
+      <div class="rec prog" style="margin-top:20px"><span class="k">Додај за дома</span><h4>Програма „${p.name}“</h4><p>Масажата носи олеснување, вежбите носат решение. ${p.weeks} недели, ${p.mins} минути дневно.</p><div class="row"><span class="price">${fmt(p.online)}</span><button class="btn btn-primary btn-sm" type="button" data-buy="${p.id}">Додај програма</button></div></div>
+      <div class="nav-row"><button class="btn btn-ghost" type="button" data-bnew>Закажи уште еден</button><a class="btn btn-primary" href="#home">Назад на почетна</a></div>`;
+  } else if(b.step===1){
+    h=`<h3>Избери третман</h3><p class="sub">Не си сигурен? <a href="#home" data-goto-map="1">Пробај ја мапата на болка.</a></p>
+      <div class="opt-list">${SERVICES.map(x=>`<button type="button" class="opt" data-bsvc="${x.id}" aria-pressed="${b.svc===x.id}"><span><b>${x.name}</b><small>${x.opts.map(optLbl).join(' / ')}</small></span><span class="p">${x.opts.length>1?'од ':''}${fmt(Math.min(...x.opts.map(o=>o.p)))}</span></button>`).join('')}</div>
+      <div class="row-2" style="margin-top:20px">
+        <div class="field"><span class="lbl">Опција</span><div class="seg">${s.opts.map(o=>`<button type="button" data-bo="${o.k}" aria-pressed="${o.k===bo.k}">${optLbl(o)}</button>`).join('')}</div></div>
+        <div class="field"><label for="bWho">Терапевт</label><select id="bWho"><option value="najdo" ${b.who==='najdo'?'selected':''}>Дарко</option><option value="any" ${b.who==='any'?'selected':''}>Прв слободен терапевт</option></select></div>
+      </div>
+      <div class="nav-row"><span></span><button class="btn btn-primary" type="button" data-bnext>Продолжи</button></div>`;
+  } else if(b.step===2){
+    if(!b.date){const nf=nextFree();if(nf)b.date=nf.d;}
+    if(!state.calMonth){const t=b.date||today0();state.calMonth=new Date(t.getFullYear(),t.getMonth(),1);}
+    const m=state.calMonth,y=m.getFullYear(),mo=m.getMonth();
+    const t0=today0();const minM=new Date(t0.getFullYear(),t0.getMonth(),1);const maxD=new Date(t0);maxD.setDate(maxD.getDate()+60);const maxM=new Date(maxD.getFullYear(),maxD.getMonth(),1);
+    const lead=(new Date(y,mo,1).getDay()+6)%7;const days=new Date(y,mo+1,0).getDate();
+    let cells=['Пон','Вто','Сре','Чет','Пет','Саб','Нед'].map(d=>`<span class="dow">${d}</span>`).join('')+'<span></span>'.repeat(lead);
+    for(let d=1;d<=days;d++){const dt=new Date(y,mo,d);const fc=freeCount(dt);const ok=isOpen(dt)&&fc>0;const sel=b.date&&dkey(b.date)===dkey(dt);
+      cells+=`<button type="button" class="day${dkey(dt)===dkey(t0)?' today':''}" data-bday="${y}-${mo}-${d}" ${ok?'':'disabled'} aria-pressed="${!!sel}" aria-label="${d} ${MONTHS[mo]}${ok?', '+fc+' слободни':', нема термини'}">${d}${ok&&fc<=3?'<span class="few"></span>':''}</button>`;}
+    let slots='<p class="sub" style="margin:14px 0 0">Избери датум за да ги видиш слободните часови.</p>';
+    if(b.date){const sl=slotsFor(b.date);slots=`<p class="lbl" style="margin-top:22px">Слободни часови · ${dayLabel(b.date)}</p><div class="slots">${sl.map(x=>`<button type="button" class="slot" data-bslot="${x.label}" ${x.taken?'disabled':''} aria-pressed="${b.time===x.label}">${x.label}</button>`).join('')}</div>`;}
+    h=`<h3>Избери датум и час</h3><p class="sub">Точка под датумот значи дека има уште малку слободни термини.</p>
+      <div class="cal-head"><button class="cal-nav" type="button" data-cal="-1" aria-label="Претходен месец" ${m<=minM?'disabled':''}>${ICON.left}</button><b>${MONTHS[mo]} ${y}</b><button class="cal-nav" type="button" data-cal="1" aria-label="Следен месец" ${m>=maxM?'disabled':''}>${ICON.right}</button></div>
+      <div class="cal">${cells}</div>${slots}
+      <div class="nav-row"><button class="btn btn-ghost" type="button" data-bback>Назад</button><button class="btn btn-primary" type="button" data-bnext ${b.time?'':'disabled'}>Продолжи</button></div>`;
+  } else if(b.step===3){
+    h=`<h3>Твои податоци</h3><p class="sub">Потврдата и потсетникот стигнуваат на Viber, затоа внеси го бројот што го користиш.</p>
+      <div style="display:grid;gap:14px">
+        <div class="row-2"><div class="field"><label for="bName">Име и презиме</label><input id="bName" data-bf="name" autocomplete="name" value="${esc(b.name)}"></div>
+        <div class="field"><label for="bPhone">Телефон (Viber)</label><input id="bPhone" data-bf="phone" type="tel" autocomplete="tel" placeholder="07X XXX XXX" value="${esc(b.phone)}"></div></div>
+        <div class="field"><label for="bEmail">Е-пошта (опционално)</label><input id="bEmail" data-bf="email" type="email" autocomplete="email" value="${esc(b.email)}"></div>
+        <div class="field"><label for="bTopic">Што те мачи?</label><select id="bTopic" data-bf="topic"><option value="">Избери</option>${ZONES.map(z=>`<option ${b.topic===z.name?'selected':''}>${z.name}</option>`).join('')}<option ${b.topic==='Само релаксација'?'selected':''}>Само релаксација</option></select></div>
+        <div class="field"><label for="bNote">Напомена за терапевтот</label><textarea id="bNote" data-bf="note" rows="3" placeholder="Повреди, операции, бременост, што треба да знаеме">${esc(b.note)}</textarea></div>
+        <label style="display:flex;gap:10px;align-items:center;font-size:.94rem;cursor:pointer"><input type="checkbox" id="bFirst" data-bf="first" style="width:auto" ${b.first?'checked':''}> Првпат доаѓам во Vigour</label>
+        <p class="err" id="bErr"></p>
+      </div>
+      <div class="nav-row"><button class="btn btn-ghost" type="button" data-bback>Назад</button><button class="btn btn-primary" type="button" data-bnext>Продолжи</button></div>`;
+  } else {
+    const pr=bPrice();
+    h=`<h3>Како сакаш да платиш?</h3><p class="sub">Терминот е резервиран 10 минути додека го завршиш закажувањето.</p>
+      <div class="opt-list">
+        <button type="button" class="opt" data-bpay="card" aria-pressed="${b.pay==='card'}"><span><b>Плати онлајн со картичка</b><small>5% попуст · терминот е гарантиран</small></span><span class="p">${fmt(pr*.95)}</span></button>
+        <button type="button" class="opt" data-bpay="cash" aria-pressed="${b.pay==='cash'}"><span><b>Плати во студио</b><small>Готовина или картичка на лице место</small></span><span class="p">${fmt(pr)}</span></button>
+      </div>
+      ${b.first?`<p class="sub" style="margin:14px 0 0">${b.pay==='card'?'Внеси го кодот <b>PRVPAT</b> на следниот чекор за уште 10% попуст.':'10% попуст за прв третман се пресметува во студио.'}</p>`:''}
+      <p class="disclaimer">Бесплатно откажување или поместување до 12 часа пред терминот.</p>
+      <div class="nav-row"><button class="btn btn-ghost" type="button" data-bback>Назад</button><button class="btn btn-primary" type="button" data-bconfirm>${b.pay==='card'?'Продолжи кон плаќање':'Потврди термин'}</button></div>`;
+  }
+  P.innerHTML=h;
+  const pr=bPrice(),card=b.pay==='card';
+  const row=(k,v)=>`<div class="sum-row"><span>${k}</span><span>${v}</span></div>`;
+  $('#bookSummary').innerHTML=`<h4>Твој термин</h4>${row('Третман',s.name)}${row('Опција',optLbl(bo))}${row('Терапевт',whoLabel(b.who))}${row('Датум',b.date?dayLabel(b.date):'не е избран')}${row('Час',b.time||'не е избран')}${row('Плаќање',card?'Онлајн, картичка':'Во студио')}
+    <div class="sum-total"><span>Вкупно</span><b>${fmt(card?pr*.95:pr)}</b></div>${card?`<p class="disclaimer" style="margin-top:6px">Вклучен 5% попуст за онлајн плаќање.</p>`:''}`;
+}
+function bookNext(){
+  const b=state.booking;
+  if(b.step===2&&!b.time)return;
+  if(b.step===3){const ok=b.name.trim().length>1&&b.phone.replace(/\D/g,'').length>=8;if(!ok){$('#bErr').textContent='Внеси име и телефонски број за да ти испратиме потврда.';return;}}
+  b.step++;renderBooking();
+}
+function bookConfirm(){
+  const b=state.booking,s=SVC(b.svc),pr=bPrice(),bo=bOpt();
+  if(b.pay==='card'){
+    addToCart({id:'bk-'+Date.now(),type:'booking',fixed:true,digital:true,title:s.name+' · '+optLbl(bo),sub:dayLabel(b.date)+' во '+b.time+' · '+whoLabel(b.who),price:Math.round(pr*.95)});
+    if(!state.co.name)state.co.name=b.name;if(!state.co.phone)state.co.phone=b.phone;if(!state.co.email)state.co.email=b.email;
+    state.booking=freshBooking();state.calMonth=null;go('checkout');
+  } else {b.done=true;renderBooking();window.scrollTo(0,0);}
+}
+
+/* ---------- CHECKOUT ---------- */
+function itemIcon(i){const m={booking:[ICON.cal,'var(--green-mist)'],program:[ICON.play,'var(--skin-2)'],voucher:[ICON.gift,'var(--skin)'],pack:[ICON.gift,'var(--green-mist)'],gear:[ICON.bag,'var(--skin-2)']}[i.type];return `<span class="item-ico" style="background:${m[1]}">${m[0]}</span>`;}
+function totals(){const physical=state.cart.some(i=>i.physical);const sub=state.cart.reduce((a,i)=>a+i.price*i.qty,0);const disc=state.promo?Math.round(sub*.1):0;const del=physical?{pickup:0,skopje:150,mk:200}[state.delivery]:0;return{sub,disc,del,total:sub-disc+del,physical};}
+function renderCheckout(){
+  const R=$('#checkoutRoot');
+  if(state.coDone){const o=state.coDone;
+    R.innerHTML=`<div class="panel" style="max-width:640px;margin-inline:auto"><div class="check-ok">${ICON.tick}</div><h3>Плаќањето е успешно (демо)</h3><p class="sub">Број на нарачка <b>${o.no}</b> · Платено ${fmt(o.total)}</p>
+      <ul class="ticks">${o.hasBooking?`<li>${ICON.tick}<span>Терминот е потврден. Потсетник стигнува на Viber ден пред терминот.</span></li>`:''}${o.hasProgram?`<li>${ICON.tick}<span>Пристапот до програмата стигнува на е-пошта веднаш.</span></li>`:''}${o.hasVoucher?`<li>${ICON.tick}<span>Ваучерот стигнува на е-пошта, спремен за печатење или препраќање.</span></li>`:''}${o.hasGear?`<li>${ICON.tick}<span>Производите се спремни за подигање или достава за 1 до 2 работни дена.</span></li>`:''}</ul>
+      <div class="nav-row"><a class="btn btn-ghost" href="#shop">Продавница</a><a class="btn btn-primary" href="#home">Назад на почетна</a></div></div>`;return;}
+  if(!state.cart.length){R.innerHTML=`<div class="panel" style="text-align:center;max-width:560px;margin-inline:auto"><h3>Кошничката е празна</h3><p class="sub">Закажи термин, избери програма или подари ваучер.</p><div class="msg-btns" style="justify-content:center"><a class="btn btn-primary" href="#booking">Закажи термин</a><a class="btn btn-ghost" href="#programs">Програми</a><a class="btn btn-ghost" href="#shop">Продавница</a></div></div>`;return;}
+  const needsCard=state.cart.some(i=>i.digital);if(needsCard)state.coPay='card';
+  const T=totals(),co=state.co;
+  const items=state.cart.map((i,ix)=>`<div class="item">${itemIcon(i)}<div><b>${i.title}</b><small>${i.sub||''}</small>${i.fixed||i.type==='program'?`<div><button class="rm" type="button" data-rm="${ix}">Отстрани</button></div>`:`<div class="qty"><button type="button" data-qty="${ix}:-1" aria-label="Помалку">−</button><span>${i.qty}</span><button type="button" data-qty="${ix}:1" aria-label="Повеќе">+</button></div>`}</div><span class="ip">${fmt(i.price*i.qty)}</span></div>`).join('');
+  const deliv=T.physical?`<div class="co-sec"><h4>Подигање или достава</h4><div class="opt-list">
+      <button type="button" class="opt" data-deliv="pickup" aria-pressed="${state.delivery==='pickup'}"><span><b>Подигни во студио</b><small>Спремно истиот ден</small></span><span class="p">бесплатно</span></button>
+      <button type="button" class="opt" data-deliv="skopje" aria-pressed="${state.delivery==='skopje'}"><span><b>Достава во Скопје</b><small>1 работен ден</small></span><span class="p">150 ден.</span></button>
+      <button type="button" class="opt" data-deliv="mk" aria-pressed="${state.delivery==='mk'}"><span><b>Достава низ Македонија</b><small>1 до 2 работни дена, плаќање и при достава</small></span><span class="p">200 ден.</span></button></div>
+      ${state.delivery!=='pickup'?`<div class="field" style="margin-top:12px"><label for="coAddr">Адреса за достава</label><input id="coAddr" data-co="address" value="${esc(co.address)}"></div>`:''}</div>`:'';
+  const cardF=state.coPay==='card'?`<div class="card-fields"><div class="field"><label for="ccNum">Број на картичка</label><input id="ccNum" inputmode="numeric" placeholder="0000 0000 0000 0000" autocomplete="off"></div><div class="row-2"><div class="field"><label for="ccExp">Важи до</label><input id="ccExp" placeholder="ММ/ГГ" autocomplete="off"></div><div class="field"><label for="ccCvc">CVV</label><input id="ccCvc" inputmode="numeric" placeholder="123" autocomplete="off"></div></div></div>`:'';
+  R.innerHTML=`<div class="co-layout"><form class="panel" id="coForm" novalidate>
+    <div class="co-sec"><h4>Контакт</h4><div style="display:grid;gap:12px">
+      <div class="row-2"><div class="field"><label for="coName">Име и презиме</label><input id="coName" data-co="name" autocomplete="name" value="${esc(co.name)}"></div><div class="field"><label for="coPhone">Телефон (Viber)</label><input id="coPhone" data-co="phone" type="tel" autocomplete="tel" value="${esc(co.phone)}"></div></div>
+      <div class="field"><label for="coEmail">Е-пошта</label><input id="coEmail" data-co="email" type="email" autocomplete="email" placeholder="за потврда и пристап до програмите" value="${esc(co.email)}"></div></div></div>
+    ${deliv}
+    <div class="co-sec"><h4>Начин на плаќање</h4><div class="opt-list">
+      <button type="button" class="opt" data-copay="card" aria-pressed="${state.coPay==='card'}"><span><b>Платежна картичка</b><small>Visa, Mastercard, Maestro · безбедно преку cPay</small></span><span class="p">${ICON.lock}</span></button>
+      <button type="button" class="opt" data-copay="cash" aria-pressed="${state.coPay==='cash'}" ${needsCard?'disabled style="opacity:.55;cursor:not-allowed"':''}><span><b>Готовина</b><small>${needsCard?'Не е достапно за програми, ваучери и термини со онлајн попуст.':'Плаќаш во студио или при достава.'}</small></span></button>
+    </div>${cardF}</div>
+    <p class="err" id="coErr"></p>
+    <button class="btn btn-primary" type="submit" style="width:100%">${state.coPay==='card'?'Плати '+fmt(T.total):'Потврди нарачка · '+fmt(T.total)}</button>
+    <p class="secure">${ICON.lock} Демо: не внесувај вистински податоци од картичка.</p>
+  </form>
+  <aside class="summary"><h4>Нарачка</h4>${items}
+    <div class="promo"><input id="promoIn" placeholder="Код за попуст" value="${state.promo||''}" aria-label="Код за попуст"><button class="btn btn-ghost btn-sm" type="button" data-promo>Примени</button></div>
+    <p class="err" style="margin-top:6px">${state.promoErr}</p>
+    <div class="sum-row"><span>Меѓузбир</span><span>${fmt(T.sub)}</span></div>
+    ${T.disc?`<div class="sum-row"><span>Код ${state.promo} (10%)</span><span style="color:var(--green)">−${fmt(T.disc)}</span></div>`:''}
+    ${T.physical?`<div class="sum-row"><span>Достава</span><span>${T.del?fmt(T.del):'бесплатно'}</span></div>`:''}
+    <div class="sum-total"><span>Вкупно</span><b>${fmt(T.total)}</b></div></aside></div>`;
+}
+function submitCheckout(e){
+  e.preventDefault();const co=state.co,T=totals();const digital=state.cart.some(i=>i.digital);
+  let err='';
+  if(co.name.trim().length<2||co.phone.replace(/\D/g,'').length<8)err='Внеси име и телефонски број.';
+  else if(digital&&!/^\S+@\S+\.\S+$/.test(co.email))err='Внеси е-пошта: таму стигнуваат потврдата и пристапот.';
+  else if(T.physical&&state.delivery!=='pickup'&&co.address.trim().length<4)err='Внеси адреса за достава.';
+  if(err){$('#coErr').textContent=err;return;}
+  const has=t=>state.cart.some(i=>i.type===t);
+  state.coDone={no:'NJ-'+(1000+Math.floor(Math.random()*9000)),total:T.total,hasBooking:has('booking'),hasProgram:has('program'),hasVoucher:has('voucher'),hasGear:has('gear')||has('pack')};
+  state.cart=[];state.promo=null;cartCount();renderCheckout();window.scrollTo(0,0);
+}
+
+/* ---------- VIDEO ---------- */
+let vT=0,vLen=0,vTimer=null,lastFocus=null;
+const toSec=s=>{const[m,x]=s.split(':').map(Number);return m*60+x;};
+const ft=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+function vUpd(){$('#vBar').style.width=(vLen?vT/vLen*100:0)+'%';$('#vTime').textContent=ft(vT)+' / '+ft(vLen);}
+function setPlaying(p){clearInterval(vTimer);$('#player').classList.toggle('playing',p);$('#vPlay').innerHTML=p?ICON.pause:ICON.play;$('#vPlay').setAttribute('aria-label',p?'Паузирај':'Пушти');
+  if(p){if(vT>=vLen)vT=0;vTimer=setInterval(()=>{vT+=.25;if(vT>=vLen){vT=vLen;setPlaying(false);}vUpd();},250);}vUpd();}
+function openVideo(title,sub,len,vertical){lastFocus=document.activeElement;$('#vTitle').textContent=title;$('#vSub').textContent=sub||'';vLen=toSec(len);vT=0;$('#player').classList.toggle('vertical',!!vertical);$('#videoModal').hidden=false;setPlaying(true);$('#vClose').focus();}
+function closeVideo(){setPlaying(false);$('#videoModal').hidden=true;if(lastFocus)lastFocus.focus();}
+function playRef(v){const[k,id]=v.split(':');
+  if(k==='svc'){const s=SVC(id);openVideo(s.video.t,s.video.sub,s.video.len,false);}
+  else if(k==='reel'){const r=REELS[+id];openVideo(r.t,'Кратко видео · '+r.len,r.len,true);}
+  else if(k==='prog'){const p=PROG(id);openVideo('Преглед: „'+p.name+'“',p.desc,p.preview,false);}}
+
+/* ---------- ROUTER ---------- */
+const ROUTES=['home','services','programs','shop','booking','checkout','contact'];
+function go(r){if(location.hash==='#'+r)route();else location.hash=r;}
+function route(){
+  let r=(location.hash||'#home').slice(1);if(!ROUTES.includes(r))r='home';
+  $$('.page').forEach(p=>p.hidden=p.id!=='page-'+r);
+  $$('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+r));
+  $('#nav').classList.remove('open');$('#burger').setAttribute('aria-expanded','false');
+  if(r!=='checkout')state.coDone=null;
+  if(r==='booking')renderBooking();
+  if(r==='checkout')renderCheckout();
+  if(r==='home'&&state.scrollMap){state.scrollMap=false;setTimeout(()=>$('#bodymap').scrollIntoView({behavior:'smooth'}),30);}
+  else window.scrollTo(0,0);
+}
+
+/* ---------- EVENTS ---------- */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-video],[data-opt],[data-book],[data-zone],[data-filter],[data-shop],[data-amt],[data-add],[data-tier],[data-buy],[data-bsvc],[data-bo],[data-bnext],[data-bback],[data-bday],[data-bslot],[data-bpay],[data-bconfirm],[data-bnew],[data-cal],[data-copay],[data-deliv],[data-qty],[data-rm],[data-promo],[data-scroll],[data-goto-map],[data-copy],#cartBtn,#burger,#toastBtn,#vPlay,#vClose,#notesToggle');
+  if(!t){if(e.target.id==='videoModal')closeVideo();return;}
+  const d=t.dataset,b=state.booking;
+  if(t.id==='notesToggle'){const on=!document.body.classList.contains('notes-on');document.body.classList.toggle('notes-on',on);t.setAttribute('aria-pressed',on);try{localStorage.setItem('najdoNotes',on?'1':'0');}catch(_){}return;}
+  if(t.id==='cartBtn'){go('checkout');return;}
+  if(t.id==='burger'){const o=$('#nav').classList.toggle('open');t.setAttribute('aria-expanded',o);return;}
+  if(t.id==='toastBtn'){$('#toast').hidden=true;go('checkout');return;}
+  if(t.id==='vPlay'){setPlaying(!$('#player').classList.contains('playing'));return;}
+  if(t.id==='vClose'){closeVideo();return;}
+  if(d.video){playRef(d.video);return;}
+  if(d.opt){const[id,k]=d.opt.split(':');state.svcDur[id]=k;renderServices();return;}
+  if(d.book){state.booking={...freshBooking(),svc:d.book,opt:d.bopt||state.svcDur[d.book]||SVC(d.book).def,step:2};state.calMonth=null;go('booking');return;}
+  if(d.zone){state.zone=d.zone;renderZone();return;}
+  if(d.filter){state.svcFilter=d.filter;renderServices();return;}
+  if(d.shop){state.shopFilter=d.shop;renderShop();return;}
+  if(d.amt){state.voucherAmt=+d.amt;renderShop();return;}
+  if(d.add){const p=PRODUCTS.find(x=>x.id===d.add);
+    if(p.amounts)addToCart({id:'voucher-'+state.voucherAmt,type:'voucher',digital:true,title:'Подарок ваучер '+fmt(state.voucherAmt),sub:'Дигитален, на е-пошта',price:state.voucherAmt});
+    else addToCart({id:p.id,type:p.cat==='pack'?'pack':'gear',physical:p.cat==='gear',title:p.name,sub:p.cat==='pack'?'Се користи при закажување':'',price:p.price});
+    toast('Додадено во кошничка',true);return;}
+  if(d.tier){const[id,tr]=d.tier.split(':');state.progTier[id]=tr;renderPrograms();return;}
+  if(d.buy){const p=PROG(d.buy),tr=state.progTier[p.id]||'online';addToCart({id:'prog-'+p.id+'-'+tr,type:'program',digital:true,fixed:false,title:'Програма „'+p.name+'“',sub:tr==='plus'?'Онлајн + студио · '+p.plusNote.replace('+ ',''):'Онлајн · пристап 6 месеци',price:tr==='plus'?p.plus:p.online});
+    const it=state.cart.find(i=>i.id==='prog-'+p.id+'-'+tr);if(it)it.qty=1;cartCount();go('checkout');return;}
+  if(d.bsvc){b.svc=d.bsvc;const s=SVC(d.bsvc);if(!s.opts.some(o=>o.k===b.opt))b.opt=s.def;renderBooking();return;}
+  if(d.bo){b.opt=d.bo;renderBooking();return;}
+  if('bnext' in d){bookNext();return;}
+  if('bback' in d){b.step=Math.max(1,b.step-1);renderBooking();return;}
+  if(d.bday){const[y,m,dd]=d.bday.split('-').map(Number);b.date=new Date(y,m,dd);b.time=null;renderBooking();return;}
+  if(d.bslot){b.time=d.bslot;renderBooking();return;}
+  if(d.cal){const m=state.calMonth;state.calMonth=new Date(m.getFullYear(),m.getMonth()+(+d.cal),1);renderBooking();return;}
+  if(d.bpay){b.pay=d.bpay;renderBooking();return;}
+  if('bconfirm' in d){bookConfirm();return;}
+  if('bnew' in d){state.booking=freshBooking();state.calMonth=null;renderBooking();return;}
+  if(d.copay){if(t.disabled)return;state.coPay=d.copay;renderCheckout();return;}
+  if(d.deliv){state.delivery=d.deliv;renderCheckout();return;}
+  if(d.qty){const[ix,dl]=d.qty.split(':').map(Number);const it=state.cart[ix];it.qty+=dl;if(it.qty<1)state.cart.splice(ix,1);cartCount();renderCheckout();return;}
+  if(d.rm){state.cart.splice(+d.rm,1);cartCount();renderCheckout();return;}
+  if('promo' in d){const v=($('#promoIn').value||'').trim().toUpperCase();if(v==='PRVPAT'){state.promo=v;state.promoErr='';}else{state.promo=null;state.promoErr=v?'Кодот не е валиден. Пробај PRVPAT.':'';}renderCheckout();return;}
+  if(d.scroll){$('#'+d.scroll).scrollIntoView({behavior:'smooth'});return;}
+  if(d.gotoMap){e.preventDefault();if((location.hash||'#home')==='#home')$('#bodymap').scrollIntoView({behavior:'smooth'});else{state.scrollMap=true;location.hash='home';}return;}
+  if(d.copy){const txt=d.copy;const done=()=>toast('Бројот е копиран: '+txt,false);
+    try{navigator.clipboard.writeText(txt).then(done,()=>toast('Бројот: '+txt,false));}catch(_){toast('Бројот: '+txt,false);}return;}
+});
+document.addEventListener('keydown',e=>{
+  const hs=e.target.closest&&e.target.closest('.hs');
+  if(hs&&(e.key==='Enter'||e.key===' ')){e.preventDefault();state.zone=hs.dataset.zone;renderZone();$(`.hs[data-zone="${state.zone}"][tabindex]`).focus();}
+  if(e.key==='Escape'){if(!$('#videoModal').hidden)closeVideo();$('#nav').classList.remove('open');}
+});
+document.addEventListener('input',e=>{
+  const t=e.target;
+  if(t.dataset.bf){state.booking[t.dataset.bf]=t.type==='checkbox'?t.checked:t.value;}
+  if(t.dataset.co){state.co[t.dataset.co]=t.value;}
+});
+document.addEventListener('change',e=>{
+  const t=e.target;
+  if(t.id==='bWho'){state.booking.who=t.value;renderBooking();}
+  if(t.dataset.bf){state.booking[t.dataset.bf]=t.type==='checkbox'?t.checked:t.value;}
+});
+document.addEventListener('submit',e=>{
+  if(e.target.id==='coForm')submitCheckout(e);
+  if(e.target.id==='contactForm'){e.preventDefault();const n=$('#cName').value.trim(),p=$('#cPhone').value.replace(/\D/g,'');
+    if(n.length<2||p.length<8){$('#cErr').textContent='Внеси име и телефонски број за да те контактираме.';return;}
+    $('#contactForm').hidden=true;$('#contactOk').hidden=false;}
+});
+window.addEventListener('hashchange',route);
+
+/* ---------- INIT ---------- */
+try{if(localStorage.getItem('najdoNotes')==='1'){document.body.classList.add('notes-on');$('#notesToggle').setAttribute('aria-pressed','true');}}catch(_){}
+stars();heroSpine();availability();buildBodyMap();renderZone();renderServices();renderReels();renderReviews();renderPrograms();renderShop();cartCount();route();
+})();
+</script>
+
+
+</body></html>
