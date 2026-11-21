@@ -15,6 +15,27 @@ database.sqlite
 
 .env
 .env.*
+!.env.example
+
+# Secrets / credentials — never commit
+*.pem
+*.key
+*.p12
+*.crt
+credentials*.json
+client_secret*.json
+service-account*.json
+
+# Any local SQLite database (dev data contains customer bookings)
+*.sqlite
+*.sqlite-journal
+*.db
+
+# Personal Claude Code settings (shared .claude/settings.json is fine)
+.claude/settings.local.json
+# Local symlink to .agents/skills (absolute path) + AI-toolkit lockfile — machine-local tooling
+.claude/skills
+skills-lock.json
 
 
 
