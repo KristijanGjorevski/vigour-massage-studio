@@ -30,38 +30,15 @@
   };
 
   /**
-   * Detect client location:
-   * - Macedonia (MK) -> 'mk'
-   * - Anywhere outside Macedonia -> 'en'
+   * Macedonian first: only the header has an English version so far (the other
+   * blocks are Macedonian only), so auto-detecting English produced a mixed page.
+   * English is shown only when the visitor picks EN in the switcher.
    */
-  function detectClientLanguage(header) {
-    // 1. Explicit user choice in localStorage
-    const saved = localStorage.getItem('vm_language');
-    if (saved === 'mk' || saved === 'en') return saved;
-
-    // 2. Shopify Native Geolocation (localization.country.iso_code)
-    const country = (header.dataset.country || '').trim().toUpperCase();
-    if (country) {
-      return country === 'MK' ? 'mk' : 'en';
-    }
-
-    // 3. Shopify Locale URL path (/mk or /en)
-    const locale = (header.dataset.locale || '').trim().toLowerCase();
-    if (locale) {
-      return locale.startsWith('mk') ? 'mk' : 'en';
-    }
-
-    // 4. Browser Intl Timezone & Navigator Language detection
+  function detectClientLanguage() {
     try {
-      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (tz === 'Europe/Skopje') return 'mk';
-
-      const navLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
-      if (navLang.startsWith('mk')) return 'mk';
+      if (localStorage.getItem('vm_language') === 'en') return 'en';
     } catch (e) {}
-
-    // 5. Default standard: outside Macedonia -> English
-    return 'en';
+    return 'mk';
   }
 
   function applyLanguage(lang, header) {
