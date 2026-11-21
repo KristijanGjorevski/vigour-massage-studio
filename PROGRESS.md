@@ -72,26 +72,77 @@ Picked up the codebase built with another AI, analysed it, and worked through th
    - In the dashboard click "Поврзи Google Calendar" and test a booking lands in Darko's calendar at the right Skopje time.
 3. **Production deploy:** `shopify app deploy` (not run yet). Also choose hosting — SQLite is fine for a single server but needs a persistent disk; consider Postgres.
 
-### Design implementation (inserted 2026-11-21 — do this before the cleanup in B)
-Approved design = `docs/design/vigour-prototype.html` (+ `docs/design/README.md` with tokens, pages, data). The existing 14 blocks were
-built from an earlier look; they must be brought in line with the prototype. Preview with `shopify app dev` (needs Shopify login) on the dev store.
+### Design implementation, in phases (do these before the cleanup in B)
 
-**D0. Audit (first, no code changes):** render each block on the dev store next to the prototype, list per-block differences. Known gaps already:
-- Tokens: code uses Inter + gold `#C5A880`; prototype uses **Onest + Cormorant Garamond italic accent** and blush `#C7B6A6/#8A6A55`, paper `#F7F3EE`. Update `vigour-tokens.css`.
-- Missing entirely: **Shop** (packs, vouchers, gear), **cart/checkout**, **programs purchase with Онлајн / Онлајн+студио tiers**, FAQ, services **Back/Full-body toggle**, hero **arch + spine animation**, sticky **mobile bottom bar**, header live "slots today" chip + cart icon, **open-now pill** + hours table, 4-step booking with calendar/slot grid/summary/pay choice.
-- Data mismatch: hourly slots + Mon–Fri 09–21 / Sat 10–16 / Sun closed (code: 8 fixed slots, 7 days); price list 800/1300, 1000/1500, 500, 2500 (check seeded prices).
+Approved design: `docs/design/vigour-prototype.html`. `docs/design/README.md` lists its colours, fonts, pages and business data.
+The existing 14 blocks were built from an earlier look, so they must be brought in line with the prototype.
+Preview with `shopify app dev` (needs a Shopify login) on the dev store.
 
-**D1. Foundation:** tokens/fonts, buttons, cards, section scaffolding, header + footer + mobile bar, hero (arch, spine, live next slot).
-**D2. Content blocks:** trust strip, pain map (7 zones, recommendations link to service + program), services (toggle, video modal), reels, how-it-works, founder, reviews, PRVPAT band, contact + FAQ.
-**D3. Booking:** rebuild booking-form as the 4-step flow (calendar 60 days, slot grid, summary, pay card −5% / in studio, PRVPAT −10%); update `schedule.server.ts` hours + slot grid + service options (back/full → duration).
-**D4. Commerce (needs decisions):** programs, packs, vouchers, gear as real Shopify products/variants; cart + checkout.
-  - Open question: prototype says card payments via **cPay (CaSys)** — Shopify Payments isn't available in North Macedonia; confirm gateway before building checkout.
-  - Open question: how are bookings paid online (card −5%) — Shopify checkout vs app-side? Decide with D4.
-**D5. Page templates:** map the prototype's pages (`home, services, programs, shop, booking, contact`) to Shopify theme pages/templates that use the app blocks; set up nav.
-**D6. QA:** mobile (≤480px) + desktop screenshots vs prototype, Lighthouse, keyboard/focus, `prefers-reduced-motion`.
-Placeholders to replace with real content: photos/video, founder portrait, address, Google reviews + rating, real YouTube/video IDs.
+Each phase is done in order, on its own git branch. Tick a step when it's done.
 
-### B. Step 5 — Cleanup (do after the design work; some items overlap D2/D3)
+#### Phase 1: Audit the current design (no code changes)
+
+- [ ] 1.1 Get `shopify app dev` running and add all 14 blocks to a test page on the dev store
+- [ ] 1.2 Screenshot each block (desktop + phone) next to the same section of the prototype
+- [ ] 1.3 Write a per-block list of differences into `docs/design/audit.md`
+- Gaps already known:
+  - Colours and fonts: code uses Inter + gold `#C5A880`; prototype uses Onest + Cormorant Garamond italic accent, blush `#C7B6A6` / `#8A6A55`, paper `#F7F3EE`
+  - Missing entirely: shop, cart and checkout, program tiers, FAQ, back/full-body price toggle, hero arch + spine animation, mobile bottom bar, header "slots today" chip + cart icon, open-now pill + hours table, 4-step booking
+  - Data mismatch: prototype has hourly slots, Mon–Fri 09–21, Sat 10–16, Sun closed (code: 8 fixed slots, 7 days); prices 800/1300, 1000/1500, 500, 2500 (check seeded prices)
+
+#### Phase 2: Brand foundation
+
+- [ ] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
+- [ ] 2.2 Shared buttons, cards and section spacing
+- [ ] 2.3 Header: logo, nav, live "slots today" chip, cart icon, Book button, mobile menu
+- [ ] 2.4 Footer
+- [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
+- [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
+
+#### Phase 3: Home page sections
+
+- [ ] 3.1 Trust strip (4 stats)
+- [ ] 3.2 Pain map: 7 zones, each recommends a treatment + a program
+- [ ] 3.3 Services: back/full-body toggle that changes price and duration, video popup
+- [ ] 3.4 Video reels (9:16, swipe on phone)
+- [ ] 3.5 How it works (4 steps)
+- [ ] 3.6 Founder section
+- [ ] 3.7 Reviews carousel
+- [ ] 3.8 First-visit offer band (code PRVPAT)
+- [ ] 3.9 Contact: hours table, open-now pill, map, message form, FAQ
+
+#### Phase 4: Booking flow
+
+- [ ] 4.1 Update `schedule.server.ts`: opening hours, hourly slots, Sundays closed
+- [ ] 4.2 Service options: back / full body, each with its own duration and price
+- [ ] 4.3 Step 1: choose treatment
+- [ ] 4.4 Step 2: calendar (60 days ahead) + slot grid
+- [ ] 4.5 Step 3: your details
+- [ ] 4.6 Step 4: payment choice (card −5% or in studio) + PRVPAT −10% for first visits
+- [ ] 4.7 Sticky booking summary + confirmation screen
+
+#### Phase 5: Shop and payments (needs decisions first)
+
+- [ ] 5.1 Decide the payment gateway. The prototype says cPay (CaSys); Shopify Payments isn't available in North Macedonia
+- [ ] 5.2 Decide how online booking payments work: Shopify checkout or handled by the app
+- [ ] 5.3 Programs as Shopify products with two tiers (Онлајн / Онлајн + студио)
+- [ ] 5.4 Session packs, gift vouchers and equipment as Shopify products
+- [ ] 5.5 Cart and checkout
+
+#### Phase 6: Pages and navigation
+
+- [ ] 6.1 Create the Shopify pages: home, services, programs, shop, booking, contact
+- [ ] 6.2 Place the app blocks on each page
+- [ ] 6.3 Set up the header and footer menus
+
+#### Phase 7: Final check
+
+- [ ] 7.1 Compare phone (≤480px) and desktop screenshots against the prototype
+- [ ] 7.2 Lighthouse speed and accessibility check
+- [ ] 7.3 Keyboard navigation, focus rings and reduced-motion support
+- [ ] 7.4 Swap placeholders for real content: photos and video, founder portrait, address, Google reviews and rating, real video IDs
+
+### B. Step 5 — Cleanup (do after the design phases; some items overlap Phases 3 and 4)
 - `shopify.app.toml`: `application_url` / redirect URLs still `https://example.com` (CLI updates during dev; set real URL for prod).
 - Remove template leftovers: `product.metafields.app.demo_info`, `metaobjects.app.example`, the "Additional page" route + nav link; review whether `write_products`/metaobject scopes are still needed.
 - Replace placeholder YouTube IDs `dQw4w9WgXcQ` in `programs_preview.liquid`, `video_reels.liquid` and `DEFAULT_PROGRAMS` (`proxy.exercises.ts`) with real Vigour videos.
