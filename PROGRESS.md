@@ -82,9 +82,12 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 #### Phase 1: Audit the current design (no code changes)
 
-- [ ] 1.1 Get `shopify app dev` running and add all 14 blocks to a test page on the dev store
-- [ ] 1.2 Screenshot each block (desktop + phone) next to the same section of the prototype
-- [ ] 1.3 Write a per-block list of differences into `docs/design/audit.md`
+- [x] 1.1 Get `shopify app dev` running and add all 14 blocks to a test page on the dev store
+- [x] 1.2 Screenshot each block (desktop + phone) next to the same section of the prototype
+- [x] 1.3 Write a per-block list of differences into `docs/design/audit.md` (local only, not in git)
+- Done 2026-11-21. Results and open decisions are in the local `docs/design/audit.md`.
+- Test page: template `page.vigour-audit` in the **development theme only**. View it via the `shopify app dev` theme preview at
+  `http://127.0.0.1:9293/pages/contact?view=vigour-audit`.
 - Gaps already known:
   - Colours and fonts: code uses Inter + gold `#C5A880`; prototype uses Onest + Cormorant Garamond italic accent, blush `#C7B6A6` / `#8A6A55`, paper `#F7F3EE`
   - Missing entirely: shop, cart and checkout, program tiers, FAQ, back/full-body price toggle, hero arch + spine animation, mobile bottom bar, header "slots today" chip + cart icon, open-now pill + hours table, 4-step booking
@@ -98,6 +101,8 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - [ ] 2.4 Footer
 - [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
 - [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
+- [ ] 2.7 Macedonian + English: move all block text into the `mk` / `en` locale files (`| t` filter; no block uses them yet),
+      add Macedonian as the store's default language in Shopify admin, keep the MK/EN switch
 
 #### Phase 3: Home page sections
 

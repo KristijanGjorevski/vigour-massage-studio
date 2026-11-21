@@ -37,6 +37,9 @@ service-account*.json
 .claude/skills
 skills-lock.json
 
+# Design audit notes stay local only (never pushed)
+docs/**/audit*.md
+
 
 
 

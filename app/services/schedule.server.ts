@@ -4,17 +4,21 @@ import { getBusyIntervals } from "./googleCalendar.server";
 /** All studio times are wall-clock times in Skopje (CET/CEST). */
 export const STUDIO_TZ = "Europe/Skopje";
 
-/** Start times offered to customers, in studio local time. */
-export const WORKING_SLOTS = [
-  "10:00",
-  "11:15",
-  "12:30",
-  "14:00",
-  "15:15",
-  "16:30",
-  "17:45",
-  "19:00",
-];
+/**
+ * Generic opening hours until the studio confirms real ones: Mon–Fri, 10:00–18:00.
+ * Start times are in studio local time; the last start (16:30) leaves room for a
+ * 75-minute treatment to finish before 18:00.
+ */
+export const WORKING_SLOTS = ["10:00", "11:15", "12:30", "14:00", "15:15", "16:30"];
+
+/** Days the studio takes bookings (0 = Sunday … 6 = Saturday). */
+export const WORKING_DAYS = new Set([1, 2, 3, 4, 5]);
+
+/** Day of the week for a "YYYY-MM-DD" studio date (0 = Sunday). */
+export function studioWeekday(dateStr: string): number {
+  const [y, m, d] = dateStr.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+}
 
 /** Don't offer slots starting sooner than this from now. */
 const MIN_LEAD_MINUTES = 30;
@@ -121,6 +125,7 @@ export async function getAvailableSlots(
   durationMin: number,
   now = new Date(),
 ): Promise<string[]> {
+  if (!WORKING_DAYS.has(studioWeekday(dateStr))) return [];
   const earliest = new Date(now.getTime() + MIN_LEAD_MINUTES * 60_000);
   const busy = await getBusy(shop, dayBounds(dateStr));
 
