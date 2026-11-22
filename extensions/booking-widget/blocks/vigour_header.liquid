@@ -1,90 +1,96 @@
 {{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
 {{ 'vigour-header.css' | asset_url | stylesheet_tag }}
 
-<header class="vm-block-wrapper vm-header-wrapper" 
+{%- liquid
+  assign home_url = block.settings.link_home | default: routes.root_url
+  assign services_url = block.settings.link_services | default: '#vigour-services'
+  assign programs_url = block.settings.link_programs | default: '#vigour-programs'
+  assign shop_url = block.settings.link_shop | default: '#vm-packages'
+  assign contact_url = block.settings.link_contact | default: '#vm-contact'
+  assign book_url = block.settings.cta_link | default: '#najdo-booking-container'
+  assign book_text = block.settings.cta_text | default: 'Закажи термин'
+  assign nav_id = 'vm-header-nav-' | append: block.id
+
+  assign current = ''
+  case request.path
+    when services_url
+      assign current = 'services'
+    when programs_url
+      assign current = 'programs'
+    when shop_url
+      assign current = 'shop'
+    when contact_url
+      assign current = 'contact'
+    else
+      if request.page_type == 'index'
+        assign current = 'home'
+      endif
+  endcase
+-%}
+
+<header class="vm-block-wrapper vm-header-wrapper"
         id="vm-header-{{ block.id }}"
-        data-shop="{{ shop.permanent_domain }}"
-        data-country="{{ localization.country.iso_code | default: '' }}"
-        data-locale="{{ request.locale.iso_code | default: '' }}"
         data-api-base="/apps/vigour">
-  <div class="vm-header-container">
-    
-    <a href="{{ routes.root_url | default: '/' }}" class="vm-header-logo-link" aria-label="Vigour Massage Studio Почетна">
-      {% render 'vigour-logo', color: '#243F3A' %}
+  <div class="vm-header-row">
+
+    <a href="{{ routes.root_url }}" class="vm-header-logo" aria-label="Vigour Massage Studio, почетна">
+      {%- render 'vigour-logo' -%}
     </a>
 
-    <nav class="vm-header-nav" aria-label="Главна навигација">
-      <a href="{{ block.settings.link_home | default: '#' }}" class="vm-nav-item active">Почетна</a>
-      <a href="{{ block.settings.link_services | default: '#vigour-services' }}" class="vm-nav-item">Услуги</a>
-      <a href="{{ block.settings.link_programs | default: '#vigour-programs' }}" class="vm-nav-item">Програми</a>
-      <a href="{{ block.settings.link_shop | default: '#vm-packages' }}" class="vm-nav-item">Продавница</a>
-      <a href="{{ block.settings.link_contact | default: '#vm-contact' }}" class="vm-nav-item">Контакт</a>
+    <nav class="vm-header-nav" id="{{ nav_id }}" aria-label="Главна навигација">
+      <a href="{{ home_url }}" class="vm-nav-item{% if current == 'home' %} active{% endif %}"{% if current == 'home' %} aria-current="page"{% endif %} data-vm-t="navHome">Почетна</a>
+      <a href="{{ services_url }}" class="vm-nav-item{% if current == 'services' %} active{% endif %}"{% if current == 'services' %} aria-current="page"{% endif %} data-vm-t="navServices">Услуги</a>
+      <a href="{{ programs_url }}" class="vm-nav-item{% if current == 'programs' %} active{% endif %}"{% if current == 'programs' %} aria-current="page"{% endif %} data-vm-t="navPrograms">Програми</a>
+      <a href="{{ shop_url }}" class="vm-nav-item{% if current == 'shop' %} active{% endif %}"{% if current == 'shop' %} aria-current="page"{% endif %} data-vm-t="navShop">Продавница</a>
+      <a href="{{ contact_url }}" class="vm-nav-item{% if current == 'contact' %} active{% endif %}"{% if current == 'contact' %} aria-current="page"{% endif %} data-vm-t="navContact">Контакт</a>
+
+      {%- comment -%} Phone menu only: language switch and the Book button {%- endcomment -%}
+      <div class="vm-nav-extra">
+        <div class="vm-lang-switcher" role="group" aria-label="Јазик / Language">
+          <button type="button" class="vm-lang-btn active" data-lang="mk" aria-pressed="true">MK</button>
+          <button type="button" class="vm-lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="{{ book_url }}" class="vm-btn-primary vm-nav-book" data-vm-t="ctaBook">{{ book_text }}</a>
+      </div>
     </nav>
 
     <div class="vm-header-actions">
-      
       {%- if block.settings.show_availability -%}
-        <div class="vm-header-availability">
-          <span class="vm-status-dot pulse"></span>
-          <span class="vm-availability-text">{{ block.settings.availability_text | default: 'Уште 2 слободни термини денес' }}</span>
-        </div>
+        {%- comment -%} Filled in from the live schedule; stays hidden if it can't load {%- endcomment -%}
+        <span class="vm-slot-chip" hidden>
+          <span class="vm-slot-chip-dot" aria-hidden="true"></span>
+          <span class="vm-slot-chip-text"></span>
+        </span>
       {%- endif -%}
 
       {%- if block.settings.show_cart_icon -%}
-        <a href="{{ routes.cart_url | default: '/cart' }}" class="vm-header-bag-btn" aria-label="Кошничка">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
+        <a href="{{ routes.cart_url }}" class="vm-icon-btn vm-cart-btn" aria-label="Кошничка" data-vm-t-label="cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
           </svg>
+          <span class="vm-cart-count"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
         </a>
       {%- endif -%}
 
-      <div class="vm-lang-switcher" aria-label="Јазик / Language">
-        <button type="button" class="vm-lang-btn active" data-lang="mk">MK</button>
-        <span class="vm-lang-divider">/</span>
-        <button type="button" class="vm-lang-btn" data-lang="en">EN</button>
+      <div class="vm-lang-switcher" role="group" aria-label="Јазик / Language">
+        <button type="button" class="vm-lang-btn active" data-lang="mk" aria-pressed="true">MK</button>
+        <button type="button" class="vm-lang-btn" data-lang="en" aria-pressed="false">EN</button>
       </div>
 
-      <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-header-cta-btn">
-        <span>{{ block.settings.cta_text | default: 'Закажи термин' }}</span>
-      </a>
+      <a href="{{ book_url }}" class="vm-btn-primary vm-btn-sm vm-header-book" data-vm-t="ctaBook">{{ book_text }}</a>
 
-      <button type="button" class="vm-hamburger-btn" aria-label="Отвори мени" aria-expanded="false">
-        <span class="vm-hamburger-line"></span>
-        <span class="vm-hamburger-line"></span>
-        <span class="vm-hamburger-line"></span>
+      <button type="button" class="vm-icon-btn vm-burger"
+              aria-controls="{{ nav_id }}" aria-expanded="false"
+              aria-label="Отвори мени" data-vm-t-label="menuOpen">
+        <svg class="vm-burger-open" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <svg class="vm-burger-close" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
       </button>
-
     </div>
 
-  </div>
-
-  <div class="vm-mobile-drawer" aria-label="Мобилно мени">
-    <div class="vm-mobile-nav-list">
-      <a href="{{ block.settings.link_home | default: '#' }}" class="vm-mobile-nav-item active">Почетна</a>
-      <a href="{{ block.settings.link_services | default: '#vigour-services' }}" class="vm-mobile-nav-item">Услуги</a>
-      <a href="{{ block.settings.link_programs | default: '#vigour-programs' }}" class="vm-mobile-nav-item">Програми</a>
-      <a href="{{ block.settings.link_shop | default: '#vm-packages' }}" class="vm-mobile-nav-item">Продавница</a>
-      <a href="{{ block.settings.link_contact | default: '#vm-contact' }}" class="vm-mobile-nav-item">Контакт</a>
-    </div>
-
-    <div class="vm-mobile-drawer-bottom">
-      <div class="vm-lang-switcher" style="justify-content: center; width: 100%;">
-        <button type="button" class="vm-lang-btn active" data-lang="mk">Македонски (MK)</button>
-        <span class="vm-lang-divider">/</span>
-        <button type="button" class="vm-lang-btn" data-lang="en">English (EN)</button>
-      </div>
-
-      <div class="vm-header-availability" style="display: inline-flex; width: 100%; justify-content: center;">
-        <span class="vm-status-dot pulse"></span>
-        <span class="vm-availability-text">{{ block.settings.availability_text | default: 'Уште 2 слободни термини денес' }}</span>
-      </div>
-
-      <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-btn-primary" style="width: 100%;">
-        <span>{{ block.settings.cta_text | default: 'Закажи термин' }}</span>
-      </a>
-    </div>
   </div>
 </header>
 
@@ -95,15 +101,14 @@
   "name": "VM Header Nav",
   "target": "section",
   "settings": [
-    {"type": "text", "id": "link_home", "label": "Home link"},
+    {"type": "text", "id": "link_home", "label": "Home link", "info": "Empty = store home page"},
     {"type": "text", "id": "link_services", "label": "Services link"},
     {"type": "text", "id": "link_programs", "label": "Programs link"},
     {"type": "text", "id": "link_shop", "label": "Shop link"},
     {"type": "text", "id": "link_contact", "label": "Contact link"},
-    {"type": "checkbox", "id": "show_availability", "label": "Show availability pill", "default": true},
-    {"type": "text", "id": "availability_text", "label": "Availability text"},
-    {"type": "text", "id": "cta_text", "label": "CTA button text"},
-    {"type": "text", "id": "cta_link", "label": "CTA button link"},
+    {"type": "checkbox", "id": "show_availability", "label": "Show live free-slots chip", "info": "Shows today's free slots from the booking calendar (wide screens only)", "default": true},
+    {"type": "text", "id": "cta_text", "label": "Book button text"},
+    {"type": "text", "id": "cta_link", "label": "Book button link"},
     {"type": "checkbox", "id": "show_cart_icon", "label": "Show cart icon", "default": true}
   ]
 }
