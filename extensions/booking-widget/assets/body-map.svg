@@ -2,7 +2,7 @@
   <defs>
     <!-- Zone Gradients & Glows -->
     <radialGradient id="vm-pin-glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#C5A880" stop-opacity="0.9"/>
+      <stop offset="0%" stop-color="#C7B6A6" stop-opacity="0.9"/>
       <stop offset="60%" stop-color="#2F5A51" stop-opacity="0.5"/>
       <stop offset="100%" stop-color="#243F3A" stop-opacity="0"/>
     </radialGradient>
@@ -29,37 +29,37 @@
   <g class="vm-svg-zone-group" data-zone="neck">
     <path class="vm-svg-zone" data-zone="neck" 
           d="M 154 102 C 154 96, 186 96, 186 102 L 190 124 C 180 128, 160 128, 150 124 Z" />
-    <circle class="vm-svg-pin" data-zone="neck" cx="170" cy="112" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="neck" cx="170" cy="112" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 2. Shoulders & Trapezius -->
   <g class="vm-svg-zone-group" data-zone="shoulders">
     <path class="vm-svg-zone" data-zone="shoulders" 
           d="M 112 134 C 130 124, 150 122, 170 122 C 190 122, 210 124, 228 134 L 244 148 C 224 156, 204 156, 170 156 C 136 156, 116 156, 96 148 Z" />
-    <circle class="vm-svg-pin" data-zone="shoulders" cx="134" cy="142" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
-    <circle class="vm-svg-pin" data-zone="shoulders" cx="206" cy="142" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="shoulders" cx="134" cy="142" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="shoulders" cx="206" cy="142" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 3. Upper Back & Scapula -->
   <g class="vm-svg-zone-group" data-zone="upper_back">
     <path class="vm-svg-zone" data-zone="upper_back" 
           d="M 124 162 C 146 160, 194 160, 216 162 L 210 220 C 188 224, 152 224, 130 220 Z" />
-    <circle class="vm-svg-pin" data-zone="upper_back" cx="170" cy="190" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="upper_back" cx="170" cy="190" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 4. Lower Back (Lumbar) -->
   <g class="vm-svg-zone-group" data-zone="lower_back">
     <path class="vm-svg-zone" data-zone="lower_back" 
           d="M 132 226 C 152 226, 188 226, 208 226 L 214 286 C 190 292, 150 292, 126 286 Z" />
-    <circle class="vm-svg-pin" data-zone="lower_back" cx="170" cy="256" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="lower_back" cx="170" cy="256" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 5. Hips & Gluteal Area -->
   <g class="vm-svg-zone-group" data-zone="hips">
     <path class="vm-svg-zone" data-zone="hips" 
           d="M 126 292 C 150 294, 190 294, 214 292 L 218 348 C 196 358, 144 358, 122 348 Z" />
-    <circle class="vm-svg-pin" data-zone="hips" cx="146" cy="324" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
-    <circle class="vm-svg-pin" data-zone="hips" cx="194" cy="324" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="hips" cx="146" cy="324" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="hips" cx="194" cy="324" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 6. Legs & Calves -->
@@ -68,8 +68,8 @@
           d="M 124 354 L 152 354 L 148 480 L 124 480 Z" />
     <path class="vm-svg-zone" data-zone="legs" 
           d="M 188 354 L 216 354 L 216 480 L 192 480 Z" />
-    <circle class="vm-svg-pin" data-zone="legs" cx="136" cy="420" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
-    <circle class="vm-svg-pin" data-zone="legs" cx="204" cy="420" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="legs" cx="136" cy="420" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="legs" cx="204" cy="420" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 
   <!-- 7. Feet & Ankles -->
@@ -78,7 +78,7 @@
           d="M 122 490 C 122 484, 150 484, 150 490 L 146 544 C 134 546, 124 536, 122 518 Z" />
     <path class="vm-svg-zone" data-zone="feet" 
           d="M 190 490 C 190 484, 218 484, 218 490 L 218 518 C 216 536, 206 546, 194 544 Z" />
-    <circle class="vm-svg-pin" data-zone="feet" cx="136" cy="520" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
-    <circle class="vm-svg-pin" data-zone="feet" cx="204" cy="520" r="7" fill="#243F3A" stroke="#C5A880" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="feet" cx="136" cy="520" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
+    <circle class="vm-svg-pin" data-zone="feet" cx="204" cy="520" r="7" fill="#243F3A" stroke="#C7B6A6" stroke-width="2" />
   </g>
 </svg>

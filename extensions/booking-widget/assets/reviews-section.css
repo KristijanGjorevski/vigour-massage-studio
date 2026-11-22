@@ -63,7 +63,7 @@
 .vm-review-stars {
   display: flex;
   gap: 4px;
-  color: var(--vm-gold);
+  color: var(--vm-star);
   margin-bottom: 16px;
 }
 

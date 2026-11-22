@@ -162,7 +162,7 @@
 
 .vm-hero-slot-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(197, 168, 128, 0.4);
+  border-color: rgba(199, 182, 166, 0.4);
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
 }
 

@@ -3,34 +3,54 @@
    Skopje, Macedonia · Est. 2025
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap');
+
+/* Sizes are in px on purpose: the host theme sets its root font size to 10px,
+   so rem units would shrink every block. */
 
 :root {
-  /* Brand Color Palette */
-  --vm-green-deep: #243F3A;
-  --vm-green-mid: #2F5A51;
+  /* Prototype palette (docs/design/vigour-prototype.html) */
+  --vm-house: #243F3A;
+  --vm-green: #2F5A51;
+  --vm-green-soft: #D5E0DA;
+  --vm-green-mist: #ECF1EE;
+  --vm-skin: #DDD2C8;
+  --vm-skin-2: #EEE8E1;
+  --vm-blush: #C7B6A6;
+  --vm-blush-deep: #8A6A55;
+  --vm-paper: #F7F3EE;
+  --vm-card: #FFFFFF;
+  --vm-ink: #1B2724;
+  --vm-muted: #56625D;
+  --vm-line: #E4DBD2;
+  --vm-star: #E0A33A;
+
+  /* Names used by the blocks, mapped onto the prototype palette */
+  --vm-green-deep: var(--vm-house);
+  --vm-green-mid: var(--vm-green);
   --vm-green-light: #3D7368;
   --vm-green-dark: #192D29;
   --vm-green-glow: rgba(36, 63, 58, 0.15);
 
-  --vm-greige: #DDD2C8;
-  --vm-greige-dark: #C9BCB0;
-  --vm-cream: #EEE8E1;
-  --vm-cream-light: #F7F4F0;
+  --vm-greige: var(--vm-skin);
+  --vm-greige-dark: var(--vm-blush);
+  --vm-cream: var(--vm-skin-2);
+  --vm-cream-light: var(--vm-paper);
   --vm-white: #FAF8F5;
-  --vm-pure-white: #FFFFFF;
+  --vm-pure-white: var(--vm-card);
 
-  --vm-gold: #C5A880;
-  --vm-gold-hover: #B5966B;
-  --vm-gold-soft: rgba(197, 168, 128, 0.18);
+  /* Accent: the prototype's blush replaces the old gold */
+  --vm-gold: var(--vm-blush);
+  --vm-gold-hover: var(--vm-blush-deep);
+  --vm-gold-soft: rgba(199, 182, 166, 0.22);
 
-  --vm-text: #1A1A1A;
-  --vm-text-secondary: #3D3D3D;
-  --vm-text-muted: #6B6560;
+  --vm-text: var(--vm-ink);
+  --vm-text-secondary: #33413D;
+  --vm-text-muted: var(--vm-muted);
   --vm-text-light: #FAF8F5;
 
-  --vm-border: rgba(36, 63, 58, 0.12);
-  --vm-border-focus: #243F3A;
+  --vm-border: var(--vm-line);
+  --vm-border-focus: var(--vm-blush-deep);
 
   /* Status Colors */
   --vm-status-available: #2E7D32;
@@ -39,21 +59,25 @@
   --vm-status-busy-bg: #FFEBEE;
 
   /* Typography */
-  --vm-font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --vm-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vm-font-heading: 'Montserrat', 'Onest', system-ui, sans-serif;
+  --vm-font-body: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --vm-font-accent: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --vm-wrap: 1180px;
 
   /* Radii */
-  --vm-radius-xs: 4px;
-  --vm-radius-sm: 8px;
-  --vm-radius-md: 14px;
-  --vm-radius-lg: 22px;
-  --vm-radius-xl: 32px;
-  --vm-radius-pill: 9999px;
+  --vm-radius-xs: 6px;
+  --vm-radius-sm: 10px;
+  --vm-radius-md: 16px;
+  --vm-radius-lg: 24px;
+  --vm-radius-xl: 26px;
+  --vm-radius-pill: 999px;
 
   /* Shadows */
-  --vm-shadow-subtle: 0 2px 6px rgba(36, 63, 58, 0.04);
+  --vm-shadow-subtle: 0 1px 4px rgba(30, 57, 50, 0.18);
   --vm-shadow-card: 0 4px 18px rgba(36, 63, 58, 0.08);
-  --vm-shadow-elevated: 0 10px 30px rgba(36, 63, 58, 0.12);
+  --vm-shadow-elevated: 0 18px 40px -22px rgba(30, 57, 50, 0.45);
   --vm-shadow-glow: 0 0 25px rgba(47, 90, 81, 0.25);
 
   /* Transitions */
@@ -77,10 +101,27 @@
   box-sizing: border-box;
 }
 
+.vm-block-wrapper :focus-visible {
+  outline: 3px solid var(--vm-blush-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Italic serif accent word, e.g. <span class="vm-accent">енергија.</span> */
+.vm-accent {
+  font-family: var(--vm-font-accent);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--vm-blush-deep);
+  font-size: 1.18em;
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+
 .vm-container {
-  max-width: 1240px;
+  max-width: calc(var(--vm-wrap) + 40px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 @media (max-width: 768px) {
