@@ -31,10 +31,14 @@ service-account*.json
 *.sqlite-journal
 *.db
 
-# Personal Claude Code settings (shared .claude/settings.json is fine)
-.claude/settings.local.json
-# Local symlink to .agents/skills (absolute path) + AI-toolkit lockfile — machine-local tooling
-.claude/skills
+# AI assistant and editor tooling: kept locally, not part of the project
+.agents/
+.claude/
+.cursor/
+.gemini/
+.mcp.json
+AGENTS.md
+CLAUDE.md
 skills-lock.json
 
 # Design audit notes stay local only (never pushed)
