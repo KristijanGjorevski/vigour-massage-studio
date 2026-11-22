@@ -65,6 +65,8 @@
 
   /* Layout */
   --vm-wrap: 1180px;
+  --vm-section-pad: clamp(56px, 8vw, 96px);
+  --vm-section-pad-tight: clamp(40px, 5vw, 64px);
 
   /* Radii */
   --vm-radius-xs: 6px;
@@ -76,7 +78,8 @@
 
   /* Shadows */
   --vm-shadow-subtle: 0 1px 4px rgba(30, 57, 50, 0.18);
-  --vm-shadow-card: 0 4px 18px rgba(36, 63, 58, 0.08);
+  /* Prototype cards are flat: a thin line border and at most a hairline shadow */
+  --vm-shadow-card: 0 1px 2px rgba(30, 57, 50, 0.06);
   --vm-shadow-elevated: 0 18px 40px -22px rgba(30, 57, 50, 0.45);
   --vm-shadow-glow: 0 0 25px rgba(47, 90, 81, 0.25);
 
@@ -145,83 +148,116 @@
   text-transform: uppercase;
 }
 
-/* Shared Buttons */
-.vm-btn-primary {
+/* Shared Buttons (prototype .btn family)
+   primary = green fill · secondary = house-green outline ("ghost") · skin = soft fill
+   light / outline-light = the same pair for dark backgrounds · add .vm-btn-sm for small */
+.vm-btn-primary,
+.vm-btn-secondary,
+.vm-btn-skin,
+.vm-btn-light,
+.vm-btn-outline-light {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
-  background-color: var(--vm-green-deep);
-  color: var(--vm-white) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 15.2px;
-  letter-spacing: 0.03em;
+  gap: 8px;
+  padding: 13px 22px;
+  font-family: var(--vm-font-body);
+  font-weight: 600;
+  font-size: 15.68px;
+  line-height: 1.2;
+  letter-spacing: 0;
   text-decoration: none;
   border-radius: var(--vm-radius-pill);
-  border: 1px solid var(--vm-green-deep);
+  border: 1.5px solid transparent;
   cursor: pointer;
-  transition: var(--vm-transition);
-  box-shadow: 0 4px 14px rgba(36, 63, 58, 0.2);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.vm-btn-primary:active,
+.vm-btn-secondary:active,
+.vm-btn-skin:active,
+.vm-btn-light:active,
+.vm-btn-outline-light:active {
+  transform: translateY(1px);
+}
+
+.vm-btn-primary[disabled],
+.vm-btn-secondary[disabled],
+.vm-btn-skin[disabled],
+.vm-btn-light[disabled],
+.vm-btn-outline-light[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.vm-btn-primary {
+  background-color: var(--vm-green);
+  color: #FFFFFF !important;
 }
 
 .vm-btn-primary:hover {
-  background-color: var(--vm-green-mid);
-  border-color: var(--vm-green-mid);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(36, 63, 58, 0.3);
+  background-color: var(--vm-house);
 }
 
 .vm-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
   background-color: transparent;
-  color: var(--vm-green-deep) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 15.2px;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  border-radius: var(--vm-radius-pill);
-  border: 2px solid var(--vm-green-deep);
-  cursor: pointer;
-  transition: var(--vm-transition);
+  color: var(--vm-house) !important;
+  border-color: var(--vm-house);
 }
 
 .vm-btn-secondary:hover {
-  background-color: var(--vm-green-deep);
-  color: var(--vm-white) !important;
-  transform: translateY(-2px);
+  background-color: var(--vm-house);
+  color: #FFFFFF !important;
+}
+
+.vm-btn-skin {
+  background-color: var(--vm-skin);
+  color: var(--vm-house) !important;
+}
+
+.vm-btn-skin:hover {
+  background-color: var(--vm-blush);
 }
 
 .vm-btn-light {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
   background-color: var(--vm-white);
-  color: var(--vm-green-deep) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 15.2px;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  border-radius: var(--vm-radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: var(--vm-transition);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  color: var(--vm-house) !important;
 }
 
 .vm-btn-light:hover {
-  background-color: var(--vm-cream);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  background-color: var(--vm-skin-2);
+}
+
+.vm-btn-outline-light {
+  background-color: transparent;
+  color: var(--vm-white) !important;
+  border-color: rgba(250, 248, 245, 0.7);
+}
+
+.vm-btn-outline-light:hover {
+  background-color: rgba(250, 248, 245, 0.12);
+  border-color: var(--vm-white);
+}
+
+.vm-btn-sm {
+  padding: 9px 16px;
+  font-size: 14.4px;
+}
+
+/* Section spacing and cards */
+.vm-section {
+  padding: var(--vm-section-pad) 0;
+}
+
+.vm-section-tight {
+  padding: var(--vm-section-pad-tight) 0;
+}
+
+.vm-card {
+  background: var(--vm-card);
+  border: 1px solid var(--vm-line);
+  border-radius: var(--vm-radius-lg);
+  padding: clamp(18px, 3vw, 30px);
 }
 
 /* Badge / Eyebrow */
@@ -229,12 +265,12 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--vm-font-heading);
-  font-size: 12.8px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--vm-font-body);
+  font-size: 12.16px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--vm-green-mid);
+  color: var(--vm-green);
   margin-bottom: 12px;
 }
 
@@ -285,38 +321,43 @@
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* Typography styles */
+/* Typography styles (prototype: hero h1, section .h, .lead) */
 .vm-heading-xl {
   font-family: var(--vm-font-heading);
-  font-weight: 800;
-  font-size: clamp(35.2px, 5vw, 60.8px);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-size: clamp(28.8px, 4.6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .vm-heading-lg {
   font-family: var(--vm-font-heading);
-  font-weight: 800;
-  font-size: clamp(28.8px, 3.8vw, 41.6px);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(23.2px, 3.3vw, 37.6px);
+  line-height: 1.17;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .vm-heading-md {
   font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: clamp(20.8px, 2.4vw, 28px);
-  line-height: 1.3;
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .vm-heading-sm {
   font-family: var(--vm-font-heading);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18.4px;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
 .vm-lead-text {
-  font-size: clamp(16px, 1.5vw, 18.88px);
-  line-height: 1.65;
+  font-size: 16.8px;
+  line-height: 1.6;
   color: var(--vm-text-muted);
+  max-width: 62ch;
 }

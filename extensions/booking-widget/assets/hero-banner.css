@@ -278,38 +278,13 @@
   }
 }
 
-/* Secondary button on the dark hero: transparent with a white outline */
-.vm-btn-outline-light {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
-  background-color: transparent;
-  color: var(--vm-white) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 15.2px;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  border-radius: var(--vm-radius-pill);
-  border: 1.5px solid rgba(250, 248, 245, 0.7);
-  cursor: pointer;
-  transition: var(--vm-transition);
-}
-
-.vm-btn-outline-light:hover {
-  background-color: rgba(250, 248, 245, 0.12);
-  border-color: var(--vm-white);
-  transform: translateY(-2px);
-}
-
 @media (max-width: 576px) {
   .vm-hero-actions {
     flex-direction: column;
     align-items: stretch;
   }
-  .vm-btn-primary, .vm-btn-secondary, .vm-btn-light, .vm-btn-outline-light {
+  /* Only the hero's own buttons go full width (this used to hit every button on the page) */
+  .vm-hero-actions > a {
     width: 100%;
   }
   .vm-hero-stats {
