@@ -113,7 +113,9 @@
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.vm-svg-zone:hover {
+/* Hovering anywhere on a zone (shape or its dot) highlights it, so the target is the whole body part. */
+.vm-svg-zone:hover,
+.vm-svg-zone-group:hover .vm-svg-zone:not(.active) {
   fill: rgba(199, 182, 166, 0.55);
   stroke: var(--vm-gold);
   stroke-width: 2.5;
@@ -128,10 +130,16 @@
 
 .vm-svg-pin {
   cursor: pointer;
+  /* Scale each dot around its own centre. Without these two lines SVG scales from the
+     figure's top-left corner, so the dot jumped away from the cursor and back (jiggle)
+     and active dots sat in the wrong place. */
+  transform-box: fill-box;
+  transform-origin: center;
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .vm-svg-pin:hover,
+.vm-svg-zone-group:hover .vm-svg-pin,
 .vm-svg-pin.active {
   transform: scale(1.3);
 }
