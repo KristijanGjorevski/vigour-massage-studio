@@ -95,7 +95,9 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 #### Phase 2: Brand foundation
 
-- [ ] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
+- [x] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
+  - Found on the way: the host theme sets its root font size to 10px, so every `rem` in the blocks rendered at ~62%
+    (body text 10–12px). All block sizes are now in px. Header breakpoints adjusted so it still fits (full rebuild in 2.3).
 - [ ] 2.2 Shared buttons, cards and section spacing
 - [ ] 2.3 Header: logo, nav, live "slots today" chip, cart icon, Book button, mobile menu
 - [ ] 2.4 Footer
