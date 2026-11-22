@@ -28,6 +28,7 @@ recommended treatment + program) → services teaser → 4 video reels (9:16) �
 founder (Дарко, quote) → Google reviews carousel → first-visit CTA band (code `PRVPAT`, −10%).
 
 **Services:** filter chips, cards with video thumb, tags, **Back / Full-body toggle** that changes price+duration, "Закажи".
+*Decision 2026-11-22: the store keeps 6 separate service cards instead of the toggle; Premium is 75 min (prototype says 60).*
 **Programs:** 4 video programs (Здрав грб, Врат и рамена, Силно колено, Мобилност 30+) — weeks/videos/min per day, who it's
 for, expandable curriculum, two tiers each (**Онлајн** vs **Онлајн + студио**, includes massage sessions), buy button.
 **Shop:** filters Пакети / Ваучери / Опрема — 5- and 10-session packs, gift voucher (800/1300/2500), oil, ball, roller, bands.
