@@ -98,7 +98,9 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - [x] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
   - Found on the way: the host theme sets its root font size to 10px, so every `rem` in the blocks rendered at ~62%
     (body text 10–12px). All block sizes are now in px. Header breakpoints adjusted so it still fits (full rebuild in 2.3).
-- [ ] 2.2 Shared buttons, cards and section spacing
+- [x] 2.2 Shared buttons, cards and section spacing
+  - Buttons: `vm-btn-primary` / `-secondary` (ghost) / `-skin` / `-light` / `-outline-light`, plus `vm-btn-sm`.
+    Section padding comes from `--vm-section-pad`; `vm-card` / `vm-section` utilities for the Phase 3 rebuilds.
 - [ ] 2.3 Header: logo, nav, live "slots today" chip, cart icon, Book button, mobile menu
 - [ ] 2.4 Footer
 - [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
