@@ -121,6 +121,54 @@
   line-height: 0.9;
 }
 
+/* Logo (snippets/vigour-logo.liquid) */
+.vm-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vm-house);
+}
+
+.vm-logo--on-dark {
+  color: var(--vm-white);
+}
+
+.vm-logo-mark {
+  width: 26px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.vm-logo-text {
+  display: block;
+  white-space: nowrap;
+}
+
+.vm-logo-name {
+  display: block;
+  font-family: var(--vm-font-heading);
+  font-weight: 600;
+  font-size: 16.32px;
+  letter-spacing: 0.24em;
+  line-height: 1.1;
+}
+
+.vm-logo-sub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--vm-font-body);
+  font-weight: 400;
+  font-size: 9.28px;
+  letter-spacing: 0.3em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--vm-muted);
+}
+
+.vm-logo--on-dark .vm-logo-sub {
+  color: #AFC3BC;
+}
+
 .vm-container {
   max-width: calc(var(--vm-wrap) + 40px);
   margin: 0 auto;

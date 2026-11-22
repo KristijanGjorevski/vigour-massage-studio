@@ -1,30 +1,23 @@
 {%- comment -%}
-  Vigour Massage Studio - Official Brand Logo
-  Usage: {% render 'vigour-logo', color: '#243F3A', class: 'custom-class', show_text: true %}
+  Vigour Massage Studio logo: an arch with a spine inside, plus the wordmark.
+  Styles live in vigour-tokens.css (.vm-logo).
+
+  Usage:
+    {% render 'vigour-logo' %}                    light background
+    {% render 'vigour-logo', on_dark: true %}     dark background (footer)
+    {% render 'vigour-logo', show_text: false %}  mark only
 {%- endcomment -%}
 
-{%- assign logo_color = color | default: 'currentColor' -%}
-{%- assign show_text = show_text | default: true -%}
-{%- assign logo_class = class | default: 'vm-brand-logo' -%}
-
-<div class="{{ logo_class }}" style="display: inline-flex; align-items: center; gap: 14px; text-decoration: none; color: {{ logo_color }};">
-  <!-- Monogram Pill Mark -->
-  <svg class="vm-logo-mark" width="40" height="40" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="VM Monogram">
-    <!-- Outer Pill / Oval Outline -->
-    <rect x="2" y="2" width="40" height="40" rx="20" stroke="currentColor" stroke-width="2.2"/>
-    <!-- Stylized V & M intertwine -->
-    <path d="M12 14L18 30L22 20L26 30L32 14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+<span class="vm-logo{% if on_dark %} vm-logo--on-dark{% endif %}">
+  <svg class="vm-logo-mark" viewBox="0 0 30 44" aria-hidden="true" focusable="false">
+    <rect x="1.2" y="1.2" width="27.6" height="41.6" rx="13.8" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <path d="M8.6 10.5V31M22.4 9.5V34M16 34.5 22.4 9.5" fill="none" stroke="currentColor" stroke-width=".9"/>
+    <path d="M8.6 10.5 16 34.5" fill="none" stroke="currentColor" stroke-width="3.4"/>
   </svg>
-
-  {%- if show_text -%}
-    <!-- Brand Typography -->
-    <div class="vm-logo-text" style="display: flex; flex-direction: column; line-height: 1;">
-      <span class="vm-logo-title" style="font-family: 'Montserrat', sans-serif; font-size: 18.4px; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase;">
-        VIGOUR
-      </span>
-      <span class="vm-logo-subtitle" style="font-family: 'Montserrat', sans-serif; font-size: 9.92px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; opacity: 0.85; margin-top: 4px;">
-        MASSAGE STUDIO
-      </span>
-    </div>
-  {%- endif -%}
-</div>
+  {%- unless show_text == false -%}
+    <span class="vm-logo-text">
+      <span class="vm-logo-name">VIGOUR</span>
+      <span class="vm-logo-sub">massage studio</span>
+    </span>
+  {%- endunless -%}
+</span>

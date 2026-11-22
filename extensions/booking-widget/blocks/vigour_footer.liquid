@@ -9,7 +9,7 @@
       
       <div class="vm-footer-brand-col">
         <a href="{{ routes.root_url | default: '/' }}" class="vm-footer-logo-link" aria-label="Vigour Massage Studio Почетна">
-          {% render 'vigour-logo', color: '#FAF8F5' %}
+          {% render 'vigour-logo', on_dark: true %}
         </a>
         <p class="vm-footer-tagline">
           {{ block.settings.tagline | default: 'Масажа и рехабилитација во Скопје, од 2025. Олеснување во студио, решение со вежби од дома.' }}
