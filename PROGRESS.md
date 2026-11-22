@@ -90,7 +90,7 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
   `http://127.0.0.1:9293/pages/contact?view=vigour-audit`.
 - Gaps already known:
   - Colours and fonts: code uses Inter + gold `#C5A880`; prototype uses Onest + Cormorant Garamond italic accent, blush `#C7B6A6` / `#8A6A55`, paper `#F7F3EE`
-  - Missing entirely: shop, cart and checkout, program tiers, FAQ, back/full-body price toggle, hero arch + spine animation, mobile bottom bar, header "slots today" chip + cart icon, open-now pill + hours table, 4-step booking
+  - Missing entirely: shop, cart and checkout, program tiers, FAQ, hero arch + spine animation, mobile bottom bar, header "slots today" chip + cart icon, open-now pill + hours table, 4-step booking
   - Data mismatch: prototype has hourly slots, Mon–Fri 09–21, Sat 10–16, Sun closed (code: 8 fixed slots, 7 days); prices 800/1300, 1000/1500, 500, 2500 (check seeded prices)
 
 #### Phase 2: Brand foundation
@@ -108,7 +108,7 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 - [ ] 3.1 Trust strip (4 stats)
 - [ ] 3.2 Pain map: 7 zones, each recommends a treatment + a program
-- [ ] 3.3 Services: back/full-body toggle that changes price and duration, video popup
+- [ ] 3.3 Services: restyle the 6 separate cards (decided 2026-11-22: no back/full-body toggle; Premium is 75 min), video popup
 - [ ] 3.4 Video reels (9:16, swipe on phone)
 - [ ] 3.5 How it works (4 steps)
 - [ ] 3.6 Founder section
