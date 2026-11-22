@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-services-section {
-  padding: 90px 0 80px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-cream);
   position: relative;
 }

@@ -4,7 +4,7 @@
    ========================================================================== */
 
 .vm-prvpat-section {
-  padding: 60px 0 80px;
+  padding: var(--vm-section-pad-tight) 0;
   background-color: var(--vm-cream);
   position: relative;
 }

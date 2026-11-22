@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-founder-section {
-  padding: 100px 0 90px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-white);
   position: relative;
   overflow: hidden;
