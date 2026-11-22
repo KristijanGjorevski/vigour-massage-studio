@@ -32,15 +32,15 @@ Also referred to as the **"Najdo studio"** project (claude.ai). All customer-fac
 
 Picked up the codebase built with another AI, analysed it, and worked through the first four fixes.
 
-### 1. Version control — `1a9f460`
+### 1. Version control — `08cdde0`
 - Repo had no commits. Made the initial commit of the existing work.
 - Repo-local git identity set: `kikog <kikogjorevski@gmail.com>`.
 
-### 2. Missing database migration — `85e7bfa`
+### 2. Missing database migration — `0f9b719`
 - **Problem:** `GoogleAuth`, `Program`, `Exercise`, `PainZone` and `Appointment.googleEventId` existed only in the local `dev.sqlite` (created via `db push`). A fresh/production `prisma migrate deploy` would have built an incomplete DB.
 - **Fix:** added `prisma/migrations/20261103120000_add_google_auth_programs_pain_zones`. Verified a brand-new DB built from migrations matches the schema exactly. Local DB marked as applied (no data touched).
 
-### 3. Timezone & overlap fixes — `f89db1a`
+### 3. Timezone & overlap fixes — `d996154`
 - **Problem:** slot "10:00" was stored as 10:00 **UTC** (= 11:00/12:00 in Skopje) → wrong times in Google Calendar. Conflicts only detected on exact start-time match, so overlapping/odd-time events didn't block slots. Unknown service IDs were silently booked as the cheapest service.
 - **Fix:**
   - New `schedule.server.ts`: DST-aware Europe/Skopje ↔ UTC conversion; slot blocked if `[start, start+duration)` overlaps any appointment or Google busy block.
@@ -49,7 +49,7 @@ Picked up the codebase built with another AI, analysed it, and worked through th
   - Dashboard shows Skopje times. Booking form passes `serviceId` and refreshes slots when the treatment changes; storefront "today" uses Skopje date.
 - **Tested:** 10/10 (summer/winter/DST-day conversion, booking, double-book, fake service, off-grid time, past date, overlap edge).
 
-### 4. Security — `a7d87d1`
+### 4. Security — `d23ace0`
 - **Problems:** public API trusted `?shop=` from the client + wildcard CORS (anyone could create bookings / seed data for any shop); unauthenticated `/api/google-auth` with `state=shop` (anyone could attach their Google account to the shop); OAuth callback used relative `Response.redirect` (throws in Node); Google consent can't load inside the admin iframe; dashboard status/delete not scoped to shop.
 - **Fix:**
   - **App Proxy:** `[app_proxy] url="/proxy" prefix="apps" subpath="vigour"` + `write_app_proxy` scope in `shopify.app.toml`. Routes renamed `api.*` → `proxy.*`, each calls `requireProxyShop()` (`authenticate.public.appProxy`). Unsigned/forged → 400, app not installed → 401. CORS removed. Email + length validation on bookings.
@@ -152,7 +152,8 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - Remove template leftovers: `product.metafields.app.demo_info`, `metaobjects.app.example`, the "Additional page" route + nav link; review whether `write_products`/metaobject scopes are still needed.
 - Replace placeholder YouTube IDs `dQw4w9WgXcQ` in `programs_preview.liquid`, `video_reels.liquid` and `DEFAULT_PROGRAMS` (`proxy.exercises.ts`) with real Vigour videos.
 - Storefront fallbacks: when the API fails, `booking-form.js` shows **fake** services/slots and `hero-banner.js` invents a slot → replace with a clear "contact us on Viber/phone" message.
-- Lint: label/control association in the add-service form (`app._index.tsx`), `any` in `googleCalendar.server.ts`.
+- Lint (`npm run lint`, 12 errors as of 2026-11-22): label/control association in the add-service form (`app._index.tsx`), `any` in `googleCalendar.server.ts`, React-hook naming in `booking-form.js`, unused variables in `hero-banner.js` and `programs-preview.js`, empty `catch` blocks in `vigour-header.js`.
+- Template leftovers in the repo root: Shopify's template `CHANGELOG.md` and `README.md` → replace the README with a project README; check whether `pnpm-workspace.yaml` is needed (the project uses npm).
 - Seed data duplicated in `proxy.bookings.ts` and `app._index.tsx` → move to one shared module.
 
 ### C. Later / ideas
@@ -169,4 +170,4 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - Times in DB are real UTC instants; always convert via `schedule.server.ts` (`studioTimeToUtc`, `studioToday`). Never build dates with `new Date("…Z")` from local slot strings.
 - Storefront code must not send `shop`; the server gets it from the signed proxy request.
 - Test pattern used: temporary `app/__*_test.ts` run with `npx tsx`, calling route `loader`/`action` directly with signed URLs. **Back up `prisma/dev.sqlite` first** and restore after.
-- The toolkit skills in `.agents/skills` (`shopify-dev` → `scripts/search_docs.mjs`) were used for docs lookup.
+- AI assistant and editor files (Shopify AI Toolkit skills, MCP configs, assistant instructions) are kept locally and git-ignored, not part of the repo. Install the toolkit per the [Shopify AI Toolkit docs](https://shopify.dev/docs/apps/build/ai-toolkit) if needed.
