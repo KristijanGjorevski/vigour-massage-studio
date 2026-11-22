@@ -46,3 +46,15 @@ Before running `git commit`, show:
 Wait for explicit confirmation. The only exception is when the current message says "commit directly".
 
 After committing, show `git log --oneline -3` and `git status`, then stop. Do not push.
+
+### 7. Pull request title and description
+The repo merges with "Pull request title and description", so the PR title becomes the merge commit on `main`. Write it for a person skimming the history, not for a developer.
+- Title: plain English, sentence case, states the outcome. No branch names, no `type(scope):` prefix, no trailing period, max 70 characters.
+  - Good: `Prepare the app for React Router 8`, `Phase 2: Shared header, footer and fonts`, `Update dependencies`
+  - Bad: `chore/react-router-future-flags`, `build(react-router): opt in to v8 future flags`
+- Description: three short parts, specific is fine:
+  - **Why:** the reason for the change, in one or two sentences
+  - **What changed:** a few bullets
+  - **Tested:** how it was verified
+- Same no-AI-references rule as commits.
+- When a branch is ready, give the title and description with the push. Open the PR with `gh pr create` only when the current message asks for it (rule 1).
