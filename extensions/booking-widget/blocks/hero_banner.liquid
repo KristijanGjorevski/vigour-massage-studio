@@ -28,9 +28,10 @@
           </div>
 
           {%- if block.settings.show_live_pill -%}
-            <div class="vm-hero-live-pill">
-              <span class="vm-live-dot"></span>
-              <span>{{ block.settings.live_status_text | default: 'Отворено за резервации денес' }}</span>
+            {%- comment -%} Shown by hero-banner.js only when the calendar has a free slot today {%- endcomment -%}
+            <div class="vm-hero-live-pill" hidden>
+              <span class="vm-live-dot" aria-hidden="true"></span>
+              <span>{{ block.settings.live_status_text | default: 'Слободни термини денес' }}</span>
             </div>
           {%- endif -%}
         </div>
@@ -125,8 +126,8 @@
     {"type": "url", "id": "cta_secondary_link", "label": "Secondary CTA link"},
     {"type": "checkbox", "id": "show_next_slot_card", "label": "Show next slot card", "default": true},
     {"type": "text", "id": "next_slot_btn_text", "label": "Next slot button text"},
-    {"type": "checkbox", "id": "show_live_pill", "label": "Show live status pill", "default": true},
-    {"type": "text", "id": "live_status_text", "label": "Live status text"},
+    {"type": "checkbox", "id": "show_live_pill", "label": "Show live status pill", "info": "Appears only when the booking calendar has a free slot today", "default": true},
+    {"type": "text", "id": "live_status_text", "label": "Live status text", "info": "Shown when there is a free slot today"},
     {"type": "checkbox", "id": "show_stats", "label": "Show stats bar", "default": true},
     {"type": "text", "id": "stat1_num", "label": "Stat 1 number"},
     {"type": "text", "id": "stat1_label", "label": "Stat 1 label"},

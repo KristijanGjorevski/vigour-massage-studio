@@ -13,6 +13,11 @@
   align-items: center;
 }
 
+/* The host theme does not always hide [hidden] elements that set a display */
+.vm-hero-section [hidden] {
+  display: none !important;
+}
+
 /* Background image & overlay */
 .vm-hero-bg {
   position: absolute;

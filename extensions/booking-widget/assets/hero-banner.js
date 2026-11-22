@@ -20,27 +20,32 @@
       const dateEl = slotCard.querySelector('.vm-slot-card-date-text');
       const slotBtn = slotCard.querySelector('.vm-slot-btn');
 
-      // Helper to format Macedonian day
-      function formatMacedonianDate(dateStr) {
-        try {
-          const d = new Date(dateStr);
-          if (isNaN(d.getTime())) return dateStr;
-          
-          const today = new Date();
-          const tomorrow = new Date(today);
-          tomorrow.setDate(tomorrow.getDate() + 1);
+      // Dates come from the booking calendar as YYYY-MM-DD in the studio's time zone
+      function studioToday() {
+        return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
+      }
 
-          if (d.toDateString() === today.toDateString()) {
-            return 'Денес';
-          } else if (d.toDateString() === tomorrow.toDateString()) {
-            return 'Утре';
-          } else {
-            const months = ['Јан', 'Фев', 'Мар', 'Апр', 'Мај', 'Јун', 'Јул', 'Авг', 'Сеп', 'Окт', 'Ное', 'Дек'];
-            return `${d.getDate()} ${months[d.getMonth()]}`;
-          }
-        } catch (e) {
-          return dateStr;
-        }
+      // "Денес" / "Утре" / "Пет, 28 ноември" (same wording as the header chip)
+      function dayLabel(dateStr) {
+        const toUtc = (s) => {
+          const [y, m, d] = s.split('-').map(Number);
+          return Date.UTC(y, m - 1, d);
+        };
+        const target = toUtc(dateStr);
+        const diff = Math.round((target - toUtc(studioToday())) / 864e5);
+        if (diff === 0) return 'Денес';
+        if (diff === 1) return 'Утре';
+        const days = ['Нед', 'Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб'];
+        const months = ['јануари', 'февруари', 'март', 'април', 'мај', 'јуни', 'јули', 'август', 'септември', 'октомври', 'ноември', 'декември'];
+        const d = new Date(target);
+        return `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
+      }
+
+      // No slot to show (calendar unreachable or fully booked): no made-up time,
+      // just point the visitor to the booking form
+      function showNoSlot() {
+        if (timeEl) timeEl.hidden = true;
+        if (dateEl) dateEl.textContent = 'Види ги слободните термини во календарот';
       }
 
       // Fetch next slot from API
@@ -51,43 +56,21 @@
           const res = await fetch(apiUrl, { credentials: 'omit' });
           if (!res.ok) throw new Error('API slot response not ok');
           const data = await res.json();
-
-          if (data && data.nextSlot) {
-            const { time, date, serviceName } = data.nextSlot;
-            if (timeEl) timeEl.textContent = time;
-            if (dateEl) dateEl.textContent = `${formatMacedonianDate(date)}, ${date}`;
-            if (slotBtn) {
-              slotBtn.href = `#najdo-booking-container?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`;
-            }
-            if (livePill) {
-              livePill.innerHTML = `<span class="vm-live-dot"></span> <span>Слободни термини за денес</span>`;
-            }
+          const next = data && data.nextSlot;
+          if (!next || !next.date || !next.time) {
+            showNoSlot();
+            return;
           }
+
+          if (timeEl) timeEl.textContent = next.time;
+          if (dateEl) dateEl.textContent = dayLabel(next.date);
+          if (slotBtn) {
+            slotBtn.href = `#najdo-booking-container?date=${encodeURIComponent(next.date)}&time=${encodeURIComponent(next.time)}`;
+          }
+          // "Free slots today" only when the next free slot really is today
+          if (livePill) livePill.hidden = next.date !== studioToday();
         } catch (err) {
-          // Graceful fallback: maintain smart default slot display
-          // So the card never looks broken or empty to visitors
-          const now = new Date();
-          const hours = now.getHours();
-          let displayHour = "16:00";
-          let displayDay = "Денес";
-
-          if (hours >= 18) {
-            displayHour = "10:30";
-            displayDay = "Утре";
-          } else if (hours >= 14) {
-            displayHour = "18:00";
-          } else if (hours >= 11) {
-            displayHour = "14:30";
-          } else {
-            displayHour = "12:00";
-          }
-
-          if (timeEl && timeEl.textContent.trim() === '...') {
-            timeEl.textContent = displayHour;
-          }
-          if (dateEl && dateEl.textContent.trim() === '...') {
-            dateEl.textContent = `${displayDay}, прилагодено за вас`;
-          }
+          showNoSlot();
         }
       }
 
