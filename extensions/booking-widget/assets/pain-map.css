@@ -26,7 +26,7 @@
 
 .vm-painmap-subtitle {
   color: var(--vm-text-muted);
-  font-size: 1.1rem;
+  font-size: 17.6px;
   line-height: 1.6;
 }
 
@@ -46,7 +46,7 @@
   background: var(--vm-cream);
   border: 1px solid var(--vm-border);
   font-family: var(--vm-font-heading);
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 600;
   color: var(--vm-text-secondary);
   cursor: pointer;
@@ -138,7 +138,7 @@
 
 .vm-bodymap-instructions {
   margin-top: 18px;
-  font-size: 0.85rem;
+  font-size: 13.6px;
   color: var(--vm-text-muted);
   display: flex;
   align-items: center;
@@ -164,7 +164,7 @@
   background: var(--vm-gold-soft);
   color: var(--vm-green-dark);
   font-family: var(--vm-font-heading);
-  font-size: 0.78rem;
+  font-size: 12.48px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -174,14 +174,14 @@
 .vm-zone-name {
   color: var(--vm-green-deep);
   font-family: var(--vm-font-heading);
-  font-size: 1.85rem;
+  font-size: 29.6px;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 8px;
 }
 
 .vm-zone-causes {
-  font-size: 0.98rem;
+  font-size: 15.68px;
   color: var(--vm-text-secondary);
   line-height: 1.6;
   background: var(--vm-white);
@@ -213,7 +213,7 @@
 
 .vm-rec-card-eyebrow {
   font-family: var(--vm-font-heading);
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
   color: var(--vm-green-mid);
   text-transform: uppercase;
@@ -226,14 +226,14 @@
 
 .vm-rec-card-title {
   font-family: var(--vm-font-heading);
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 700;
   color: var(--vm-green-deep);
   margin-bottom: 8px;
 }
 
 .vm-rec-card-desc {
-  font-size: 0.9rem;
+  font-size: 14.4px;
   color: var(--vm-text-muted);
   line-height: 1.5;
   margin-bottom: 16px;
@@ -249,13 +249,13 @@
 
 .vm-rec-price-badge {
   font-family: var(--vm-font-heading);
-  font-size: 1.35rem;
+  font-size: 21.6px;
   font-weight: 800;
   color: var(--vm-green-deep);
 }
 
 .vm-rec-price-badge small {
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 500;
   color: var(--vm-text-muted);
   margin-left: 4px;
@@ -271,7 +271,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  font-size: 0.9rem;
+  font-size: 14.4px;
 }
 
 .vm-exercise-rec-left {
@@ -299,7 +299,7 @@
 }
 
 .vm-exercise-rec-sub {
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--vm-text-muted);
 }
 

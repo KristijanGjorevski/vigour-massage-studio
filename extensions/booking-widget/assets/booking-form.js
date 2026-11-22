@@ -298,7 +298,7 @@
                   <div><strong>Контакт е-пошта:</strong> ${formData.customerEmail}</div>
                   ${formData.customerPhone ? `<div><strong>Телефон:</strong> ${formData.customerPhone}</div>` : ""}
                   <div><strong>Статус:</strong> <span style="color: #2E7D32; font-weight: 700;">✓ Успешно потврдено</span></div>
-                  <div style="margin-top:12px; padding:10px 14px; background: rgba(46,125,50,0.1); border-radius:8px; font-size:0.88rem; color:#1B5E20;">
+                  <div style="margin-top:12px; padding:10px 14px; background: rgba(46,125,50,0.1); border-radius:8px; font-size:14.08px; color:#1B5E20;">
                     💳 <strong>Потсетник:</strong> Добивате 5% попуст при плаќање со картичка во студиото!
                   </div>
                 </div>

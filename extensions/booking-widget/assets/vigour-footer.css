@@ -40,7 +40,7 @@
 }
 
 .vm-footer-tagline {
-  font-size: 0.95rem;
+  font-size: 15.2px;
   line-height: 1.65;
   color: #DDD2C8;
   opacity: 0.9;
@@ -56,7 +56,7 @@
 
 .vm-footer-col-title {
   font-family: var(--vm-font-heading);
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -76,7 +76,7 @@
 .vm-footer-link-item a {
   color: var(--vm-greige);
   text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 14.72px;
   transition: var(--vm-transition);
   display: inline-block;
 }
@@ -88,7 +88,7 @@
 
 .vm-footer-contact-item {
   color: var(--vm-greige);
-  font-size: 0.92rem;
+  font-size: 14.72px;
   line-height: 1.5;
 }
 
@@ -109,7 +109,7 @@
   justify-content: space-between;
   padding-top: 32px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 0.85rem;
+  font-size: 13.6px;
   color: rgba(221, 210, 200, 0.7);
   flex-wrap: wrap;
   gap: 16px;
