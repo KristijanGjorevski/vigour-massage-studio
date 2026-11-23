@@ -223,6 +223,16 @@
         }
       });
 
+      // The hero's "next free slot" card: pre-select that date and time
+      window.addEventListener('vigour:prefill-slot', async (e) => {
+        const { date, time } = (e.detail || {});
+        if (!date || !time || !dateInput || (unavailableBox && !unavailableBox.hidden)) return;
+        dateInput.value = date;
+        await fetchSlotsForDate(date);
+        const wanted = Array.from(slotsContainer.querySelectorAll(".najdo-slot-btn")).find((b) => b.dataset.slot === time);
+        if (wanted) wanted.click();
+      });
+
       // Handle form submission
       if (form) {
         form.addEventListener("submit", async (e) => {

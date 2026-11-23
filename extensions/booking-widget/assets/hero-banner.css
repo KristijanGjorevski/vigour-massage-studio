@@ -1,299 +1,237 @@
 /* ==========================================================================
-   Hero Banner — Vigour Massage Studio
+   Hero (prototype .hero): text on the left, arch picture with two floating
+   cards on the right. Light background, no overlay.
    ========================================================================== */
 
-.vm-hero-section {
-  position: relative;
-  background: linear-gradient(145deg, var(--vm-green-deep) 0%, var(--vm-green-dark) 100%);
-  color: var(--vm-white);
-  padding: 80px 0 60px;
-  overflow: hidden;
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
+.vm-hero {
+  background: var(--vm-paper);
+  padding: 44px 0 72px;
 }
 
 /* The host theme does not always hide [hidden] elements that set a display */
-.vm-hero-section [hidden] {
+.vm-hero [hidden] {
   display: none !important;
-}
-
-/* Background image & overlay */
-.vm-hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center center;
-  opacity: 0.18;
-  mix-blend-mode: luminosity;
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Subtle brand watermark */
-.vm-hero-watermark {
-  position: absolute;
-  right: -5%;
-  bottom: -15%;
-  width: 520px;
-  height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(47, 90, 81, 0.45) 0%, rgba(36, 63, 58, 0) 70%);
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.vm-hero-container {
-  position: relative;
-  z-index: 2;
-  width: 100%;
 }
 
 .vm-hero-grid {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 48px;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 56px;
   align-items: center;
 }
 
-/* Content Left */
-.vm-hero-content {
-  max-width: 640px;
+/* Text */
+.vm-hero-title {
+  margin: 14px 0 20px;
+  color: var(--vm-house);
 }
 
-.vm-hero-badge-wrap {
-  margin-bottom: 20px;
+.vm-hero-lead {
+  font-size: 17.6px;
+}
+
+.vm-hero-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.vm-hero-cta a {
+  white-space: nowrap;
+}
+
+.vm-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 24px;
+  font-size: 14.4px;
+  color: var(--vm-muted);
+}
+
+.vm-hero-meta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vm-hero-stars {
+  display: inline-flex;
+  gap: 6px;
+  color: var(--vm-star);
+}
+
+.vm-hero-star {
+  width: 15px;
+  height: 15px;
+}
+
+/* Arch picture */
+.vm-hero-visual {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  margin-inline: auto;
+}
+
+.vm-arch {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border-radius: 50% 50% 26px 26px / 38% 38% 26px 26px;
+  background:
+    radial-gradient(120% 70% at 30% 18%, #F4EFEA 0%, rgba(244, 239, 234, 0) 60%),
+    radial-gradient(90% 60% at 80% 100%, #D5E0DA 0%, rgba(213, 224, 218, 0) 70%),
+    linear-gradient(172deg, #E6DDD4 0%, #D8CCC0 55%, #D3DED8 100%);
+}
+
+.vm-arch .vm-spine,
+.vm-arch-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vm-arch-img {
+  object-fit: cover;
+}
+
+/* The vertebrae light up one after another */
+.vm-spine-vert {
+  fill: #C9B8A8;
+  animation: vm-relief 5s ease-in-out infinite;
+}
+
+@keyframes vm-relief {
+  0%, 100% { fill: #C9B8A8; }
+  35%, 60% { fill: #2F5A51; }
+}
+
+.vm-arch-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+  text-align: center;
+  font-size: 11.52px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--vm-house);
+  opacity: 0.7;
+}
+
+/* Floating cards */
+.vm-hero-card {
+  position: absolute;
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 10px;
+  max-width: 230px;
+  padding: 11px 14px;
+  border-radius: 16px;
+  background: var(--vm-card);
+  box-shadow: var(--vm-shadow-elevated);
+  font-size: 13.44px;
+  line-height: 1.3;
+  color: var(--vm-ink);
+  text-decoration: none;
 }
 
-.vm-hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: var(--vm-radius-pill);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  font-family: var(--vm-font-heading);
-  font-size: 12.48px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--vm-gold);
+.vm-hero-card small {
+  display: block;
+  font-size: 11.84px;
+  color: var(--vm-muted);
 }
 
-.vm-hero-live-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
-  border-radius: var(--vm-radius-pill);
-  background: rgba(46, 125, 50, 0.22);
-  border: 1px solid rgba(76, 175, 80, 0.4);
-  font-size: 12.8px;
-  font-weight: 600;
-  color: #81C784;
+.vm-hero-card b {
+  display: block;
+  color: var(--vm-house);
 }
 
-.vm-live-dot {
+.vm-hero-card--slot {
+  top: 16%;
+  left: -26px;
+}
+
+.vm-hero-card--slot:hover {
+  box-shadow: 0 18px 40px -18px rgba(30, 57, 50, 0.6);
+}
+
+.vm-hero-card--rating {
+  bottom: 14%;
+  right: -20px;
+}
+
+.vm-hero-card-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+}
+
+.vm-hero-card-icon--green {
+  background: var(--vm-green-mist);
+  color: var(--vm-green);
+}
+
+.vm-hero-card-icon--gold {
+  background: #F6EFE3;
+  color: var(--vm-star);
+}
+
+.vm-hero-card-star {
+  width: 18px;
+  height: 18px;
+}
+
+.vm-hero-live-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #4CAF50;
-  box-shadow: 0 0 10px #4CAF50;
-  position: relative;
+  background: var(--vm-green);
+  animation: vm-hero-live 2s infinite;
 }
 
-.vm-hero-title {
-  color: var(--vm-white);
-  margin-bottom: 20px;
-  letter-spacing: -0.01em;
+@keyframes vm-hero-live {
+  0% { box-shadow: 0 0 0 0 rgba(47, 90, 81, 0.45); }
+  70% { box-shadow: 0 0 0 8px rgba(47, 90, 81, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(47, 90, 81, 0); }
 }
 
-.vm-hero-title strong,
-.vm-hero-title .highlight {
-  color: var(--vm-gold);
-  font-weight: 800;
-}
-
-.vm-hero-subtitle {
-  color: var(--vm-greige);
-  font-size: clamp(16.8px, 1.4vw, 20px);
-  line-height: 1.6;
-  margin-bottom: 36px;
-  max-width: 580px;
-}
-
-.vm-hero-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 48px;
-}
-
-/* Next Slot Card (Floating on Right or embedded) */
-.vm-hero-slot-card {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--vm-radius-lg);
-  padding: 32px 28px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-  transition: var(--vm-transition);
-}
-
-.vm-hero-slot-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--vm-gold), #F4E8D3);
-}
-
-.vm-hero-slot-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(199, 182, 166, 0.4);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-}
-
-.vm-slot-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.vm-slot-tag {
-  font-family: var(--vm-font-heading);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--vm-gold);
-}
-
-.vm-slot-card-time {
-  font-family: var(--vm-font-heading);
-  font-size: 35.2px;
-  font-weight: 800;
-  color: var(--vm-white);
-  line-height: 1.1;
-  margin-bottom: 6px;
-}
-
-.vm-slot-card-date {
-  font-size: 15.2px;
-  color: var(--vm-greige);
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.vm-slot-btn {
-  width: 100%;
-  padding: 14px 20px;
-  background: var(--vm-gold);
-  color: var(--vm-green-dark) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 15.2px;
-  border-radius: var(--vm-radius-pill);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  text-decoration: none;
-  transition: var(--vm-transition);
-}
-
-.vm-slot-btn:hover {
-  background: #DFBE90;
-  transform: scale(1.02);
-}
-
-.vm-slot-notice {
-  margin-top: 14px;
-  font-size: 12.48px;
-  color: rgba(221, 210, 200, 0.7);
-  text-align: center;
-}
-
-/* Stats Footer Bar inside Hero */
-.vm-hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  padding-top: 36px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  margin-top: 10px;
-}
-
-.vm-stat-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.vm-stat-num {
-  font-family: var(--vm-font-heading);
-  font-weight: 800;
-  font-size: clamp(22.4px, 2.2vw, 30.4px);
-  color: var(--vm-white);
-  line-height: 1.2;
-}
-
-.vm-stat-num span {
-  color: var(--vm-gold);
-}
-
-.vm-stat-label {
-  font-size: 13.6px;
-  color: var(--vm-greige);
-  margin-top: 4px;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-  .vm-hero-section {
-    padding: 60px 0 50px;
+@media (prefers-reduced-motion: reduce) {
+  .vm-spine-vert,
+  .vm-hero-live-dot {
+    animation: none;
   }
+}
+
+/* Tablet and phone: one column, the picture moves below the text */
+@media (max-width: 900px) {
+  .vm-hero {
+    padding-top: 28px;
+  }
+
   .vm-hero-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .vm-hero-slot-card {
-    max-width: 480px;
+
+  .vm-hero-visual {
+    max-width: 360px;
   }
 }
 
-@media (max-width: 576px) {
-  .vm-hero-actions {
-    flex-direction: column;
-    align-items: stretch;
+/* Keep the floating cards inside the screen */
+@media (max-width: 480px) {
+  .vm-hero-card--slot {
+    left: -8px;
   }
-  /* Only the hero's own buttons go full width (this used to hit every button on the page) */
-  .vm-hero-actions > a {
-    width: 100%;
-  }
-  .vm-hero-stats {
-    grid-template-columns: 1fr;
-    gap: 16px;
+
+  .vm-hero-card--rating {
+    right: -8px;
   }
 }

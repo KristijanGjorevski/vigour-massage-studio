@@ -1,112 +1,75 @@
 {{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
 {{ 'hero-banner.css' | asset_url | stylesheet_tag }}
 
-<section class="vm-block-wrapper vm-hero-section" 
-         id="vm-hero-{{ block.id }}"
-         data-block-id="{{ block.id }}"
-         data-shop="{{ shop.permanent_domain }}"
-         data-api-base="/apps/vigour">
+{%- liquid
+  assign book_url = block.settings.cta_primary_link | default: '#najdo-booking-container'
+  assign map_url = block.settings.cta_secondary_link | default: '#vm-painmap'
+  assign title_start = block.settings.heading_start | default: 'Помалку болка. Повеќе'
+  assign title_accent = block.settings.heading_accent | default: 'енергија.'
+  assign rating_line = block.settings.rating_text | default: '4,9 на Google'
+-%}
 
-  {%- if block.settings.background_image != blank -%}
-    <div class="vm-hero-bg" 
-         style="background-image: url('{{ block.settings.background_image | image_url: width: 2000 }}'); opacity: {{ block.settings.bg_opacity | default: 18 | divided_by: 100.0 }};">
+<section class="vm-block-wrapper vm-hero" id="vm-hero-{{ block.id }}" data-api-base="/apps/vigour">
+  <div class="vm-container vm-hero-grid">
+
+    <div class="vm-hero-copy">
+      <span class="vm-eyebrow">{{ block.settings.eyebrow | default: 'Масажа и рехабилитација · Скопје · од 2025' }}</span>
+      <h1 class="vm-heading-xl vm-hero-title">{{ title_start }} <span class="vm-accent">{{ title_accent }}</span></h1>
+      <p class="vm-lead-text vm-hero-lead">
+        {{ block.settings.subheading | default: 'Релакс и спортска масажа во Скопје, плус програми за рехабилитација што ги продолжуваш дома. Закажи онлајн за една минута и плати со картичка или во готово.' }}
+      </p>
+
+      <div class="vm-hero-cta">
+        <a href="{{ book_url }}" class="vm-btn-primary">{{ block.settings.cta_primary_text | default: 'Закажи термин онлајн' }}</a>
+        <a href="{{ map_url }}" class="vm-btn-secondary">{{ block.settings.cta_secondary_text | default: 'Каде те боли?' }}</a>
+      </div>
+
+      <div class="vm-hero-meta">
+        {%- if block.settings.show_rating_line -%}
+          <span>
+            <span class="vm-hero-stars" aria-hidden="true">
+              {%- for i in (1..5) -%}{% render 'vigour-icons', name: 'star', class: 'vm-hero-star' %}{%- endfor -%}
+            </span>
+            {{ rating_line }}
+          </span>
+        {%- endif -%}
+        <span>{{ block.settings.meta_payment | default: 'Плаќање онлајн или во готово' }}</span>
+        <span>{{ block.settings.meta_confirmation | default: 'Потврда веднаш на Viber' }}</span>
+      </div>
     </div>
-  {%- else -%}
-    <div class="vm-hero-bg" style="opacity: 0.15; background-image: radial-gradient(#2F5A51 1px, transparent 1px); background-size: 24px 24px;"></div>
-  {%- endif -%}
 
-  <div class="vm-hero-watermark"></div>
-
-  <div class="vm-container vm-hero-container">
-    <div class="vm-hero-grid">
-      
-      <div class="vm-hero-content">
-        <div class="vm-hero-badge-wrap">
-          <div class="vm-hero-badge">
-            {% render 'vigour-icons', name: 'spark', class: 'vm-badge-icon' %}
-            <span>{{ block.settings.eyebrow | default: 'VIGOUR MASSAGE STUDIO · СКОПЈЕ' }}</span>
-          </div>
-
-          {%- if block.settings.show_live_pill -%}
-            {%- comment -%} Shown by hero-banner.js only when the calendar has a free slot today {%- endcomment -%}
-            <div class="vm-hero-live-pill" hidden>
-              <span class="vm-live-dot" aria-hidden="true"></span>
-              <span>{{ block.settings.live_status_text | default: 'Слободни термини денес' }}</span>
-            </div>
-          {%- endif -%}
-        </div>
-
-        <h1 class="vm-heading-xl vm-hero-title">
-          {{ block.settings.heading | default: 'Професионална масажа за обновување на твоето тело' }}
-        </h1>
-
-        <p class="vm-hero-subtitle">
-          {{ block.settings.subheading | default: 'Ослободи се од болката во грбот, вратот и мускулите со стручни терапевтски и релакс техники прилагодени за твоите потреби.' }}
-        </p>
-
-        <div class="vm-hero-actions">
-          {%- comment -%} Dark background: primary is the light filled button, secondary a white outline (as in the prototype). {%- endcomment -%}
-          <a href="{{ block.settings.cta_primary_link | default: '#najdo-booking-container' }}" class="vm-btn-light">
-            {% render 'vigour-icons', name: 'calendar' %}
-            <span>{{ block.settings.cta_primary_text | default: 'Резервирај Сега' }}</span>
-          </a>
-
-          <a href="{{ block.settings.cta_secondary_link | default: '#vigour-services' }}" class="vm-btn-outline-light">
-            {% render 'vigour-icons', name: 'arrow-right' %}
-            <span>{{ block.settings.cta_secondary_text | default: 'Погледни Услуги' }}</span>
-          </a>
-        </div>
-
-        {%- if block.settings.show_stats -%}
-          <div class="vm-hero-stats">
-            <div class="vm-stat-item">
-              <div class="vm-stat-num">{{ block.settings.stat1_num | default: '600+' }}</div>
-              <div class="vm-stat-label">{{ block.settings.stat1_label | default: 'Задоволни клиенти' }}</div>
-            </div>
-            <div class="vm-stat-item">
-              <div class="vm-stat-num">
-                {{ block.settings.stat2_num | default: '4.9' }}<span>★</span>
-              </div>
-              <div class="vm-stat-label">{{ block.settings.stat2_label | default: 'Оценка на третманите' }}</div>
-            </div>
-            <div class="vm-stat-item">
-              <div class="vm-stat-num">{{ block.settings.stat3_num | default: '100%' }}</div>
-              <div class="vm-stat-label">{{ block.settings.stat3_label | default: 'Индивидуален пристап' }}</div>
-            </div>
-          </div>
+    <div class="vm-hero-visual">
+      <div class="vm-arch">
+        {%- if block.settings.arch_image != blank -%}
+          {{ block.settings.arch_image | image_url: width: 860 | image_tag: widths: '430, 645, 860', sizes: '(max-width: 900px) 360px, 430px', loading: 'eager', fetchpriority: 'high', alt: block.settings.arch_image.alt, class: 'vm-arch-img' }}
+        {%- else -%}
+          {% render 'vigour-spine' %}
+          <span class="vm-arch-caption">{{ block.settings.arch_caption | default: 'Фото / видео од студиото' }}</span>
         {%- endif -%}
       </div>
 
       {%- if block.settings.show_next_slot_card -%}
-        <div class="vm-hero-slot-col">
-          <div class="vm-hero-slot-card">
-            <div class="vm-slot-card-header">
-              <div class="vm-slot-tag">
-                {% render 'vigour-icons', name: 'clock' %}
-                <span>Следен слободен термин</span>
-              </div>
-              <div class="vm-monogram-pill" style="color: var(--vm-gold);">VM</div>
-            </div>
-
-            <div class="vm-slot-card-time">...</div>
-            <div class="vm-slot-card-date">
-              {% render 'vigour-icons', name: 'calendar' %}
-              <span class="vm-slot-card-date-text">...</span>
-            </div>
-
-            <a href="{{ block.settings.cta_primary_link | default: '#najdo-booking-container' }}" class="vm-slot-btn">
-              <span>{{ block.settings.next_slot_btn_text | default: 'Резервирај го овој термин' }}</span>
-              {% render 'vigour-icons', name: 'chevron-right' %}
-            </a>
-
-            <div class="vm-slot-notice">
-              🔒 Брза резервација без претплата • Плаќање во студио
-            </div>
-          </div>
-        </div>
+        {%- comment -%} Filled from the booking calendar by hero-banner.js; stays hidden until it knows {%- endcomment -%}
+        <a href="{{ book_url }}" class="vm-hero-card vm-hero-card--slot vm-hero-slot-card" hidden>
+          <span class="vm-hero-card-icon vm-hero-card-icon--green"><span class="vm-hero-live-dot"></span></span>
+          <span>
+            <small>{{ block.settings.next_slot_label | default: 'Следен слободен термин' }}</small>
+            <b class="vm-hero-slot-text"></b>
+          </span>
+        </a>
       {%- endif -%}
 
+      {%- if block.settings.show_rating_card -%}
+        <div class="vm-hero-card vm-hero-card--rating">
+          <span class="vm-hero-card-icon vm-hero-card-icon--gold">{% render 'vigour-icons', name: 'star', class: 'vm-hero-card-star' %}</span>
+          <span>
+            <b>{{ block.settings.rating_score | default: '4,9 од 5' }}</b>
+            <small>{{ block.settings.rating_label | default: '40+ рецензии на Google' }}</small>
+          </span>
+        </div>
+      {%- endif -%}
     </div>
+
   </div>
 </section>
 
@@ -117,26 +80,30 @@
   "name": "VM Hero Banner",
   "target": "section",
   "settings": [
-    {"type": "text", "id": "eyebrow", "label": "Eyebrow"},
-    {"type": "text", "id": "heading", "label": "Heading"},
+    {"type": "header", "content": "Text"},
+    {"type": "text", "id": "eyebrow", "label": "Small line above the heading"},
+    {"type": "text", "id": "heading_start", "label": "Heading (plain part)"},
+    {"type": "text", "id": "heading_accent", "label": "Heading (italic accent word)"},
     {"type": "textarea", "id": "subheading", "label": "Subheading"},
-    {"type": "text", "id": "cta_primary_text", "label": "Primary CTA text"},
-    {"type": "url", "id": "cta_primary_link", "label": "Primary CTA link"},
-    {"type": "text", "id": "cta_secondary_text", "label": "Secondary CTA text"},
-    {"type": "url", "id": "cta_secondary_link", "label": "Secondary CTA link"},
-    {"type": "checkbox", "id": "show_next_slot_card", "label": "Show next slot card", "default": true},
-    {"type": "text", "id": "next_slot_btn_text", "label": "Next slot button text"},
-    {"type": "checkbox", "id": "show_live_pill", "label": "Show live status pill", "info": "Appears only when the booking calendar has a free slot today", "default": true},
-    {"type": "text", "id": "live_status_text", "label": "Live status text", "info": "Shown when there is a free slot today"},
-    {"type": "checkbox", "id": "show_stats", "label": "Show stats bar", "default": true},
-    {"type": "text", "id": "stat1_num", "label": "Stat 1 number"},
-    {"type": "text", "id": "stat1_label", "label": "Stat 1 label"},
-    {"type": "text", "id": "stat2_num", "label": "Stat 2 number"},
-    {"type": "text", "id": "stat2_label", "label": "Stat 2 label"},
-    {"type": "text", "id": "stat3_num", "label": "Stat 3 number"},
-    {"type": "text", "id": "stat3_label", "label": "Stat 3 label"},
-    {"type": "image_picker", "id": "background_image", "label": "Background image"},
-    {"type": "range", "id": "bg_opacity", "label": "Background opacity (%)", "min": 5, "max": 50, "step": 5, "default": 20}
+    {"type": "header", "content": "Buttons"},
+    {"type": "text", "id": "cta_primary_text", "label": "Main button text"},
+    {"type": "text", "id": "cta_primary_link", "label": "Main button link", "info": "Empty = the booking form"},
+    {"type": "text", "id": "cta_secondary_text", "label": "Second button text"},
+    {"type": "text", "id": "cta_secondary_link", "label": "Second button link", "info": "Empty = the pain map"},
+    {"type": "header", "content": "Line under the buttons"},
+    {"type": "checkbox", "id": "show_rating_line", "label": "Show stars and rating", "default": true},
+    {"type": "text", "id": "rating_text", "label": "Rating text"},
+    {"type": "text", "id": "meta_payment", "label": "Payment line"},
+    {"type": "text", "id": "meta_confirmation", "label": "Confirmation line"},
+    {"type": "header", "content": "Arch picture"},
+    {"type": "image_picker", "id": "arch_image", "label": "Photo of the studio", "info": "Empty = the animated spine drawing"},
+    {"type": "text", "id": "arch_caption", "label": "Caption (only without a photo)"},
+    {"type": "header", "content": "Floating cards"},
+    {"type": "checkbox", "id": "show_next_slot_card", "label": "Show next free slot card", "info": "Live from the booking calendar", "default": true},
+    {"type": "text", "id": "next_slot_label", "label": "Next slot card title"},
+    {"type": "checkbox", "id": "show_rating_card", "label": "Show Google rating card", "default": true},
+    {"type": "text", "id": "rating_score", "label": "Rating card score"},
+    {"type": "text", "id": "rating_label", "label": "Rating card text"}
   ]
 }
 {% endschema %}

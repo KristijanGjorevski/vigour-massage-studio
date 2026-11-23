@@ -1,101 +1,95 @@
 /**
- * Vigour Massage Studio — Hero Banner JavaScript
- * Fetches next available slot and handles smooth scrolling & pre-fill
+ * Vigour Massage Studio — hero
+ * - "next free slot" card, live from the booking calendar (shown only when there is real data)
+ * - clicking it asks the booking form to pre-select that date and time
+ * - smooth scrolling for the hero buttons
  */
-(function() {
+(function () {
   'use strict';
 
-  function initHeroBanner() {
-    const heroElements = document.querySelectorAll('.vm-hero-section');
-    
-    heroElements.forEach(hero => {
-      const blockId = hero.dataset.blockId;
-      const apiBase = hero.dataset.apiBase || '/apps/vigour';
-      const slotCard = hero.querySelector('.vm-hero-slot-card');
-      const livePill = hero.querySelector('.vm-hero-live-pill');
+  const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      if (!slotCard) return;
+  // Dates come from the booking calendar as YYYY-MM-DD in the studio's time zone
+  function studioToday() {
+    return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
+  }
 
-      const timeEl = slotCard.querySelector('.vm-slot-card-time');
-      const dateEl = slotCard.querySelector('.vm-slot-card-date-text');
-      const slotBtn = slotCard.querySelector('.vm-slot-btn');
+  // "Денес" / "Утре" / "Пет, 28 ноември" (same wording as the header chip)
+  function dayLabel(dateStr) {
+    const toUtc = (s) => {
+      const [y, m, d] = s.split('-').map(Number);
+      return Date.UTC(y, m - 1, d);
+    };
+    const target = toUtc(dateStr);
+    const diff = Math.round((target - toUtc(studioToday())) / 864e5);
+    if (diff === 0) return 'Денес';
+    if (diff === 1) return 'Утре';
+    const days = ['Нед', 'Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб'];
+    const months = ['јануари', 'февруари', 'март', 'април', 'мај', 'јуни', 'јули', 'август', 'септември', 'октомври', 'ноември', 'декември'];
+    const d = new Date(target);
+    return `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
+  }
 
-      // Dates come from the booking calendar as YYYY-MM-DD in the studio's time zone
-      function studioToday() {
-        return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
-      }
+  function initHero(hero) {
+    const apiBase = hero.dataset.apiBase || '/apps/vigour';
+    const card = hero.querySelector('.vm-hero-slot-card');
+    const text = card ? card.querySelector('.vm-hero-slot-text') : null;
+    let slot = null;
 
-      // "Денес" / "Утре" / "Пет, 28 ноември" (same wording as the header chip)
-      function dayLabel(dateStr) {
-        const toUtc = (s) => {
-          const [y, m, d] = s.split('-').map(Number);
-          return Date.UTC(y, m - 1, d);
-        };
-        const target = toUtc(dateStr);
-        const diff = Math.round((target - toUtc(studioToday())) / 864e5);
-        if (diff === 0) return 'Денес';
-        if (diff === 1) return 'Утре';
-        const days = ['Нед', 'Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб'];
-        const months = ['јануари', 'февруари', 'март', 'април', 'мај', 'јуни', 'јули', 'август', 'септември', 'октомври', 'ноември', 'декември'];
-        const d = new Date(target);
-        return `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
-      }
+    // Calendar says nothing is free (or can't be reached): no made-up time, point to the calendar
+    function showNoSlot() {
+      if (!card) return;
+      text.textContent = 'Види го календарот';
+      card.hidden = false;
+    }
 
-      // No slot to show (calendar unreachable or fully booked): no made-up time,
-      // just point the visitor to the booking form
-      function showNoSlot() {
-        if (timeEl) timeEl.hidden = true;
-        if (dateEl) dateEl.textContent = 'Види ги слободните термини во календарот';
-      }
-
-      // Fetch next slot from API
-      async function fetchNextSlot() {
-        const apiUrl = `${apiBase}/bookings?nextSlot=true`;
-
-        try {
-          const res = await fetch(apiUrl, { credentials: 'omit' });
-          if (!res.ok) throw new Error('API slot response not ok');
-          const data = await res.json();
-          const next = data && data.nextSlot;
-          if (!next || !next.date || !next.time) {
-            showNoSlot();
-            return;
-          }
-
-          if (timeEl) timeEl.textContent = next.time;
-          if (dateEl) dateEl.textContent = dayLabel(next.date);
-          if (slotBtn) {
-            slotBtn.href = `#najdo-booking-container?date=${encodeURIComponent(next.date)}&time=${encodeURIComponent(next.time)}`;
-          }
-          // "Free slots today" only when the next free slot really is today
-          if (livePill) livePill.hidden = next.date !== studioToday();
-        } catch (err) {
+    async function loadNextSlot() {
+      if (!card) return;
+      try {
+        const res = await fetch(`${apiBase}/bookings?nextSlot=true`, { credentials: 'omit', headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error('calendar not ok');
+        const data = await res.json();
+        const next = data && data.nextSlot;
+        if (!next || !next.date || !next.time) {
           showNoSlot();
+          return;
         }
+        slot = { date: next.date, time: next.time };
+        text.textContent = `${dayLabel(next.date)} во ${next.time}`;
+        card.hidden = false;
+      } catch (e) {
+        showNoSlot();
       }
+    }
 
-      fetchNextSlot();
+    // Tell the booking form which slot was chosen; the link itself still scrolls to the form
+    if (card) {
+      card.addEventListener('click', () => {
+        if (slot) window.dispatchEvent(new CustomEvent('vigour:prefill-slot', { detail: slot }));
+      });
+    }
 
-      // Smooth scroll for CTAs targeting anchors
-      hero.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          const targetId = href.split('?')[0];
-          if (targetId && targetId !== '#') {
-            const targetEl = document.querySelector(targetId);
-            if (targetEl) {
-              e.preventDefault();
-              targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          }
-        });
+    // In-page buttons: smooth scroll (the block's scroll-margin keeps it below the sticky header)
+    hero.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const id = link.getAttribute('href').slice(1);
+        const target = id && document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: REDUCED_MOTION.matches ? 'auto' : 'smooth', block: 'start' });
       });
     });
+
+    loadNextSlot();
+  }
+
+  function init() {
+    document.querySelectorAll('.vm-hero').forEach(initHero);
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHeroBanner);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initHeroBanner();
+    init();
   }
 })();
