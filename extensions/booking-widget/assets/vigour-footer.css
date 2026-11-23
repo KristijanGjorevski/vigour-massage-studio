@@ -1,146 +1,100 @@
 /* ==========================================================================
-   Vigour Footer — Official Footer Section
+   Vigour Footer (prototype .foot)
+   House-green background · brand + 3 link columns · bottom bar
    ========================================================================== */
 
 .vm-footer-wrapper {
-  background-color: #1E3631;
-  color: var(--vm-greige);
-  padding: 80px 0 36px;
+  background: var(--vm-house);
+  color: #C5D8CF;
+  padding: 56px 0 30px;
   font-family: var(--vm-font-body);
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 14.72px;
+  line-height: 1.55;
 }
 
 .vm-footer-container {
-  max-width: 1380px;
+  max-width: calc(var(--vm-wrap) + 40px);
   margin: 0 auto;
-  padding: 0 28px;
+  padding: 0 20px;
 }
 
-/* 4-Column Grid */
 .vm-footer-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 50px;
-  margin-bottom: 60px;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 28px;
 }
 
-/* Column 1: Brand Info */
-.vm-footer-brand-col {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 360px;
-}
-
+/* Brand */
 .vm-footer-logo-link {
-  text-decoration: none;
   display: inline-flex;
+  margin-bottom: 12px;
+  text-decoration: none;
 }
 
 .vm-footer-tagline {
-  font-size: 15.2px;
-  line-height: 1.65;
-  color: #DDD2C8;
-  opacity: 0.9;
   margin: 0;
+  max-width: 36ch;
+  color: #C5D8CF;
 }
 
-/* Link Columns */
-.vm-footer-col {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
+/* Link columns */
 .vm-footer-col-title {
-  font-family: var(--vm-font-heading);
-  font-size: 13.6px;
+  margin: 0 0 12px;
+  font-family: var(--vm-font-body);
+  font-size: 12.8px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  line-height: 1.4;
+  letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: var(--vm-white);
-  margin: 0 0 4px 0;
+  color: #FFFFFF;
 }
 
 .vm-footer-links-list {
-  list-style: none;
-  padding: 0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  padding: 0;
+  list-style: none;
 }
 
-.vm-footer-link-item a {
-  color: var(--vm-greige);
+.vm-footer-links-list a,
+.vm-footer-links-list span {
+  display: block;
+  padding: 3px 0;
+  color: #C5D8CF;
   text-decoration: none;
-  font-size: 14.72px;
-  transition: var(--vm-transition);
-  display: inline-block;
+  transition: color 0.2s;
 }
 
-.vm-footer-link-item a:hover {
-  color: var(--vm-white);
-  transform: translateX(3px);
+.vm-footer-wrapper a:hover {
+  color: #FFFFFF;
 }
 
-.vm-footer-contact-item {
-  color: var(--vm-greige);
-  font-size: 14.72px;
-  line-height: 1.5;
-}
-
-.vm-footer-contact-item a {
-  color: var(--vm-greige);
-  text-decoration: none;
-  transition: var(--vm-transition);
-}
-
-.vm-footer-contact-item a:hover {
-  color: var(--vm-white);
-}
-
-/* Bottom Bar */
+/* Bottom bar */
 .vm-footer-bottom {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 32px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  font-size: 13.6px;
-  color: rgba(221, 210, 200, 0.7);
   flex-wrap: wrap;
-  gap: 16px;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 36px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 12.8px;
+  color: #9DB8AC;
 }
 
 .vm-footer-bottom a {
-  color: var(--vm-greige);
-  text-decoration: none;
-  transition: var(--vm-transition);
+  color: #9DB8AC;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-.vm-footer-bottom a:hover {
-  color: var(--vm-white);
-}
-
-/* Responsive */
-@media (max-width: 992px) {
+/* Two columns on phones; the brand takes the full first row */
+@media (max-width: 760px) {
   .vm-footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
   }
-}
 
-@media (max-width: 576px) {
-  .vm-footer-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  .vm-footer-bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
+  .vm-footer-brand-col {
+    grid-column: 1 / -1;
   }
 }

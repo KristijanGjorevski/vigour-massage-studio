@@ -1,15 +1,20 @@
 {{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
 {{ 'vigour-footer.css' | asset_url | stylesheet_tag }}
 
-<footer class="vm-block-wrapper vm-footer-wrapper" 
-        id="vm-footer-{{ block.id }}">
+{%- liquid
+  assign instagram_link = block.settings.instagram_link | default: 'https://www.instagram.com/vigour.massagestudio/'
+  assign phone = block.settings.phone | default: '+38975304171'
+  assign current_year = 'now' | date: '%Y'
+-%}
+
+<footer class="vm-block-wrapper vm-footer-wrapper" id="vm-footer-{{ block.id }}">
   <div class="vm-footer-container">
-    
+
     <div class="vm-footer-grid">
-      
+
       <div class="vm-footer-brand-col">
-        <a href="{{ routes.root_url | default: '/' }}" class="vm-footer-logo-link" aria-label="Vigour Massage Studio Почетна">
-          {% render 'vigour-logo', on_dark: true %}
+        <a href="{{ routes.root_url }}" class="vm-footer-logo-link" aria-label="Vigour Massage Studio, почетна">
+          {%- render 'vigour-logo', on_dark: true -%}
         </a>
         <p class="vm-footer-tagline">
           {{ block.settings.tagline | default: 'Масажа и рехабилитација во Скопје, од 2025. Олеснување во студио, решение со вежби од дома.' }}
@@ -17,70 +22,45 @@
       </div>
 
       <div class="vm-footer-col">
-        <h4 class="vm-footer-col-title">УСЛУГИ</h4>
+        <h2 class="vm-footer-col-title">Услуги</h2>
         <ul class="vm-footer-links-list">
-          <li class="vm-footer-link-item">
-            <a href="#vigour-services">Релакс масажа</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#vigour-services">Спортска масажа</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#vigour-services">Масажа на стапала</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#vigour-services">Премиум масажа</a>
-          </li>
+          <li><a href="#vigour-services">Релакс масажа</a></li>
+          <li><a href="#vigour-services">Спортска масажа</a></li>
+          <li><a href="#vigour-services">Масажа на стапала</a></li>
+          <li><a href="#vigour-services">Премиум масажа</a></li>
         </ul>
       </div>
 
       <div class="vm-footer-col">
-        <h4 class="vm-footer-col-title">СТУДИО</h4>
+        <h2 class="vm-footer-col-title">Студио</h2>
         <ul class="vm-footer-links-list">
-          <li class="vm-footer-link-item">
-            <a href="#vigour-programs">Програми</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#vm-packages">Пакети и ваучери</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#najdo-booking-container">Онлајн закажување</a>
-          </li>
-          <li class="vm-footer-link-item">
-            <a href="#vm-contact">Контакт</a>
-          </li>
+          <li><a href="#vigour-programs">Програми</a></li>
+          <li><a href="#vm-packages">Пакети и ваучери</a></li>
+          <li><a href="#najdo-booking-container">Онлајн закажување</a></li>
+          <li><a href="#vm-contact">Контакт</a></li>
         </ul>
       </div>
 
       <div class="vm-footer-col">
-        <h4 class="vm-footer-col-title">КОНТАКТ</h4>
+        <h2 class="vm-footer-col-title">Контакт</h2>
         <ul class="vm-footer-links-list">
-          <li class="vm-footer-contact-item">
-            <a href="tel:{{ block.settings.phone | default: '+38975304171' }}">
-              {{ block.settings.phone_display | default: '+389 75 304 171' }}
-            </a>
-          </li>
-          <li class="vm-footer-contact-item">
-            <a href="{{ block.settings.instagram_link | default: 'https://instagram.com/vigour.massagestudio' }}" target="_blank" rel="noopener noreferrer">
-              {{ block.settings.instagram_handle | default: '@vigour.massagestudio' }}
-            </a>
-          </li>
-          <li class="vm-footer-contact-item">
-            <span>{{ block.settings.city | default: 'Скопје, Македонија' }}</span>
-          </li>
+          <li><a href="tel:{{ phone }}">{{ block.settings.phone_display | default: '+389 75 304 171' }}</a></li>
+          <li><a href="{{ instagram_link }}" target="_blank" rel="noopener">{{ block.settings.instagram_handle | default: '@vigour.massagestudio' }}</a></li>
+          <li><span>{{ block.settings.city | default: 'Скопје' }}</span></li>
         </ul>
       </div>
 
     </div>
 
     <div class="vm-footer-bottom">
-      <div>
-        {{ block.settings.copyright | default: '© 2026 Vigour Massage Studio · Est. 2025' }}
-      </div>
-      <div>
-        <span>Плаќање со картичка преку cPay</span> · 
-        <a href="{{ block.settings.instagram_link | default: 'https://instagram.com/vigour.massagestudio' }}" target="_blank" rel="noopener noreferrer">Instagram</a>
-      </div>
+      <span>
+        {%- if block.settings.copyright != blank -%}
+          {{ block.settings.copyright }}
+        {%- else -%}
+          © {{ current_year }} Vigour Massage Studio · Est. 2025
+        {%- endif -%}
+      </span>
+      <span>Плаќање со картичка преку cPay · <a href="{{ instagram_link }}" target="_blank" rel="noopener">Instagram</a></span>
     </div>
 
   </div>
@@ -93,11 +73,11 @@
   "settings": [
     {"type": "textarea", "id": "tagline", "label": "Tagline"},
     {"type": "text", "id": "phone_display", "label": "Phone display"},
-    {"type": "text", "id": "phone", "label": "Phone link"},
+    {"type": "text", "id": "phone", "label": "Phone link", "info": "International format, e.g. +38975304171"},
     {"type": "text", "id": "instagram_handle", "label": "Instagram handle"},
     {"type": "text", "id": "instagram_link", "label": "Instagram link"},
     {"type": "text", "id": "city", "label": "City"},
-    {"type": "text", "id": "copyright", "label": "Copyright text"}
+    {"type": "text", "id": "copyright", "label": "Copyright text", "info": "Empty = © current year Vigour Massage Studio · Est. 2025"}
   ]
 }
 {% endschema %}
