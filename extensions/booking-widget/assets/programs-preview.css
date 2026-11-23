@@ -32,9 +32,8 @@
 /* Programs Grid */
 .vm-programs-grid {
   display: grid;
-  /* min(100%, …) keeps a card from ever being wider than the screen */
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: clamp(16px, 3vw, 32px);
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 32px;
 }
 
 .vm-program-card {
@@ -118,7 +117,7 @@
 
 /* Card Body */
 .vm-program-body {
-  padding: clamp(18px, 6%, 28px);
+  padding: 26px 28px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -126,7 +125,7 @@
 
 .vm-program-card-title {
   font-family: var(--vm-font-heading);
-  font-size: clamp(17.6px, 1.2vw + 12px, 20px);
+  font-size: 20px;
   font-weight: 700;
   color: var(--vm-green-deep);
   margin-bottom: 10px;
@@ -157,7 +156,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
   font-size: 13.6px;
   color: var(--vm-text-secondary);
 }
@@ -170,7 +168,6 @@
 }
 
 .vm-program-ex-duration {
-  flex-shrink: 0;
   font-size: 12.48px;
   color: var(--vm-text-muted);
 }
