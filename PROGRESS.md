@@ -16,7 +16,7 @@ Also referred to as the **"Najdo studio"** project (claude.ai). All customer-fac
 | Scheduling | `app/services/schedule.server.ts` | Europe/Skopje time handling, working slots, overlap-based availability, next free slot |
 | Proxy auth | `app/services/proxy.server.ts` | `requireProxyShop()` — verifies Shopify signature, returns trusted shop |
 | Google Calendar | `app/services/googleCalendar.server.ts`, `app/routes/api.google-callback.ts` | OAuth (signed state), FreeBusy reads, event creation |
-| Theme blocks | `extensions/booking-widget/` | 14 "VM" app blocks: header, hero (live next slot), pain map, services grid, founder, how it works, programs, video reels, reviews, pricing, first-time offer, booking form, contact (Viber-first), footer. Locales `mk` + `en` |
+| Theme blocks | `extensions/booking-widget/` | 15 "VM" app blocks: header, mobile bar, hero (live next slot), pain map, services grid, founder, how it works, programs, video reels, reviews, pricing, first-time offer, booking form, contact (Viber-first), footer. Locales `mk` + `en` |
 | Data | `prisma/schema.prisma` (SQLite) | Session, Service, Appointment, GoogleAuth, Program, Exercise, PainZone |
 
 **Stack:** Shopify React Router app template (React Router 7.18.2 — pinned on purpose, see CHANGELOG), Prisma 6 + SQLite, `googleapis`, Polaris web components.
@@ -114,7 +114,12 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
   - Restyled like the prototype (house-green, 4 columns, two columns on phones). Copyright year is automatic.
   - Fixed: the footer links "Пакети и ваучери" and "Контакт" pointed at ids that did not exist. Packages and contact
     sections now have the fixed ids `vm-packages` / `vm-contact`, and in-page jumps stop below the sticky header.
-- [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
+- [x] 2.5 Sticky mobile bottom bar (Book + Viber)
+  - New block `VM Mobile Bar` (phones only, up to 760px). It moves itself into `<body>` because the theme's animated
+    section wrapper would otherwise break `position: fixed`, and the page gets bottom padding so the footer is not covered.
+  - Viber opens `viber://chat?number=38975304171` (same as the other blocks); the Book text follows the MK/EN switch.
+  - Store setup later: add this block on every page (next to the header).
+  - Found on the way, for Phase 3.3 (programs): at 360px the Programs cards are wider than the screen (page 376px wide).
 - [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
   - Done early (with 2.3): the "free slots today" pill only shows when the calendar has a slot today, the card
     reads "Утре" instead of "Утре, 2026-11-23", and an unreachable calendar no longer shows a made-up time.
