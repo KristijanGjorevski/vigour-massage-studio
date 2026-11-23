@@ -110,7 +110,10 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
     kept the header from sticking and let the next section cover the phone menu.
   - Fixed: "Продавница" and "Контакт" links never scrolled (block ids have a suffix); in-page links now stop below the header.
   - Store setup later: place the header where it shows on every page and turn off the theme's own header.
-- [ ] 2.4 Footer
+- [x] 2.4 Footer
+  - Restyled like the prototype (house-green, 4 columns, two columns on phones). Copyright year is automatic.
+  - Fixed: the footer links "Пакети и ваучери" and "Контакт" pointed at ids that did not exist. Packages and contact
+    sections now have the fixed ids `vm-packages` / `vm-contact`, and in-page jumps stop below the sticky header.
 - [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
 - [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
   - Done early (with 2.3): the "free slots today" pill only shows when the calendar has a slot today, the card
