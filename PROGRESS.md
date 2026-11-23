@@ -120,9 +120,14 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
   - Viber opens `viber://chat?number=38975304171` (same as the other blocks); the Book text follows the MK/EN switch.
   - Store setup later: add this block on every page (next to the header).
   - Found on the way: at 360px the Programs cards were wider than the screen. Fixed (see "Bug fixes" below).
-- [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
-  - Done early (with 2.3): the "free slots today" pill only shows when the calendar has a slot today, the card
-    reads "Утре" instead of "Утре, 2026-11-23", and an unreachable calendar no longer shows a made-up time.
+- [x] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
+  - Rebuilt like the prototype: light background, headline with the italic accent word, two buttons (booking form, pain map),
+    rating line, arch with the animated spine (a studio photo can replace it in the block settings), floating cards.
+  - The old dark banner, stats row and "free slots today" pill are gone (the stats come back as the trust strip, 3.1).
+  - Next-slot card is live from the calendar ("Утре во 10:00"); with no slot or no connection it says "Види го календарот", never a made-up time.
+    Clicking it now pre-selects that date and time in the booking form (the old link put the date in a part of the address the form never read).
+  - Fixed: the pain map section had a suffixed id, so the "Каде те боли?" button could not find it; it is now `#vm-painmap`.
+  - Known: the card shows the next slot for the shortest treatment; if the form's selected treatment is longer, that exact time may not be offered and nothing is pre-selected.
 - [ ] 2.7 Macedonian + English: move all block text into the `mk` / `en` locale files (`| t` filter; no block uses them yet),
       add Macedonian as the store's default language in Shopify admin, keep the MK/EN switch
 
@@ -174,7 +179,7 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 Decided 2026-11-23: these stay as they are until the end, because texts, massages and the number of cards may still change.
 
-- **Hero numbers and founder claims:** "600+ клиенти", "4.9★", "100%" (hero) and "600+ treatments", "certified" (founder section) are placeholders. Replace with real, provable numbers or remove.
+- **Ratings and claims:** the hero's "4,9 на Google" and rating card "4,9 од 5 · 40+ рецензии" are the prototype's placeholder numbers (editable in the hero block settings, or hide the card). The founder section's "600+ treatments" and "certified", and the trust strip's "4,9 ★" (3.1), need the same check. Replace with real, provable numbers or remove.
 - **Texts, massages and cards:** some texts and massages may change and the number of cards may go lower. When that happens, re-check everything that lists them: services grid, booking form select, footer "Услуги" links, pain-map recommendations, seeded services (`proxy.bookings.ts`, `app._index.tsx`), prices in the shop.
 - **Placeholder videos:** program and reel videos all use the test YouTube ID `dQw4w9WgXcQ` (the embed shows "This video is unavailable"). Replace with Darko's real videos (see 7.4 and the Step 5 list).
 
