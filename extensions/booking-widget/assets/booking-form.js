@@ -35,6 +35,8 @@
       const successBox = container.querySelector(".najdo-success-box");
       const receiptBox = container.querySelector(".najdo-receipt-details");
       const newBookingBtn = container.querySelector(".najdo-btn-secondary");
+      const unavailableBox = container.querySelector(".najdo-unavailable");
+      const retryBtn = container.querySelector(".najdo-retry-btn");
 
       let servicesList = [];
 
@@ -100,6 +102,13 @@
         }
       }
 
+      // When the calendar can't be reached the form is replaced by a message with Retry,
+      // Viber and phone. It never shows services or times that were not loaded from the calendar.
+      function showUnavailable(isUnavailable) {
+        if (unavailableBox) unavailableBox.hidden = !isUnavailable;
+        if (form) form.style.display = isUnavailable ? "none" : "block";
+      }
+
       // Fetch services & initial slots
       async function loadServicesAndSlots() {
         try {
@@ -110,53 +119,26 @@
 
           if (!res.ok) throw new Error("Could not connect to booking server");
           const data = await res.json();
+          if (!data.services || data.services.length === 0) throw new Error("No services returned");
 
-          if (data.services && data.services.length > 0) {
-            servicesList = data.services;
-            serviceSelect.innerHTML = servicesList
-              .map(
-                (s, i) =>
-                  `<option value="${s.id}" ${i === 0 ? "selected" : ""}>
-                    ${s.name} — ${formatPriceMKD(s.price)} (${s.duration} мин)
-                  </option>`
-              )
-              .join("");
+          servicesList = data.services;
+          serviceSelect.innerHTML = servicesList
+            .map(
+              (s, i) =>
+                `<option value="${s.id}" ${i === 0 ? "selected" : ""}>
+                  ${s.name} — ${formatPriceMKD(s.price)} (${s.duration} мин)
+                </option>`
+            )
+            .join("");
 
-            updateServiceMeta();
-          } else {
-            useDefaultServices();
-          }
-
+          updateServiceMeta();
+          showUnavailable(false);
           renderSlots(data.availableSlots || []);
           checkUrlPreFill();
         } catch (err) {
-          console.warn("Vigour Booking fetch fallback:", err);
-          useDefaultServices();
-          renderSlots(["10:00", "11:30", "13:00", "14:30", "16:00", "17:30", "19:00"]);
-          checkUrlPreFill();
+          console.warn("Vigour booking: calendar not reachable", err);
+          showUnavailable(true);
         }
-      }
-
-      function useDefaultServices() {
-        servicesList = [
-          { id: "default-relax-body", name: "Релакс масажа - Цело тело", price: 1300, duration: 60, description: "Смирувачки, флуидни техники за целосна релаксација и намалување на стресот." },
-          { id: "default-sports-body", name: "Спортска масажа - Цело тело", price: 1500, duration: 60, description: "Длабок терапевтски притисок и истегнување за мускулно закрепнување." },
-          { id: "default-relax-back", name: "Релакс масажа - Грб", price: 800, duration: 45, description: "Фокус на вратот, рамената и паравертебралните мускули на грбот." },
-          { id: "default-sports-back", name: "Спортска масажа - Грб", price: 1000, duration: 45, description: "Ослободување на мускулни јазли и спазми во скапуларната регија." },
-          { id: "default-feet", name: "Масажа на стапала (Рефлексологија)", price: 500, duration: 45, description: "Рефлексолошка стимулација за олеснување на заморот во нозете." },
-          { id: "default-premium", name: "Премиум масажа - Цело тело", price: 2500, duration: 75, description: "Комплетен масажен ритуал напред и назад со врвна регенерација." }
-        ];
-
-        serviceSelect.innerHTML = servicesList
-          .map(
-            (s, i) =>
-              `<option value="${s.id}" ${i === 0 ? "selected" : ""}>
-                ${s.name} — ${formatPriceMKD(s.price)} (${s.duration} мин)
-              </option>`
-          )
-          .join("");
-
-        updateServiceMeta();
       }
 
       function updateServiceMeta() {
@@ -179,12 +161,18 @@
         try {
           const serviceParam = serviceSelect && serviceSelect.value ? `&serviceId=${encodeURIComponent(serviceSelect.value)}` : "";
           const endpoint = `${apiBase}/bookings?date=${date}${serviceParam}`;
-          const res = await fetch(endpoint);
+          const res = await fetch(endpoint, { headers: { Accept: "application/json" } });
+          if (!res.ok) throw new Error("Could not load slots");
           const data = await res.json();
           renderSlots(data.availableSlots || []);
         } catch (err) {
-          console.warn("Could not fetch slots, using default schedule:", err);
-          renderSlots(["10:00", "11:30", "13:00", "15:00", "16:30", "18:00"]);
+          console.warn("Vigour booking: could not load slots", err);
+          if (!slotsContainer) return;
+          slotsContainer.innerHTML = `<div class="najdo-slots-empty najdo-slots-failed">
+            <span>Не можевме да ги вчитаме термините.</span>
+            <button type="button" class="najdo-slots-retry">Обиди се повторно</button>
+          </div>`;
+          slotsContainer.querySelector(".najdo-slots-retry").addEventListener("click", () => fetchSlotsForDate(date));
         }
       }
 
@@ -321,6 +309,14 @@
           if (successBox) successBox.style.display = "none";
           if (form) form.style.display = "block";
           loadServicesAndSlots();
+        });
+      }
+
+      if (retryBtn) {
+        retryBtn.addEventListener("click", async () => {
+          retryBtn.disabled = true;
+          await loadServicesAndSlots();
+          retryBtn.disabled = false;
         });
       }
 
