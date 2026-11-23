@@ -333,3 +333,65 @@
   background: var(--nj-primary, #2b3e34);
   color: #fff;
 }
+
+/* Shown instead of the form when the calendar can't be loaded */
+.najdo-booking-container [hidden] {
+  display: none !important;
+}
+
+.najdo-unavailable {
+  padding: 24px 20px;
+  text-align: center;
+  background: #f7f6f2;
+  border: 1px solid #e4dbd2;
+  border-radius: 14px;
+}
+
+.najdo-unavailable-title {
+  margin: 0 0 8px;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--nj-primary, #243F3A);
+}
+
+.najdo-unavailable-text {
+  margin: 0 auto 18px;
+  max-width: 46ch;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #56625d;
+}
+
+.najdo-unavailable-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Slots could not be loaded for the chosen date */
+.najdo-slots-failed {
+  flex-direction: column;
+  gap: 8px;
+  height: auto;
+  min-height: 84px;
+  padding: 12px;
+  text-align: center;
+}
+
+.najdo-slots-retry {
+  padding: 6px 14px;
+  border: 1.5px solid var(--nj-primary, #243F3A);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--nj-primary, #243F3A);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.najdo-slots-retry:hover {
+  background: var(--nj-primary, #243F3A);
+  color: #fff;
+}

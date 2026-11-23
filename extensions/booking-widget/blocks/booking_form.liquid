@@ -15,6 +15,17 @@
       <p class="najdo-subtitle">{{ block.settings.description | default: 'Изберете третман, посакуван датум и слободен термин за целосно регенерирање на вашето тело.' }}</p>
     </div>
 
+    {%- assign contact_number = block.settings.viber_number | default: '38975304171' | remove: '+' | remove: ' ' -%}
+    <div class="najdo-unavailable" role="alert" hidden>
+      <h3 class="najdo-unavailable-title">Термините не може да се вчитаат</h3>
+      <p class="najdo-unavailable-text">Врската со календарот не успеа. Обидете се повторно за момент или закажете директно со нас.</p>
+      <div class="najdo-unavailable-actions">
+        <button type="button" class="vm-btn-primary najdo-retry-btn">Обиди се повторно</button>
+        <a href="viber://chat?number={{ contact_number }}" class="vm-btn-skin">Пиши на Viber</a>
+        <a href="tel:+{{ contact_number }}" class="vm-btn-secondary">Повикај</a>
+      </div>
+    </div>
+
     <form class="najdo-form" id="najdo-form-{{ block.id }}">
       
       <div class="najdo-form-group">
@@ -113,7 +124,8 @@
     {"type": "textarea", "id": "description", "label": "Description"},
     {"type": "color", "id": "primary_color", "label": "Primary color", "default": "#243F3A"},
     {"type": "color", "id": "accent_color", "label": "Accent color", "default": "#C7B6A6"},
-    {"type": "text", "id": "button_text", "label": "Button text"}
+    {"type": "text", "id": "button_text", "label": "Button text"},
+    {"type": "text", "id": "viber_number", "label": "Viber / phone number", "info": "Shown if the calendar can't be loaded. International format without spaces, e.g. 38975304171"}
   ]
 }
 {% endschema %}
