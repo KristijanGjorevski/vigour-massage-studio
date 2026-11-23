@@ -16,7 +16,7 @@ Also referred to as the **"Najdo studio"** project (claude.ai). All customer-fac
 | Scheduling | `app/services/schedule.server.ts` | Europe/Skopje time handling, working slots, overlap-based availability, next free slot |
 | Proxy auth | `app/services/proxy.server.ts` | `requireProxyShop()` — verifies Shopify signature, returns trusted shop |
 | Google Calendar | `app/services/googleCalendar.server.ts`, `app/routes/api.google-callback.ts` | OAuth (signed state), FreeBusy reads, event creation |
-| Theme blocks | `extensions/booking-widget/` | 15 "VM" app blocks: header, mobile bar, hero (live next slot), pain map, services grid, founder, how it works, programs, video reels, reviews, pricing, first-time offer, booking form, contact (Viber-first), footer. Locales `mk` + `en` |
+| Theme blocks | `extensions/booking-widget/` | 14 "VM" app blocks: header, hero (live next slot), pain map, services grid, founder, how it works, programs, video reels, reviews, pricing, first-time offer, booking form, contact (Viber-first), footer. Locales `mk` + `en` |
 | Data | `prisma/schema.prisma` (SQLite) | Session, Service, Appointment, GoogleAuth, Program, Exercise, PainZone |
 
 **Stack:** Shopify React Router app template (React Router 7.18.2 — pinned on purpose, see CHANGELOG), Prisma 6 + SQLite, `googleapis`, Polaris web components.
@@ -114,12 +114,7 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
   - Restyled like the prototype (house-green, 4 columns, two columns on phones). Copyright year is automatic.
   - Fixed: the footer links "Пакети и ваучери" and "Контакт" pointed at ids that did not exist. Packages and contact
     sections now have the fixed ids `vm-packages` / `vm-contact`, and in-page jumps stop below the sticky header.
-- [x] 2.5 Sticky mobile bottom bar (Book + Viber)
-  - New block `VM Mobile Bar` (phones only, up to 760px). It moves itself into `<body>` because the theme's animated
-    section wrapper would otherwise break `position: fixed`, and the page gets bottom padding so the footer is not covered.
-  - Viber opens `viber://chat?number=38975304171` (same as the other blocks); the Book text follows the MK/EN switch.
-  - Store setup later: add this block on every page (next to the header).
-  - Found on the way: at 360px the Programs cards were wider than the screen. Fixed (see "Bug fixes" below).
+- [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
 - [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
   - Done early (with 2.3): the "free slots today" pill only shows when the calendar has a slot today, the card
     reads "Утре" instead of "Утре, 2026-11-23", and an unreachable calendar no longer shows a made-up time.
@@ -130,7 +125,6 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 - [ ] 3.1 Trust strip (4 stats)
 - [ ] 3.2 Pain map: 7 zones, each recommends a treatment + a program
-  - Known: at 320px (very small phones) the zone panel is about 15px wider than the screen. Fix in this rebuild.
 - [ ] 3.3 Services: restyle the 6 separate cards (decided 2026-11-22: no back/full-body toggle; Premium is 75 min), video popup
 - [ ] 3.4 Video reels (9:16, swipe on phone)
 - [ ] 3.5 How it works (4 steps)
@@ -170,24 +164,11 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - [ ] 7.3 Keyboard navigation, focus rings and reduced-motion support
 - [ ] 7.4 Swap placeholders for real content: photos and video, founder portrait, address, Google reviews and rating, real video IDs
 
-#### Final notices: review with Darko after all other steps (not bugs)
-
-Decided 2026-11-23: these stay as they are until the end, because texts, massages and the number of cards may still change.
-
-- **Hero numbers and founder claims:** "600+ клиенти", "4.9★", "100%" (hero) and "600+ treatments", "certified" (founder section) are placeholders. Replace with real, provable numbers or remove.
-- **Texts, massages and cards:** some texts and massages may change and the number of cards may go lower. When that happens, re-check everything that lists them: services grid, booking form select, footer "Услуги" links, pain-map recommendations, seeded services (`proxy.bookings.ts`, `app._index.tsx`), prices in the shop.
-- **Placeholder videos:** program and reel videos all use the test YouTube ID `dQw4w9WgXcQ` (the embed shows "This video is unavailable"). Replace with Darko's real videos (see 7.4 and the Step 5 list).
-
-#### Bug fixes (from the 2026-11-23 bug clip)
-
-- [x] Programs cards: grid minimum is now `min(100%, 300px)` and padding, gap and title size scale with the screen, so no card is ever wider than the screen.
-- [x] Booking form: when the calendar can't be reached it shows a message (Retry, Viber, phone) instead of made-up services and times. If only the slots for a chosen date fail, it shows a message with Retry inside the form.
-
 ### B. Step 5 — Cleanup (do after the design phases; some items overlap Phases 3 and 4)
 - `shopify.app.toml`: `application_url` / redirect URLs still `https://example.com` (CLI updates during dev; set real URL for prod).
 - Remove template leftovers: `product.metafields.app.demo_info`, `metaobjects.app.example`, the "Additional page" route + nav link; review whether `write_products`/metaobject scopes are still needed.
 - Replace placeholder YouTube IDs `dQw4w9WgXcQ` in `programs_preview.liquid`, `video_reels.liquid` and `DEFAULT_PROGRAMS` (`proxy.exercises.ts`) with real Vigour videos.
-- Storefront fallbacks: done. `hero-banner.js` (2.3) and `booking-form.js` (bug fixes below) no longer invent a time or a service; they show a message with Retry, Viber and phone.
+- Storefront fallbacks: when the API fails, `booking-form.js` shows **fake** services/slots → replace with a clear "contact us on Viber/phone" message. (`hero-banner.js` fixed in 2.3: it now points to the calendar instead of inventing a slot.)
 - Lint (`npm run lint`, 12 errors as of 2026-11-22): label/control association in the add-service form (`app._index.tsx`), `any` in `googleCalendar.server.ts`, React-hook naming in `booking-form.js`, unused variables in `hero-banner.js` and `programs-preview.js`, empty `catch` blocks in `vigour-header.js`.
 - Template leftovers in the repo root: Shopify's template `CHANGELOG.md` and `README.md` → replace the README with a project README; check whether `pnpm-workspace.yaml` is needed (the project uses npm).
 - Seed data duplicated in `proxy.bookings.ts` and `app._index.tsx` → move to one shared module.
