@@ -1,0 +1,28 @@
+{{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
+{{ 'vigour-mobile-bar.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign book_url = block.settings.book_link | default: '#najdo-booking-container'
+  assign book_text = block.settings.book_text | default: 'Закажи термин'
+  assign viber_number = block.settings.viber_number | default: '38975304171' | remove: '+' | remove: ' '
+-%}
+
+{%- comment -%} Phones only. vigour-mobile-bar.js moves this into <body> so the theme's section wrapper can't break position: fixed. {%- endcomment -%}
+<div class="vm-block-wrapper vm-mobile-bar" data-vm-mobile-bar="{{ block.id }}" role="region" aria-label="Брзи акции">
+  <a href="{{ book_url }}" class="vm-btn-primary" data-vm-t="book">{{ book_text }}</a>
+  <a href="viber://chat?number={{ viber_number }}" class="vm-btn-skin" data-vm-t="viber">Viber</a>
+</div>
+
+<script src="{{ 'vigour-mobile-bar.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "VM Mobile Bar",
+  "target": "section",
+  "settings": [
+    {"type": "text", "id": "book_text", "label": "Book button text"},
+    {"type": "text", "id": "book_link", "label": "Book button link"},
+    {"type": "text", "id": "viber_number", "label": "Viber number", "info": "International format without spaces, e.g. 38975304171"}
+  ]
+}
+{% endschema %}
