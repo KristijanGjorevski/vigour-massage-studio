@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-packages-section {
-  padding: 95px 0 85px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-white);
   position: relative;
 }
@@ -25,7 +25,7 @@
 
 .vm-packages-subtitle {
   color: var(--vm-text-muted);
-  font-size: 1.05rem;
+  font-size: 16.8px;
   line-height: 1.6;
 }
 
@@ -76,7 +76,7 @@
   padding: 4px 14px;
   border-radius: var(--vm-radius-pill);
   font-family: var(--vm-font-heading);
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -84,14 +84,14 @@
 
 .vm-package-title {
   font-family: var(--vm-font-heading);
-  font-size: 1.35rem;
+  font-size: 21.6px;
   font-weight: 800;
   color: var(--vm-green-deep);
   margin-bottom: 8px;
 }
 
 .vm-package-desc {
-  font-size: 0.92rem;
+  font-size: 14.72px;
   color: var(--vm-text-muted);
   line-height: 1.55;
   margin-bottom: 24px;
@@ -108,14 +108,14 @@
 
 .vm-package-price {
   font-family: var(--vm-font-heading);
-  font-size: 2.2rem;
+  font-size: 35.2px;
   font-weight: 800;
   color: var(--vm-green-deep);
   line-height: 1;
 }
 
 .vm-package-savings {
-  font-size: 0.82rem;
+  font-size: 13.12px;
   font-weight: 700;
   color: var(--vm-status-available);
   background: var(--vm-status-available-bg);
@@ -137,7 +137,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.92rem;
+  font-size: 14.72px;
   color: var(--vm-text-secondary);
 }
 

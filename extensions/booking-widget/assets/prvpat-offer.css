@@ -4,7 +4,7 @@
    ========================================================================== */
 
 .vm-prvpat-section {
-  padding: 60px 0 80px;
+  padding: var(--vm-section-pad-tight) 0;
   background-color: var(--vm-cream);
   position: relative;
 }
@@ -27,7 +27,7 @@
 .vm-prvpat-title {
   color: var(--vm-white);
   font-family: var(--vm-font-heading);
-  font-size: clamp(2rem, 3.2vw, 2.7rem);
+  font-size: clamp(32px, 3.2vw, 43.2px);
   font-weight: 800;
   line-height: 1.15;
   margin: 0 0 14px 0;
@@ -36,7 +36,7 @@
 
 .vm-prvpat-desc {
   color: #DDD2C8;
-  font-size: 1.05rem;
+  font-size: 16.8px;
   line-height: 1.6;
   margin: 0 0 24px 0;
   max-width: 540px;
@@ -54,7 +54,7 @@
 
 .vm-prvpat-code {
   font-family: var(--vm-font-heading);
-  font-size: 1.15rem;
+  font-size: 18.4px;
   font-weight: 800;
   letter-spacing: 0.15em;
   color: var(--vm-white);
@@ -79,7 +79,7 @@
   color: #243F3A !important;
   font-family: var(--vm-font-heading);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 16px;
   border-radius: var(--vm-radius-pill);
   text-decoration: none;
   transition: var(--vm-transition);
@@ -102,7 +102,7 @@
   color: var(--vm-white) !important;
   font-family: var(--vm-font-heading);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 16px;
   border-radius: var(--vm-radius-pill);
   border: 1.5px solid rgba(255, 255, 255, 0.6);
   text-decoration: none;

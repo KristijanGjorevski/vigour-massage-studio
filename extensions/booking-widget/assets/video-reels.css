@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-reels-section {
-  padding: 95px 0 85px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-green-deep);
   color: var(--vm-white);
   position: relative;
@@ -28,7 +28,7 @@
 
 .vm-reels-subtitle {
   color: var(--vm-greige);
-  font-size: 1.05rem;
+  font-size: 16.8px;
   line-height: 1.6;
 }
 
@@ -103,7 +103,7 @@
   backdrop-filter: blur(6px);
   padding: 4px 10px;
   border-radius: var(--vm-radius-pill);
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
   color: var(--vm-white);
   z-index: 2;
@@ -116,7 +116,7 @@
 
 .vm-reel-title {
   font-family: var(--vm-font-heading);
-  font-size: 1.05rem;
+  font-size: 16.8px;
   font-weight: 700;
   line-height: 1.35;
   color: var(--vm-white);
@@ -124,7 +124,7 @@
 }
 
 .vm-reel-sub {
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--vm-gold);
 }
 

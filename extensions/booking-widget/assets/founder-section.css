@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-founder-section {
-  padding: 100px 0 90px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-white);
   position: relative;
   overflow: hidden;
@@ -80,13 +80,13 @@
 
 .vm-founder-badge-title {
   font-family: var(--vm-font-heading);
-  font-size: 0.95rem;
+  font-size: 15.2px;
   font-weight: 700;
   color: var(--vm-green-deep);
 }
 
 .vm-founder-badge-sub {
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--vm-text-muted);
 }
 
@@ -103,14 +103,14 @@
 
 .vm-founder-role {
   font-family: var(--vm-font-heading);
-  font-size: 1.1rem;
+  font-size: 17.6px;
   font-weight: 600;
   color: var(--vm-green-mid);
   margin-bottom: 24px;
 }
 
 .vm-founder-bio {
-  font-size: 1.05rem;
+  font-size: 16.8px;
   line-height: 1.7;
   color: var(--vm-text-secondary);
   margin-bottom: 28px;
@@ -125,7 +125,7 @@
   border-radius: 0 var(--vm-radius-md) var(--vm-radius-md) 0;
   margin-bottom: 32px;
   font-style: italic;
-  font-size: 1rem;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--vm-green-dark);
 }
@@ -146,7 +146,7 @@
   background: var(--vm-cream-light);
   border: 1px solid rgba(36, 63, 58, 0.08);
   border-radius: var(--vm-radius-md);
-  font-size: 0.88rem;
+  font-size: 14.08px;
   font-weight: 600;
   color: var(--vm-green-deep);
 }
@@ -174,7 +174,7 @@
   color: var(--vm-white) !important;
   font-family: var(--vm-font-heading);
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 14.4px;
   border-radius: var(--vm-radius-pill);
   text-decoration: none;
   transition: var(--vm-transition);

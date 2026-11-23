@@ -5,7 +5,7 @@
      id="najdo-booking-container" 
      data-shop="{{ shop.permanent_domain }}"
      data-api-base="/apps/vigour"
-     style="--nj-primary: {{ block.settings.primary_color | default: '#243F3A' }}; --nj-accent: {{ block.settings.accent_color | default: '#C5A880' }};">
+     style="--nj-primary: {{ block.settings.primary_color | default: '#243F3A' }}; --nj-accent: {{ block.settings.accent_color | default: '#C7B6A6' }};">
   
   <div class="najdo-booking-card">
     <div class="najdo-booking-header">
@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <div class="vm-booking-discount-notice" style="background: rgba(46, 125, 50, 0.1); border: 1px solid rgba(46, 125, 50, 0.25); border-radius: var(--vm-radius-sm); padding: 10px 14px; font-size: 0.85rem; color: #1B5E20; display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+      <div class="vm-booking-discount-notice" style="background: rgba(46, 125, 50, 0.1); border: 1px solid rgba(46, 125, 50, 0.25); border-radius: var(--vm-radius-sm); padding: 10px 14px; font-size: 13.6px; color: #1B5E20; display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
         {% render 'vigour-icons', name: 'tag' %}
         <span><strong>Поволност:</strong> 5% попуст при плаќање со картичка во студиото!</span>
       </div>
@@ -112,7 +112,7 @@
     {"type": "text", "id": "title", "label": "Title"},
     {"type": "textarea", "id": "description", "label": "Description"},
     {"type": "color", "id": "primary_color", "label": "Primary color", "default": "#243F3A"},
-    {"type": "color", "id": "accent_color", "label": "Accent color", "default": "#C5A880"},
+    {"type": "color", "id": "accent_color", "label": "Accent color", "default": "#C7B6A6"},
     {"type": "text", "id": "button_text", "label": "Button text"}
   ]
 }

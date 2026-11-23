@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-painmap-section {
-  padding: 95px 0 85px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-white);
   position: relative;
   overflow: hidden;
@@ -26,7 +26,7 @@
 
 .vm-painmap-subtitle {
   color: var(--vm-text-muted);
-  font-size: 1.1rem;
+  font-size: 17.6px;
   line-height: 1.6;
 }
 
@@ -46,7 +46,7 @@
   background: var(--vm-cream);
   border: 1px solid var(--vm-border);
   font-family: var(--vm-font-heading);
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 600;
   color: var(--vm-text-secondary);
   cursor: pointer;
@@ -113,8 +113,10 @@
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.vm-svg-zone:hover {
-  fill: rgba(197, 168, 128, 0.55);
+/* Hovering anywhere on a zone (shape or its dot) highlights it, so the target is the whole body part. */
+.vm-svg-zone:hover,
+.vm-svg-zone-group:hover .vm-svg-zone:not(.active) {
+  fill: rgba(199, 182, 166, 0.55);
   stroke: var(--vm-gold);
   stroke-width: 2.5;
 }
@@ -123,22 +125,28 @@
   fill: var(--vm-gold);
   stroke: var(--vm-green-deep);
   stroke-width: 3;
-  filter: drop-shadow(0 0 10px rgba(197, 168, 128, 0.7));
+  filter: drop-shadow(0 0 10px rgba(199, 182, 166, 0.7));
 }
 
 .vm-svg-pin {
   cursor: pointer;
+  /* Scale each dot around its own centre. Without these two lines SVG scales from the
+     figure's top-left corner, so the dot jumped away from the cursor and back (jiggle)
+     and active dots sat in the wrong place. */
+  transform-box: fill-box;
+  transform-origin: center;
   transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .vm-svg-pin:hover,
+.vm-svg-zone-group:hover .vm-svg-pin,
 .vm-svg-pin.active {
   transform: scale(1.3);
 }
 
 .vm-bodymap-instructions {
   margin-top: 18px;
-  font-size: 0.85rem;
+  font-size: 13.6px;
   color: var(--vm-text-muted);
   display: flex;
   align-items: center;
@@ -164,7 +172,7 @@
   background: var(--vm-gold-soft);
   color: var(--vm-green-dark);
   font-family: var(--vm-font-heading);
-  font-size: 0.78rem;
+  font-size: 12.48px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -174,14 +182,14 @@
 .vm-zone-name {
   color: var(--vm-green-deep);
   font-family: var(--vm-font-heading);
-  font-size: 1.85rem;
+  font-size: 29.6px;
   font-weight: 800;
   line-height: 1.2;
   margin-bottom: 8px;
 }
 
 .vm-zone-causes {
-  font-size: 0.98rem;
+  font-size: 15.68px;
   color: var(--vm-text-secondary);
   line-height: 1.6;
   background: var(--vm-white);
@@ -213,7 +221,7 @@
 
 .vm-rec-card-eyebrow {
   font-family: var(--vm-font-heading);
-  font-size: 0.75rem;
+  font-size: 12px;
   font-weight: 700;
   color: var(--vm-green-mid);
   text-transform: uppercase;
@@ -226,14 +234,14 @@
 
 .vm-rec-card-title {
   font-family: var(--vm-font-heading);
-  font-size: 1.25rem;
+  font-size: 20px;
   font-weight: 700;
   color: var(--vm-green-deep);
   margin-bottom: 8px;
 }
 
 .vm-rec-card-desc {
-  font-size: 0.9rem;
+  font-size: 14.4px;
   color: var(--vm-text-muted);
   line-height: 1.5;
   margin-bottom: 16px;
@@ -249,13 +257,13 @@
 
 .vm-rec-price-badge {
   font-family: var(--vm-font-heading);
-  font-size: 1.35rem;
+  font-size: 21.6px;
   font-weight: 800;
   color: var(--vm-green-deep);
 }
 
 .vm-rec-price-badge small {
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 500;
   color: var(--vm-text-muted);
   margin-left: 4px;
@@ -271,7 +279,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  font-size: 0.9rem;
+  font-size: 14.4px;
 }
 
 .vm-exercise-rec-left {
@@ -299,7 +307,7 @@
 }
 
 .vm-exercise-rec-sub {
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--vm-text-muted);
 }
 

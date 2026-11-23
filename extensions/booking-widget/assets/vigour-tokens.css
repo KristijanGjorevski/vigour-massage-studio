@@ -3,34 +3,54 @@
    Skopje, Macedonia · Est. 2025
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Onest:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap');
+
+/* Sizes are in px on purpose: the host theme sets its root font size to 10px,
+   so rem units would shrink every block. */
 
 :root {
-  /* Brand Color Palette */
-  --vm-green-deep: #243F3A;
-  --vm-green-mid: #2F5A51;
+  /* Prototype palette (docs/design/vigour-prototype.html) */
+  --vm-house: #243F3A;
+  --vm-green: #2F5A51;
+  --vm-green-soft: #D5E0DA;
+  --vm-green-mist: #ECF1EE;
+  --vm-skin: #DDD2C8;
+  --vm-skin-2: #EEE8E1;
+  --vm-blush: #C7B6A6;
+  --vm-blush-deep: #8A6A55;
+  --vm-paper: #F7F3EE;
+  --vm-card: #FFFFFF;
+  --vm-ink: #1B2724;
+  --vm-muted: #56625D;
+  --vm-line: #E4DBD2;
+  --vm-star: #E0A33A;
+
+  /* Names used by the blocks, mapped onto the prototype palette */
+  --vm-green-deep: var(--vm-house);
+  --vm-green-mid: var(--vm-green);
   --vm-green-light: #3D7368;
   --vm-green-dark: #192D29;
   --vm-green-glow: rgba(36, 63, 58, 0.15);
 
-  --vm-greige: #DDD2C8;
-  --vm-greige-dark: #C9BCB0;
-  --vm-cream: #EEE8E1;
-  --vm-cream-light: #F7F4F0;
+  --vm-greige: var(--vm-skin);
+  --vm-greige-dark: var(--vm-blush);
+  --vm-cream: var(--vm-skin-2);
+  --vm-cream-light: var(--vm-paper);
   --vm-white: #FAF8F5;
-  --vm-pure-white: #FFFFFF;
+  --vm-pure-white: var(--vm-card);
 
-  --vm-gold: #C5A880;
-  --vm-gold-hover: #B5966B;
-  --vm-gold-soft: rgba(197, 168, 128, 0.18);
+  /* Accent: the prototype's blush replaces the old gold */
+  --vm-gold: var(--vm-blush);
+  --vm-gold-hover: var(--vm-blush-deep);
+  --vm-gold-soft: rgba(199, 182, 166, 0.22);
 
-  --vm-text: #1A1A1A;
-  --vm-text-secondary: #3D3D3D;
-  --vm-text-muted: #6B6560;
+  --vm-text: var(--vm-ink);
+  --vm-text-secondary: #33413D;
+  --vm-text-muted: var(--vm-muted);
   --vm-text-light: #FAF8F5;
 
-  --vm-border: rgba(36, 63, 58, 0.12);
-  --vm-border-focus: #243F3A;
+  --vm-border: var(--vm-line);
+  --vm-border-focus: var(--vm-blush-deep);
 
   /* Status Colors */
   --vm-status-available: #2E7D32;
@@ -39,21 +59,28 @@
   --vm-status-busy-bg: #FFEBEE;
 
   /* Typography */
-  --vm-font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --vm-font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --vm-font-heading: 'Montserrat', 'Onest', system-ui, sans-serif;
+  --vm-font-body: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --vm-font-accent: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  /* Layout */
+  --vm-wrap: 1180px;
+  --vm-section-pad: clamp(56px, 8vw, 96px);
+  --vm-section-pad-tight: clamp(40px, 5vw, 64px);
 
   /* Radii */
-  --vm-radius-xs: 4px;
-  --vm-radius-sm: 8px;
-  --vm-radius-md: 14px;
-  --vm-radius-lg: 22px;
-  --vm-radius-xl: 32px;
-  --vm-radius-pill: 9999px;
+  --vm-radius-xs: 6px;
+  --vm-radius-sm: 10px;
+  --vm-radius-md: 16px;
+  --vm-radius-lg: 24px;
+  --vm-radius-xl: 26px;
+  --vm-radius-pill: 999px;
 
   /* Shadows */
-  --vm-shadow-subtle: 0 2px 6px rgba(36, 63, 58, 0.04);
-  --vm-shadow-card: 0 4px 18px rgba(36, 63, 58, 0.08);
-  --vm-shadow-elevated: 0 10px 30px rgba(36, 63, 58, 0.12);
+  --vm-shadow-subtle: 0 1px 4px rgba(30, 57, 50, 0.18);
+  /* Prototype cards are flat: a thin line border and at most a hairline shadow */
+  --vm-shadow-card: 0 1px 2px rgba(30, 57, 50, 0.06);
+  --vm-shadow-elevated: 0 18px 40px -22px rgba(30, 57, 50, 0.45);
   --vm-shadow-glow: 0 0 25px rgba(47, 90, 81, 0.25);
 
   /* Transitions */
@@ -77,10 +104,80 @@
   box-sizing: border-box;
 }
 
+/* In-page links (e.g. #vm-contact) stop below the 70px sticky header */
+.vm-block-wrapper[id] {
+  scroll-margin-top: 70px;
+}
+
+.vm-block-wrapper :focus-visible {
+  outline: 3px solid var(--vm-blush-deep);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Italic serif accent word, e.g. <span class="vm-accent">енергија.</span> */
+.vm-accent {
+  font-family: var(--vm-font-accent);
+  font-style: italic;
+  font-weight: 600;
+  color: var(--vm-blush-deep);
+  font-size: 1.18em;
+  letter-spacing: 0;
+  line-height: 0.9;
+}
+
+/* Logo (snippets/vigour-logo.liquid) */
+.vm-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--vm-house);
+}
+
+.vm-logo--on-dark {
+  color: var(--vm-white);
+}
+
+.vm-logo-mark {
+  width: 26px;
+  height: 38px;
+  flex-shrink: 0;
+}
+
+.vm-logo-text {
+  display: block;
+  white-space: nowrap;
+}
+
+.vm-logo-name {
+  display: block;
+  font-family: var(--vm-font-heading);
+  font-weight: 600;
+  font-size: 16.32px;
+  letter-spacing: 0.24em;
+  line-height: 1.1;
+}
+
+.vm-logo-sub {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--vm-font-body);
+  font-weight: 400;
+  font-size: 9.28px;
+  letter-spacing: 0.3em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--vm-muted);
+}
+
+.vm-logo--on-dark .vm-logo-sub {
+  color: #AFC3BC;
+}
+
 .vm-container {
-  max-width: 1240px;
+  max-width: calc(var(--vm-wrap) + 40px);
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 @media (max-width: 768px) {
@@ -99,88 +196,121 @@
   border: 1.5px solid currentColor;
   font-family: var(--vm-font-heading);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 13.6px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-/* Shared Buttons */
-.vm-btn-primary {
+/* Shared Buttons (prototype .btn family)
+   primary = green fill · secondary = house-green outline ("ghost") · skin = soft fill
+   light / outline-light = the same pair for dark backgrounds · add .vm-btn-sm for small */
+.vm-btn-primary,
+.vm-btn-secondary,
+.vm-btn-skin,
+.vm-btn-light,
+.vm-btn-outline-light {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
-  background-color: var(--vm-green-deep);
-  color: var(--vm-white) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
+  gap: 8px;
+  padding: 13px 22px;
+  font-family: var(--vm-font-body);
+  font-weight: 600;
+  font-size: 15.68px;
+  line-height: 1.2;
+  letter-spacing: 0;
   text-decoration: none;
   border-radius: var(--vm-radius-pill);
-  border: 1px solid var(--vm-green-deep);
+  border: 1.5px solid transparent;
   cursor: pointer;
-  transition: var(--vm-transition);
-  box-shadow: 0 4px 14px rgba(36, 63, 58, 0.2);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.vm-btn-primary:active,
+.vm-btn-secondary:active,
+.vm-btn-skin:active,
+.vm-btn-light:active,
+.vm-btn-outline-light:active {
+  transform: translateY(1px);
+}
+
+.vm-btn-primary[disabled],
+.vm-btn-secondary[disabled],
+.vm-btn-skin[disabled],
+.vm-btn-light[disabled],
+.vm-btn-outline-light[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.vm-btn-primary {
+  background-color: var(--vm-green);
+  color: #FFFFFF !important;
 }
 
 .vm-btn-primary:hover {
-  background-color: var(--vm-green-mid);
-  border-color: var(--vm-green-mid);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(36, 63, 58, 0.3);
+  background-color: var(--vm-house);
 }
 
 .vm-btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
   background-color: transparent;
-  color: var(--vm-green-deep) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  border-radius: var(--vm-radius-pill);
-  border: 2px solid var(--vm-green-deep);
-  cursor: pointer;
-  transition: var(--vm-transition);
+  color: var(--vm-house) !important;
+  border-color: var(--vm-house);
 }
 
 .vm-btn-secondary:hover {
-  background-color: var(--vm-green-deep);
-  color: var(--vm-white) !important;
-  transform: translateY(-2px);
+  background-color: var(--vm-house);
+  color: #FFFFFF !important;
+}
+
+.vm-btn-skin {
+  background-color: var(--vm-skin);
+  color: var(--vm-house) !important;
+}
+
+.vm-btn-skin:hover {
+  background-color: var(--vm-blush);
 }
 
 .vm-btn-light {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 28px;
   background-color: var(--vm-white);
-  color: var(--vm-green-deep) !important;
-  font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  border-radius: var(--vm-radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: var(--vm-transition);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  color: var(--vm-house) !important;
 }
 
 .vm-btn-light:hover {
-  background-color: var(--vm-cream);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  background-color: var(--vm-skin-2);
+}
+
+.vm-btn-outline-light {
+  background-color: transparent;
+  color: var(--vm-white) !important;
+  border-color: rgba(250, 248, 245, 0.7);
+}
+
+.vm-btn-outline-light:hover {
+  background-color: rgba(250, 248, 245, 0.12);
+  border-color: var(--vm-white);
+}
+
+.vm-btn-sm {
+  padding: 9px 16px;
+  font-size: 14.4px;
+}
+
+/* Section spacing and cards */
+.vm-section {
+  padding: var(--vm-section-pad) 0;
+}
+
+.vm-section-tight {
+  padding: var(--vm-section-pad-tight) 0;
+}
+
+.vm-card {
+  background: var(--vm-card);
+  border: 1px solid var(--vm-line);
+  border-radius: var(--vm-radius-lg);
+  padding: clamp(18px, 3vw, 30px);
 }
 
 /* Badge / Eyebrow */
@@ -188,12 +318,12 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--vm-font-heading);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-family: var(--vm-font-body);
+  font-size: 12.16px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--vm-green-mid);
+  color: var(--vm-green);
   margin-bottom: 12px;
 }
 
@@ -208,7 +338,7 @@
   gap: 8px;
   padding: 6px 14px;
   border-radius: var(--vm-radius-pill);
-  font-size: 0.82rem;
+  font-size: 13.12px;
   font-weight: 600;
 }
 
@@ -244,38 +374,43 @@
   100% { transform: scale(2.2); opacity: 0; }
 }
 
-/* Typography styles */
+/* Typography styles (prototype: hero h1, section .h, .lead) */
 .vm-heading-xl {
   font-family: var(--vm-font-heading);
-  font-weight: 800;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-size: clamp(28.8px, 4.6vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .vm-heading-lg {
   font-family: var(--vm-font-heading);
-  font-weight: 800;
-  font-size: clamp(1.8rem, 3.8vw, 2.6rem);
-  line-height: 1.2;
+  font-weight: 600;
+  font-size: clamp(23.2px, 3.3vw, 37.6px);
+  line-height: 1.17;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
 }
 
 .vm-heading-md {
   font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: clamp(1.3rem, 2.4vw, 1.75rem);
-  line-height: 1.3;
+  font-weight: 600;
+  font-size: clamp(20px, 2.4vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 .vm-heading-sm {
   font-family: var(--vm-font-heading);
-  font-weight: 700;
-  font-size: 1.15rem;
-  line-height: 1.4;
+  font-weight: 600;
+  font-size: 18.4px;
+  line-height: 1.35;
 }
 
 .vm-lead-text {
-  font-size: clamp(1rem, 1.5vw, 1.18rem);
-  line-height: 1.65;
+  font-size: 16.8px;
+  line-height: 1.6;
   color: var(--vm-text-muted);
+  max-width: 62ch;
 }

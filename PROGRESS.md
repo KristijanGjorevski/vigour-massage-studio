@@ -95,12 +95,29 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 #### Phase 2: Brand foundation
 
-- [ ] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
-- [ ] 2.2 Shared buttons, cards and section spacing
-- [ ] 2.3 Header: logo, nav, live "slots today" chip, cart icon, Book button, mobile menu
-- [ ] 2.4 Footer
+- [x] 2.1 Update `vigour-tokens.css`: colours, fonts (Onest, Cormorant Garamond), radii, shadows
+  - Found on the way: the host theme sets its root font size to 10px, so every `rem` in the blocks rendered at ~62%
+    (body text 10–12px). All block sizes are now in px. Header breakpoints adjusted so it still fits (full rebuild in 2.3).
+- [x] 2.2 Shared buttons, cards and section spacing
+  - Buttons: `vm-btn-primary` / `-secondary` (ghost) / `-skin` / `-light` / `-outline-light`, plus `vm-btn-sm`.
+    Section padding comes from `--vm-section-pad`; `vm-card` / `vm-section` utilities for the Phase 3 rebuilds.
+- [x] 2.3 Header: logo, nav, live "slots today" chip, cart icon, Book button, mobile menu
+  - Prototype logo (arch + spine) in the shared `vigour-logo` snippet, used by header and footer.
+  - Slot chip is live from the booking calendar (today's free slots, else the next free slot) and stays hidden
+    if it can't load, so no placeholder text. Cart count from Liquid, refreshed on the theme's `cart:update` event.
+  - Breakpoints: chip above 1320px, menu button from 1060px, MK/EN + Book move into the menu below 640px.
+  - The section holding the header is made sticky (`:has()`), because the theme's animated section wrapper
+    kept the header from sticking and let the next section cover the phone menu.
+  - Fixed: "Продавница" and "Контакт" links never scrolled (block ids have a suffix); in-page links now stop below the header.
+  - Store setup later: place the header where it shows on every page and turn off the theme's own header.
+- [x] 2.4 Footer
+  - Restyled like the prototype (house-green, 4 columns, two columns on phones). Copyright year is automatic.
+  - Fixed: the footer links "Пакети и ваучери" and "Контакт" pointed at ids that did not exist. Packages and contact
+    sections now have the fixed ids `vm-packages` / `vm-contact`, and in-page jumps stop below the sticky header.
 - [ ] 2.5 Sticky mobile bottom bar (Book + Viber)
 - [ ] 2.6 Hero: arch image, spine animation, live next-slot card, rating card
+  - Done early (with 2.3): the "free slots today" pill only shows when the calendar has a slot today, the card
+    reads "Утре" instead of "Утре, 2026-11-23", and an unreachable calendar no longer shows a made-up time.
 - [ ] 2.7 Macedonian + English: move all block text into the `mk` / `en` locale files (`| t` filter; no block uses them yet),
       add Macedonian as the store's default language in Shopify admin, keep the MK/EN switch
 
@@ -151,7 +168,7 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 - `shopify.app.toml`: `application_url` / redirect URLs still `https://example.com` (CLI updates during dev; set real URL for prod).
 - Remove template leftovers: `product.metafields.app.demo_info`, `metaobjects.app.example`, the "Additional page" route + nav link; review whether `write_products`/metaobject scopes are still needed.
 - Replace placeholder YouTube IDs `dQw4w9WgXcQ` in `programs_preview.liquid`, `video_reels.liquid` and `DEFAULT_PROGRAMS` (`proxy.exercises.ts`) with real Vigour videos.
-- Storefront fallbacks: when the API fails, `booking-form.js` shows **fake** services/slots and `hero-banner.js` invents a slot → replace with a clear "contact us on Viber/phone" message.
+- Storefront fallbacks: when the API fails, `booking-form.js` shows **fake** services/slots → replace with a clear "contact us on Viber/phone" message. (`hero-banner.js` fixed in 2.3: it now points to the calendar instead of inventing a slot.)
 - Lint (`npm run lint`, 12 errors as of 2026-11-22): label/control association in the add-service form (`app._index.tsx`), `any` in `googleCalendar.server.ts`, React-hook naming in `booking-form.js`, unused variables in `hero-banner.js` and `programs-preview.js`, empty `catch` blocks in `vigour-header.js`.
 - Template leftovers in the repo root: Shopify's template `CHANGELOG.md` and `README.md` → replace the README with a project README; check whether `pnpm-workspace.yaml` is needed (the project uses npm).
 - Seed data duplicated in `proxy.bookings.ts` and `app._index.tsx` → move to one shared module.

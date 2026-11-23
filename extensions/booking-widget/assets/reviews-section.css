@@ -3,7 +3,7 @@
    ========================================================================== */
 
 .vm-reviews-section {
-  padding: 95px 0 85px;
+  padding: var(--vm-section-pad) 0;
   background-color: var(--vm-cream);
   position: relative;
   overflow: hidden;
@@ -26,7 +26,7 @@
 
 .vm-reviews-subtitle {
   color: var(--vm-text-muted);
-  font-size: 1.05rem;
+  font-size: 16.8px;
   line-height: 1.6;
 }
 
@@ -63,12 +63,12 @@
 .vm-review-stars {
   display: flex;
   gap: 4px;
-  color: var(--vm-gold);
+  color: var(--vm-star);
   margin-bottom: 16px;
 }
 
 .vm-review-text {
-  font-size: 0.98rem;
+  font-size: 15.68px;
   line-height: 1.65;
   color: var(--vm-text-secondary);
   font-style: italic;
@@ -95,7 +95,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
+  font-size: 15.2px;
 }
 
 .vm-review-info {
@@ -105,7 +105,7 @@
 
 .vm-review-name {
   font-family: var(--vm-font-heading);
-  font-size: 0.95rem;
+  font-size: 15.2px;
   font-weight: 700;
   color: var(--vm-green-deep);
   display: flex;
@@ -119,7 +119,7 @@
 }
 
 .vm-review-meta {
-  font-size: 0.8rem;
+  font-size: 12.8px;
   color: var(--vm-text-muted);
 }
 
