@@ -104,6 +104,11 @@
   box-sizing: border-box;
 }
 
+/* In-page links (e.g. #vm-contact) stop below the 70px sticky header */
+.vm-block-wrapper[id] {
+  scroll-margin-top: 70px;
+}
+
 .vm-block-wrapper :focus-visible {
   outline: 3px solid var(--vm-blush-deep);
   outline-offset: 2px;
