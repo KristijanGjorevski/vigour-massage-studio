@@ -1,0 +1,79 @@
+{
+ "neck": {
+  "name": "Neck and head",
+  "tag": "The most common office tension",
+  "causes": "Sitting for long hours at a monitor, a poor sleeping position, stress and built-up tension in the upper trapezius.",
+  "treatmentTitle": "Relaxation or Therapeutic Neck Massage",
+  "treatmentDesc": "Focused release of spasms in the neck, shoulders and base of the skull for immediate relief from headaches and stiffness.",
+  "duration": "45 min",
+  "price": "800 - 1,000 MKD",
+  "exerciseTitle": "2-minute neck stretch",
+  "exerciseSub": "Mobility and trapezius decompression exercises"
+ },
+ "shoulders": {
+  "name": "Shoulders and trapezius",
+  "tag": "Muscle spasm and carrying load",
+  "causes": "Raised shoulders when working at a computer, carrying a heavy backpack or a bag on one shoulder, chronic muscle tightness.",
+  "treatmentTitle": "Sports Massage for Back and Shoulders",
+  "treatmentDesc": "Deep muscle work on the shoulder blade area, trigger point release and a return to the full range of motion.",
+  "duration": "45 min",
+  "price": "1,000 MKD",
+  "exerciseTitle": "Shoulder and shoulder blade circles",
+  "exerciseSub": "Opening the chest and decompression"
+ },
+ "upper_back": {
+  "name": "Upper back and shoulder blades",
+  "tag": "Rounded posture and sitting",
+  "causes": "A hunched posture, overstretched paravertebral muscles and strain from long drives or typing.",
+  "treatmentTitle": "Deep Tissue Back Massage",
+  "treatmentDesc": "Intense work on the muscle layers between the shoulder blades, better circulation and a straighter posture.",
+  "duration": "45 - 60 min",
+  "price": "1,000 - 1,300 MKD",
+  "exerciseTitle": "Y-T-W back exercises",
+  "exerciseSub": "Activating the rhomboid muscles"
+ },
+ "lower_back": {
+  "name": "Lower back (lumbar area)",
+  "tag": "Chronic fatigue and a sedentary lifestyle",
+  "causes": "An inactive core, tight hip muscles, long static sitting on a chair and lifting weight the wrong way.",
+  "treatmentTitle": "Therapeutic Relaxation Back Massage",
+  "treatmentDesc": "Relieves the pressure on the lower spine, relaxes the lumbar fascia and releases the deep muscles.",
+  "duration": "45 - 60 min",
+  "price": "800 - 1,300 MKD",
+  "exerciseTitle": "Cat-cow and child's pose",
+  "exerciseSub": "Decompression of the lumbar spine"
+ },
+ "hips": {
+  "name": "Hip and glutes",
+  "tag": "Sciatic pain and tightness",
+  "causes": "Shortened hip flexors from sitting, and irritation of the piriformis muscle that can cause pain down the leg (pseudo-sciatica).",
+  "treatmentTitle": "Sports Massage for the Lower Body",
+  "treatmentDesc": "Therapeutic mobilization of the gluteal muscles and pelvic girdle with specialized stretching techniques.",
+  "duration": "60 min",
+  "price": "1,500 MKD",
+  "exerciseTitle": "Seated piriformis stretch",
+  "exerciseSub": "Opening the pelvis and hips"
+ },
+ "legs": {
+  "name": "Knees and legs",
+  "tag": "Sports load and training",
+  "causes": "Intense running or fitness, overworked quadriceps and hamstrings, a build-up of lactic acid and fatigue.",
+  "treatmentTitle": "Full Body Sports Massage",
+  "treatmentDesc": "Intense drainage of the legs and release of the tendons and muscle sheath for fast muscle recovery.",
+  "duration": "60 min",
+  "price": "1,500 MKD",
+  "exerciseTitle": "Quadriceps and calf stretch",
+  "exerciseSub": "Better circulation and flexibility"
+ },
+ "feet": {
+  "name": "Feet (reflexology)",
+  "tag": "Long standing and heavy legs",
+  "causes": "Standing for long hours at work, uncomfortable shoes, flat feet and tension in the plantar fascia.",
+  "treatmentTitle": "Foot Massage (Reflexology)",
+  "treatmentDesc": "Stimulation of the acupressure reflex points of the foot that eases your step and brings balance to the whole body.",
+  "duration": "45 min",
+  "price": "500 MKD",
+  "exerciseTitle": "Rolling a tennis ball under the foot",
+  "exerciseSub": "Relaxing the plantar fascia"
+ }
+}

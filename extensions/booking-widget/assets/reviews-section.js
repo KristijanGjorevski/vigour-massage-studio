@@ -4,6 +4,16 @@
 (function() {
   'use strict';
 
+  // "Go to slide [number]", written by the block (reviews_section.liquid) in the language of the page
+  function readGoToSlide(section) {
+    const el = document.getElementById('vm-reviews-i18n-' + section.dataset.blockId);
+    try {
+      return JSON.parse(el.textContent).goToSlide;
+    } catch (e) {
+      return '[number]';
+    }
+  }
+
   function initReviewsCarousel() {
     const sections = document.querySelectorAll('.vm-reviews-section');
 
@@ -13,6 +23,7 @@
       const prevBtn = section.querySelector('.vm-carousel-prev');
       const nextBtn = section.querySelector('.vm-carousel-next');
       const dotsContainer = section.querySelector('.vm-carousel-dots');
+      const goToSlide = readGoToSlide(section);
 
       if (!track || cards.length === 0) return;
 
@@ -37,7 +48,7 @@
         for (let i = 0; i <= max; i++) {
           const dot = document.createElement('button');
           dot.className = `vm-carousel-dot ${i === currentIndex ? 'active' : ''}`;
-          dot.setAttribute('aria-label', `Оди на слајд ${i + 1}`);
+          dot.setAttribute('aria-label', goToSlide.replace('[number]', i + 1));
           dot.addEventListener('click', () => {
             currentIndex = i;
             updateCarousel();

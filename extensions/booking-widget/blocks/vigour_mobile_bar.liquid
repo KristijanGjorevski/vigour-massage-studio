@@ -3,14 +3,16 @@
 
 {%- liquid
   assign book_url = block.settings.book_link | default: '#najdo-booking-container'
-  assign book_text = block.settings.book_text | default: 'Закажи термин'
+  capture book_text
+    render 'vigour-text', value: block.settings.book_text, key: 'header.book'
+  endcapture
   assign viber_number = block.settings.viber_number | default: '38975304171' | remove: '+' | remove: ' '
 -%}
 
 {%- comment -%} Phones only. vigour-mobile-bar.js moves this into <body> so the theme's section wrapper can't break position: fixed. {%- endcomment -%}
-<div class="vm-block-wrapper vm-mobile-bar" data-vm-mobile-bar="{{ block.id }}" role="region" aria-label="Брзи акции">
-  <a href="{{ book_url }}" class="vm-btn-primary" data-vm-t="book">{{ book_text }}</a>
-  <a href="viber://chat?number={{ viber_number }}" class="vm-btn-skin" data-vm-t="viber">Viber</a>
+<div class="vm-block-wrapper vm-mobile-bar" data-vm-mobile-bar="{{ block.id }}" role="region" aria-label="{{ 'mobile_bar.label' | t | escape }}">
+  <a href="{{ book_url }}" class="vm-btn-primary">{{ book_text }}</a>
+  <a href="viber://chat?number={{ viber_number }}" class="vm-btn-skin">{{ 'mobile_bar.viber' | t }}</a>
 </div>
 
 <script src="{{ 'vigour-mobile-bar.js' | asset_url }}" defer="defer"></script>

@@ -9,13 +9,13 @@
     <div class="vm-reviews-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'star' %}
-        <span>{{ block.settings.eyebrow | default: 'ИСКУСТВА НА КЛИЕНТИТЕ' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'reviews.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-reviews-title">
-        {{ block.settings.heading | default: 'Што велат за нашите третмани' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'reviews.heading' %}
       </h2>
       <p class="vm-reviews-subtitle">
-        {{ block.settings.subheading | default: 'Искрени впечатоци од луѓе кои ја вратија леснотијата во своето тело со индивидуалниот пристап во Vigour.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'reviews.subheading' %}
       </p>
     </div>
 
@@ -109,13 +109,13 @@
       </div>
 
       <div class="vm-carousel-controls">
-        <button type="button" class="vm-carousel-arrow vm-carousel-prev" aria-label="Претходно">
+        <button type="button" class="vm-carousel-arrow vm-carousel-prev" aria-label="{{ 'reviews.previous' | t | escape }}">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
         </button>
 
         <div class="vm-carousel-dots"></div>
 
-        <button type="button" class="vm-carousel-arrow vm-carousel-next" aria-label="Следно">
+        <button type="button" class="vm-carousel-arrow vm-carousel-next" aria-label="{{ 'reviews.next' | t | escape }}">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
       </div>
@@ -124,6 +124,10 @@
 
   </div>
 </section>
+
+<script type="application/json" id="vm-reviews-i18n-{{ block.id }}">
+  { "goToSlide": {{ 'reviews.go_to_slide' | t: number: '[number]' | json }} }
+</script>
 
 <script src="{{ 'reviews-section.js' | asset_url }}" defer="defer"></script>
 

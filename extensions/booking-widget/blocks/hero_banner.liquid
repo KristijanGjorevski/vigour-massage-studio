@@ -4,24 +4,30 @@
 {%- liquid
   assign book_url = block.settings.cta_primary_link | default: '#najdo-booking-container'
   assign map_url = block.settings.cta_secondary_link | default: '#vm-painmap'
-  assign title_start = block.settings.heading_start | default: 'Помалку болка. Повеќе'
-  assign title_accent = block.settings.heading_accent | default: 'енергија.'
-  assign rating_line = block.settings.rating_text | default: '4,9 на Google'
+  capture title_start
+    render 'vigour-text', value: block.settings.heading_start, key: 'hero.heading_start'
+  endcapture
+  capture title_accent
+    render 'vigour-text', value: block.settings.heading_accent, key: 'hero.heading_accent'
+  endcapture
+  capture rating_line
+    render 'vigour-text', value: block.settings.rating_text, key: 'hero.rating_text'
+  endcapture
 -%}
 
 <section class="vm-block-wrapper vm-hero" id="vm-hero-{{ block.id }}" data-api-base="/apps/vigour">
   <div class="vm-container vm-hero-grid">
 
     <div class="vm-hero-copy">
-      <span class="vm-eyebrow">{{ block.settings.eyebrow | default: 'Масажа и рехабилитација · Скопје · од 2025' }}</span>
+      <span class="vm-eyebrow">{% render 'vigour-text', value: block.settings.eyebrow, key: 'hero.eyebrow' %}</span>
       <h1 class="vm-heading-xl vm-hero-title">{{ title_start }} <span class="vm-accent">{{ title_accent }}</span></h1>
       <p class="vm-lead-text vm-hero-lead">
-        {{ block.settings.subheading | default: 'Релакс и спортска масажа во Скопје, плус програми за рехабилитација што ги продолжуваш дома. Закажи онлајн за една минута и плати со картичка или во готово.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'hero.subheading' %}
       </p>
 
       <div class="vm-hero-cta">
-        <a href="{{ book_url }}" class="vm-btn-primary">{{ block.settings.cta_primary_text | default: 'Закажи термин онлајн' }}</a>
-        <a href="{{ map_url }}" class="vm-btn-secondary">{{ block.settings.cta_secondary_text | default: 'Каде те боли?' }}</a>
+        <a href="{{ book_url }}" class="vm-btn-primary">{% render 'vigour-text', value: block.settings.cta_primary_text, key: 'hero.cta_primary' %}</a>
+        <a href="{{ map_url }}" class="vm-btn-secondary">{% render 'vigour-text', value: block.settings.cta_secondary_text, key: 'hero.cta_secondary' %}</a>
       </div>
 
       <div class="vm-hero-meta">
@@ -33,8 +39,8 @@
             {{ rating_line }}
           </span>
         {%- endif -%}
-        <span>{{ block.settings.meta_payment | default: 'Плаќање онлајн или во готово' }}</span>
-        <span>{{ block.settings.meta_confirmation | default: 'Потврда веднаш на Viber' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.meta_payment, key: 'hero.meta_payment' %}</span>
+        <span>{% render 'vigour-text', value: block.settings.meta_confirmation, key: 'hero.meta_confirmation' %}</span>
       </div>
     </div>
 
@@ -44,7 +50,7 @@
           {{ block.settings.arch_image | image_url: width: 860 | image_tag: widths: '430, 645, 860', sizes: '(max-width: 900px) 360px, 430px', loading: 'eager', fetchpriority: 'high', alt: block.settings.arch_image.alt, class: 'vm-arch-img' }}
         {%- else -%}
           {% render 'vigour-spine' %}
-          <span class="vm-arch-caption">{{ block.settings.arch_caption | default: 'Фото / видео од студиото' }}</span>
+          <span class="vm-arch-caption">{% render 'vigour-text', value: block.settings.arch_caption, key: 'hero.arch_caption' %}</span>
         {%- endif -%}
       </div>
 
@@ -53,7 +59,7 @@
         <a href="{{ book_url }}" class="vm-hero-card vm-hero-card--slot vm-hero-slot-card" hidden>
           <span class="vm-hero-card-icon vm-hero-card-icon--green"><span class="vm-hero-live-dot"></span></span>
           <span>
-            <small>{{ block.settings.next_slot_label | default: 'Следен слободен термин' }}</small>
+            <small>{% render 'vigour-text', value: block.settings.next_slot_label, key: 'hero.next_slot_label' %}</small>
             <b class="vm-hero-slot-text"></b>
           </span>
         </a>
@@ -63,8 +69,8 @@
         <div class="vm-hero-card vm-hero-card--rating">
           <span class="vm-hero-card-icon vm-hero-card-icon--gold">{% render 'vigour-icons', name: 'star', class: 'vm-hero-card-star' %}</span>
           <span>
-            <b>{{ block.settings.rating_score | default: '4,9 од 5' }}</b>
-            <small>{{ block.settings.rating_label | default: '40+ рецензии на Google' }}</small>
+            <b>{% render 'vigour-text', value: block.settings.rating_score, key: 'hero.rating_score' %}</b>
+            <small>{% render 'vigour-text', value: block.settings.rating_label, key: 'hero.rating_label' %}</small>
           </span>
         </div>
       {%- endif -%}
@@ -72,6 +78,18 @@
 
   </div>
 </section>
+
+{%- comment -%} Texts the script needs, in the language of the page {%- endcomment -%}
+<script type="application/json" id="vm-hero-i18n-{{ block.id }}">
+  {
+    "noSlot": {{ 'hero.next_slot_none' | t | json }},
+    "atTime": {{ 'dates.at_time' | t: day: '[day]', time: '[time]' | json }},
+    "today": {{ 'dates.today' | t | json }},
+    "tomorrow": {{ 'dates.tomorrow' | t | json }},
+    "days": {{ 'dates.days' | t | split: ',' | json }},
+    "months": {{ 'dates.months' | t | split: ',' | json }}
+  }
+</script>
 
 <script src="{{ 'hero-banner.js' | asset_url }}" defer="defer"></script>
 

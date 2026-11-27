@@ -1,0 +1,7 @@
+{%- comment -%}
+  Text that the merchant can override in the theme editor, with a translated default.
+  The merchant's text wins in every language; when the setting is empty the locale file is used.
+
+  Usage: {% render 'vigour-text', value: block.settings.heading, key: 'hero.heading_start' %}
+{%- endcomment -%}
+{%- if value != blank -%}{{ value }}{%- else -%}{{ key | t }}{%- endif -%}

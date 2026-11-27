@@ -11,16 +11,16 @@
         <div class="vm-founder-img-wrapper">
           {%- if block.settings.founder_image != blank -%}
             <img src="{{ block.settings.founder_image | image_url: width: 900 }}" 
-                 alt="{{ block.settings.founder_name | default: 'Дарко - Vigour Massage Studio' }}" 
+                 alt="{% render 'vigour-text', value: block.settings.founder_name, key: 'founder.image_alt' %}" 
                  class="vm-founder-img" 
                  loading="lazy" />
           {%- else -%}
             <div class="vm-founder-placeholder">
               <div class="vm-monogram-pill" style="font-size: 24px; padding: 8px 24px;">VM</div>
               <div style="font-family: var(--vm-font-heading); font-weight: 700; font-size: 19.2px;">
-                {{ block.settings.founder_name | default: 'Дарко' }}
+                {% render 'vigour-text', value: block.settings.founder_name, key: 'founder.name' %}
               </div>
-              <div style="font-size: 14.4px; opacity: 0.85;">Основач & Сертифициран Терапевт</div>
+              <div style="font-size: 14.4px; opacity: 0.85;">{{ 'founder.placeholder_role' | t }}</div>
             </div>
           {%- endif -%}
         </div>
@@ -30,8 +30,8 @@
             {% render 'vigour-icons', name: 'shield' %}
           </div>
           <div>
-            <div class="vm-founder-badge-title">Сертифициран Стручњак</div>
-            <div class="vm-founder-badge-sub">Индивидуален третман за секој клиент</div>
+            <div class="vm-founder-badge-title">{{ 'founder.badge_title' | t }}</div>
+            <div class="vm-founder-badge-sub">{{ 'founder.badge_sub' | t }}</div>
           </div>
         </div>
       </div>
@@ -39,19 +39,19 @@
       <div class="vm-founder-content">
         <div class="vm-eyebrow">
           {% render 'vigour-icons', name: 'user' %}
-          <span>{{ block.settings.eyebrow | default: 'ЗА ТЕРАПЕВТОТ' }}</span>
+          <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'founder.eyebrow' %}</span>
         </div>
 
         <h2 class="vm-heading-lg vm-founder-title">
-          {{ block.settings.heading | default: 'Здраво, јас сум Дарко' }}
+          {% render 'vigour-text', value: block.settings.heading, key: 'founder.heading' %}
         </h2>
 
         <div class="vm-founder-role">
-          {{ block.settings.role | default: 'Основач и Терапевт во Vigour Massage Studio' }}
+          {% render 'vigour-text', value: block.settings.role, key: 'founder.role' %}
         </div>
 
         <div class="vm-founder-bio">
-          {{ block.settings.bio | default: 'Со долгогодишна посветеност на анатомијата на телото и терапевтските техники, мојата цел во Vigour е да ви помогнам да се ослободите од хроничните болки во грбот и вратот, да ја вратите лесната мобилност и да го ресетирате замореното тело.' }}
+          {% render 'vigour-text', value: block.settings.bio, key: 'founder.bio' %}
         </div>
 
         {%- if block.settings.quote != blank -%}
@@ -63,22 +63,22 @@
         <div class="vm-founder-pills">
           <div class="vm-founder-pill">
             {% render 'vigour-icons', name: 'check' %}
-            <span>600+ завршени третмани</span>
+            <span>{{ 'founder.pill_treatments' | t }}</span>
           </div>
           <div class="vm-founder-pill">
             {% render 'vigour-icons', name: 'check' %}
-            <span>Студио во Скопје (est. 2025)</span>
+            <span>{{ 'founder.pill_studio' | t }}</span>
           </div>
           <div class="vm-founder-pill">
             {% render 'vigour-icons', name: 'check' %}
-            <span>Индивидуален притисок</span>
+            <span>{{ 'founder.pill_pressure' | t }}</span>
           </div>
         </div>
 
         <div class="vm-founder-actions">
           <a href="{{ block.settings.booking_link | default: '#najdo-booking-container' }}" class="vm-btn-primary">
             {% render 'vigour-icons', name: 'calendar' %}
-            <span>{{ block.settings.cta_text | default: 'Резервирај Термин' }}</span>
+            <span>{% render 'vigour-text', value: block.settings.cta_text, key: 'founder.cta' %}</span>
           </a>
 
           {%- if block.settings.instagram_url != blank -%}

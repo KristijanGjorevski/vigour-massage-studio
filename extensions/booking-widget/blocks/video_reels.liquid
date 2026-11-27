@@ -9,13 +9,13 @@
     <div class="vm-reels-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'play' %}
-        <span>{{ block.settings.eyebrow | default: 'ПОГЛЕДНИ ПРЕД ДА ДОЈДЕШ' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'reels.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-reels-title">
-        {{ block.settings.heading | default: 'Кратки видеа, одговори на тоа што најчесто не прашуваат.' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'reels.heading' %}
       </h2>
       <p class="vm-reels-subtitle">
-        {{ block.settings.subheading | default: 'Истите видеа што ги гледаш на Instagram и TikTok, собрани на едно место.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'reels.subheading' %}
       </p>
     </div>
 
@@ -27,7 +27,7 @@
           {% render 'vigour-icons', name: 'play' %}
         </div>
         <div class="vm-reel-content">
-          <h3 class="vm-reel-title">Што се случува на првиот третман?</h3>
+          <h3 class="vm-reel-title">{{ 'reels.reel_1' | t }}</h3>
           <span class="vm-reel-sub">0:45 · Vigour</span>
         </div>
       </div>
@@ -38,7 +38,7 @@
           {% render 'vigour-icons', name: 'play' %}
         </div>
         <div class="vm-reel-content">
-          <h3 class="vm-reel-title">Терапевтска или релакс масажа?</h3>
+          <h3 class="vm-reel-title">{{ 'reels.reel_2' | t }}</h3>
           <span class="vm-reel-sub">0:38 · Vigour</span>
         </div>
       </div>
@@ -49,7 +49,7 @@
           {% render 'vigour-icons', name: 'play' %}
         </div>
         <div class="vm-reel-content">
-          <h3 class="vm-reel-title">2 минути вежба за врат на работа</h3>
+          <h3 class="vm-reel-title">{{ 'reels.reel_3' | t }}</h3>
           <span class="vm-reel-sub">2:05 · Vigour</span>
         </div>
       </div>
@@ -60,7 +60,7 @@
           {% render 'vigour-icons', name: 'play' %}
         </div>
         <div class="vm-reel-content">
-          <h3 class="vm-reel-title">Зошто те боли грбот кога седиш?</h3>
+          <h3 class="vm-reel-title">{{ 'reels.reel_4' | t }}</h3>
           <span class="vm-reel-sub">1:10 · Vigour</span>
         </div>
       </div>
@@ -69,7 +69,7 @@
 
     <div class="vm-video-modal" aria-hidden="true">
       <div class="vm-video-modal-content">
-        <button type="button" class="vm-video-modal-close" aria-label="Затвори видео">✕</button>
+        <button type="button" class="vm-video-modal-close" aria-label="{{ 'common.close_video' | t | escape }}">✕</button>
         <iframe class="vm-video-iframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>

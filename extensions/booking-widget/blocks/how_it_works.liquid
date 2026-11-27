@@ -9,13 +9,13 @@
     <div class="vm-process-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'spark' %}
-        <span>{{ block.settings.eyebrow | default: 'ЕДНОСТАВЕН ПРОЦЕС' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'how_it_works.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-process-title">
-        {{ block.settings.heading | default: 'Како до твојот термин во 3 чекори' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'how_it_works.heading' %}
       </h2>
       <p class="vm-process-subtitle">
-        {{ block.settings.subheading | default: 'Брзо, лесно и без чекање — изберете го најдобриот третман за вашето тело со инстант онлајн резервација.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'how_it_works.subheading' %}
       </p>
     </div>
 
@@ -26,14 +26,14 @@
           <span>01</span>
         </div>
         <h3 class="vm-step-title">
-          {{ block.settings.step1_title | default: 'Избери третман' }}
+          {% render 'vigour-text', value: block.settings.step1_title, key: 'how_it_works.step1_title' %}
         </h3>
         <p class="vm-step-desc">
-          {{ block.settings.step1_desc | default: 'Прегледајте ги нашите релакс или спортски масажи, или консултирајте ја интерактивната мапа на болка за препорака.' }}
+          {% render 'vigour-text', value: block.settings.step1_desc, key: 'how_it_works.step1_desc' %}
         </p>
         <div class="vm-step-icon-pill">
           {% render 'vigour-icons', name: 'spark' %}
-          <span>Индивидуален избор</span>
+          <span>{{ 'how_it_works.step1_pill' | t }}</span>
         </div>
       </div>
 
@@ -42,14 +42,14 @@
           <span>02</span>
         </div>
         <h3 class="vm-step-title">
-          {{ block.settings.step2_title | default: 'Резервирај онлајн' }}
+          {% render 'vigour-text', value: block.settings.step2_title, key: 'how_it_works.step2_title' %}
         </h3>
         <p class="vm-step-desc">
-          {{ block.settings.step2_desc | default: 'Изберете ден и слободен час што совршено одговара на вашиот дневен распоред со инстант потврда.' }}
+          {% render 'vigour-text', value: block.settings.step2_desc, key: 'how_it_works.step2_desc' %}
         </p>
         <div class="vm-step-icon-pill">
           {% render 'vigour-icons', name: 'calendar' %}
-          <span>Инстант потврда</span>
+          <span>{{ 'how_it_works.step2_pill' | t }}</span>
         </div>
       </div>
 
@@ -58,14 +58,14 @@
           <span>03</span>
         </div>
         <h3 class="vm-step-title">
-          {{ block.settings.step3_title | default: 'Дојди и уживај' }}
+          {% render 'vigour-text', value: block.settings.step3_title, key: 'how_it_works.step3_title' %}
         </h3>
         <p class="vm-step-desc">
-          {{ block.settings.step3_desc | default: 'Посетете го нашето студио во Скопје. Плаќање во студиото во готово или со картичка (-5% попуст).' }}
+          {% render 'vigour-text', value: block.settings.step3_desc, key: 'how_it_works.step3_desc' %}
         </p>
         <div class="vm-step-icon-pill">
           {% render 'vigour-icons', name: 'shield' %}
-          <span>5% попуст со картичка</span>
+          <span>{{ 'how_it_works.step3_pill' | t }}</span>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
       <div class="vm-process-cta-wrap">
         <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-btn-primary">
           {% render 'vigour-icons', name: 'calendar' %}
-          <span>{{ block.settings.cta_text | default: 'Започни со резервација' }}</span>
+          <span>{% render 'vigour-text', value: block.settings.cta_text, key: 'how_it_works.cta' %}</span>
         </a>
       </div>
     {%- endif -%}

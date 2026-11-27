@@ -9,13 +9,13 @@
     <div class="vm-contact-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'map-pin' %}
-        <span>{{ block.settings.eyebrow | default: 'ЛОКАЦИЈА И КОНТАКТ' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'contact.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-contact-title">
-        {{ block.settings.heading | default: 'Посетете не или закажете веднаш' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'contact.heading' %}
       </h2>
       <p class="vm-contact-subtitle">
-        {{ block.settings.subheading | default: 'Најбрзиот начин за прашања или директна комуникација со терапевтот е преку Viber или Instagram порака.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'contact.subheading' %}
       </p>
     </div>
 
@@ -29,13 +29,13 @@
               {% render 'vigour-icons', name: 'viber' %}
             </div>
             <div>
-              <div class="vm-viber-title">Директен разговор на Viber</div>
-              <div class="vm-viber-sub">Инстант одговор за слободни термини и прашања</div>
+              <div class="vm-viber-title">{{ 'contact.viber_title' | t }}</div>
+              <div class="vm-viber-sub">{{ 'contact.viber_sub' | t }}</div>
             </div>
           </div>
           <a href="viber://chat?number=38975304171" class="vm-viber-btn">
             {% render 'vigour-icons', name: 'viber' %}
-            <span>Пиши на Viber (+389 75 304 171)</span>
+            <span>{{ 'contact.viber_button' | t }}</span>
           </a>
         </div>
 
@@ -45,7 +45,7 @@
               <div class="vm-channel-icon">
                 {% render 'vigour-icons', name: 'phone' %}
               </div>
-              <span class="vm-channel-name">Телефонски Повик</span>
+              <span class="vm-channel-name">{{ 'contact.phone_label' | t }}</span>
             </div>
             <span class="vm-channel-val">+389 75 304 171</span>
           </a>
@@ -55,7 +55,7 @@
               <div class="vm-channel-icon">
                 {% render 'vigour-icons', name: 'instagram' %}
               </div>
-              <span class="vm-channel-name">Instagram DM</span>
+              <span class="vm-channel-name">{{ 'contact.instagram_label' | t }}</span>
             </div>
             <span class="vm-channel-val">@vigour.massagestudio</span>
           </a>
@@ -64,16 +64,16 @@
         <div class="vm-hours-card">
           <div class="vm-hours-title">
             {% render 'vigour-icons', name: 'clock' %}
-            <span>Работно Време на Студиото</span>
+            <span>{{ 'contact.hours_title' | t }}</span>
           </div>
           <div class="vm-hours-list">
             <div class="vm-hours-row highlight">
-              <span>Понеделник - Петок:</span>
-              <span>10:00 - 18:00</span>
+              <span>{{ 'contact.hours_weekdays' | t }}</span>
+              <span>{{ 'contact.hours_weekdays_time' | t }}</span>
             </div>
             <div class="vm-hours-row">
-              <span>Сабота - Недела:</span>
-              <span>Затворено</span>
+              <span>{{ 'contact.hours_weekend' | t }}</span>
+              <span>{{ 'contact.hours_weekend_time' | t }}</span>
             </div>
           </div>
         </div>
@@ -87,16 +87,16 @@
             allowfullscreen="" 
             loading="lazy" 
             referrerpolicy="no-referrer-when-downgrade"
-            title="Vigour Massage Studio Локација">
+            title="{{ 'contact.map_title' | t | escape }}">
           </iframe>
         </div>
         <div class="vm-map-meta">
           <div class="vm-map-address">
             {% render 'vigour-icons', name: 'map-pin' %}
-            <span>{{ block.settings.address | default: 'Скопје, Македонија' }}</span>
+            <span>{% render 'vigour-text', value: block.settings.address, key: 'contact.address' %}</span>
           </div>
           <a href="https://maps.google.com/?q=Skopje+Macedonia" target="_blank" rel="noopener noreferrer" class="vm-map-directions-btn">
-            Отвори Навигација
+            {{ 'contact.directions' | t }}
           </a>
         </div>
       </div>

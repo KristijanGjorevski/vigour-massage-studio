@@ -14,24 +14,33 @@
     return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Skopje' }).format(new Date());
   }
 
+  // Texts written by the block (hero_banner.liquid) in the language of the page
+  function readTexts(hero) {
+    const el = document.getElementById('vm-hero-i18n-' + hero.id.replace('vm-hero-', ''));
+    try {
+      return JSON.parse(el.textContent);
+    } catch (e) {
+      return { noSlot: '', atTime: '[day] [time]', today: '', tomorrow: '', days: [], months: [] };
+    }
+  }
+
   // "Денес" / "Утре" / "Пет, 28 ноември" (same wording as the header chip)
-  function dayLabel(dateStr) {
+  function dayLabel(dateStr, t) {
     const toUtc = (s) => {
       const [y, m, d] = s.split('-').map(Number);
       return Date.UTC(y, m - 1, d);
     };
     const target = toUtc(dateStr);
     const diff = Math.round((target - toUtc(studioToday())) / 864e5);
-    if (diff === 0) return 'Денес';
-    if (diff === 1) return 'Утре';
-    const days = ['Нед', 'Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб'];
-    const months = ['јануари', 'февруари', 'март', 'април', 'мај', 'јуни', 'јули', 'август', 'септември', 'октомври', 'ноември', 'декември'];
+    if (diff === 0) return t.today;
+    if (diff === 1) return t.tomorrow;
     const d = new Date(target);
-    return `${days[d.getUTCDay()]}, ${d.getUTCDate()} ${months[d.getUTCMonth()]}`;
+    return `${t.days[d.getUTCDay()]}, ${d.getUTCDate()} ${t.months[d.getUTCMonth()]}`;
   }
 
   function initHero(hero) {
     const apiBase = hero.dataset.apiBase || '/apps/vigour';
+    const t = readTexts(hero);
     const card = hero.querySelector('.vm-hero-slot-card');
     const text = card ? card.querySelector('.vm-hero-slot-text') : null;
     let slot = null;
@@ -39,7 +48,7 @@
     // Calendar says nothing is free (or can't be reached): no made-up time, point to the calendar
     function showNoSlot() {
       if (!card) return;
-      text.textContent = 'Види го календарот';
+      text.textContent = t.noSlot;
       card.hidden = false;
     }
 
@@ -55,7 +64,7 @@
           return;
         }
         slot = { date: next.date, time: next.time };
-        text.textContent = `${dayLabel(next.date)} во ${next.time}`;
+        text.textContent = t.atTime.replace('[day]', dayLabel(next.date, t)).replace('[time]', next.time);
         card.hidden = false;
       } catch (e) {
         showNoSlot();

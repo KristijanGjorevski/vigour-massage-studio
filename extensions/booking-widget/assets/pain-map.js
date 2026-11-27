@@ -5,91 +5,16 @@
 (function() {
   'use strict';
 
-  const ZONES_DATA = {
-    neck: {
-      name: 'Врат и глава',
-      tag: 'Најчеста канцелариска тензија',
-      causes: 'Долго седење пред монитор, неправилна положба на спиење, психолошки стрес и акумулирана напнатост во горниот трапез.',
-      treatmentTitle: 'Релакс или Терапевтска Масажа за Врат',
-      treatmentDesc: 'Фокусирано ослободување на спазмите во цервикалниот дел, рамената и базата на черепот за моментално олеснување од главоболки и вкочанетост.',
-      duration: '45 мин',
-      price: '800 - 1.000 ден.',
-      servicePreselect: 'Релакс масажа - Грб',
-      exerciseTitle: '2-минутно истегнување на врат',
-      exerciseSub: 'Вежби за мобилност и декомпресија на трапез'
-    },
-    shoulders: {
-      name: 'Рамена и трапез',
-      tag: 'Мускулен спазам & носење товар',
-      causes: 'Подигнати рамена при работа на компјутер, носење тежок ранец или торба на едно рамо, хронично мускулно затегање.',
-      treatmentTitle: 'Спортска Масажа за Грб и Рамена',
-      treatmentDesc: 'Длабока мускулна обработка на скапуларната регија, ослободување на тригер точки и враќање на полниот опсег на движење.',
-      duration: '45 мин',
-      price: '1.000 ден.',
-      servicePreselect: 'Спортска масажа - Грб',
-      exerciseTitle: 'Кругови со рамена & лопатки',
-      exerciseSub: 'Отворање на граден кош и декомпресија'
-    },
-    upper_back: {
-      name: 'Горен грб и лопатки',
-      tag: 'Кифотично држење & седење',
-      causes: 'Повиткано држење на телото (наведнат грб), прекумерно истегнати паравертебрални мускули и напор од долго возење или пишување.',
-      treatmentTitle: 'Длабоко-ткивна Масажа на Грб',
-      treatmentDesc: 'Интензивно таргетирање на мускулните слоеви меѓу лопатките, забрзување на циркулацијата и исправување на постурата.',
-      duration: '45 - 60 мин',
-      price: '1.000 - 1.300 ден.',
-      servicePreselect: 'Спортска масажа - Грб',
-      exerciseTitle: 'Y-T-W вежби за грб',
-      exerciseSub: 'Активација на ромбоидните мускули'
-    },
-    lower_back: {
-      name: 'Долен грб (Лумбален дел)',
-      tag: 'Хроничен замор & седечки начин',
-      causes: 'Неактивен абдоминален труп, затегнати мускули на колковите, долго статично седење на стол и неправилно кревање тежина.',
-      treatmentTitle: 'Терапевтска Релакс Масажа за Грб',
-      treatmentDesc: 'Намалување на притисокот во долниот ' + "'рбет, опуштање на лумбалната фасција и ослободување на длабоките мускули.",
-      duration: '45 - 60 мин',
-      price: '800 - 1.300 ден.',
-      servicePreselect: 'Релакс масажа - Грб',
-      exerciseTitle: 'Мачка-крава & Детска поза',
-      exerciseSub: 'Декомпресија на лумбален ' + "'рбет"
-    },
-    hips: {
-      name: 'Колк и седало (Глутеус)',
-      tag: 'Ишијасна болка & стегнатост',
-      causes: 'Скратени флексори на колк од седење, иритација на пириформис мускулот што може да предизвика болка кон ногата (псевдо-ишијас).',
-      treatmentTitle: 'Спортска Масажа за Долно Тело',
-      treatmentDesc: 'Терапевтска мобилизација на глутеалната мускулатура и пелвичниот појас со специјализирани техники за истегнување.',
-      duration: '60 мин',
-      price: '1.500 ден.',
-      servicePreselect: 'Спортска масажа - Цело тело',
-      exerciseTitle: 'Пириформис истегнување на стол',
-      exerciseSub: 'Отворање на карлицата и колковите'
-    },
-    legs: {
-      name: 'Колена и нозе',
-      tag: 'Спортско оптоварување & тренинг',
-      causes: 'Интензивно трчање или фитнес, преоптоварени квадрицепси и задна ложа, акумулација на млечна киселина и замор.',
-      treatmentTitle: 'Спортска Масажа за Цело Тело',
-      treatmentDesc: 'Интензивно дренирање на нозете, ослободување на тетивата и мускулната обвивка за брзо мускулно регенерирање.',
-      duration: '60 мин',
-      price: '1.500 ден.',
-      servicePreselect: 'Спортска масажа - Цело тело',
-      exerciseTitle: 'Истегнување на квадрицепс & листови',
-      exerciseSub: 'Подобра циркулација и флексибилност'
-    },
-    feet: {
-      name: 'Стапала (Рефлексологија)',
-      tag: 'Долго стоење & тешки нозе',
-      causes: 'Долго стоење на работа, неудобни чевли, спуштен свод на стапалото и напнатост во плантарната фасција.',
-      treatmentTitle: 'Масажа на Стапала (Рефлексологија)',
-      treatmentDesc: 'Стимулација на акупресурните рефлексни точки на стапалото што го олеснува чекорот и носи баланс на целиот организам.',
-      duration: '45 мин',
-      price: '500 ден.',
-      servicePreselect: 'Масажа на стапала',
-      exerciseTitle: 'Тркалање тениско топче со стапало',
-      exerciseSub: 'Опуштање на плантарната фасција'
-    }
+  // The service the "Book for this area" button pre-selects. It is matched against the service names
+  // in the booking calendar, so it is not translated.
+  const SERVICE_BY_ZONE = {
+    neck: 'Релакс масажа - Грб',
+    shoulders: 'Спортска масажа - Грб',
+    upper_back: 'Спортска масажа - Грб',
+    lower_back: 'Релакс масажа - Грб',
+    hips: 'Спортска масажа - Цело тело',
+    legs: 'Спортска масажа - Цело тело',
+    feet: 'Масажа на стапала'
   };
 
   function initPainMap() {
@@ -97,6 +22,8 @@
 
     sections.forEach(section => {
       const container = section.querySelector('.vm-bodymap-container');
+      let ZONES_DATA = {}; // zone texts for the page language, loaded from assets/pain-zones-<lang>.json
+      const zonesUrl = container ? container.dataset.zonesUrl : null;
       const svgUrl = container ? container.dataset.svgUrl : null;
 
       function setupSection() {
@@ -120,6 +47,7 @@
         if (!ZONES_DATA[zoneKey]) return;
         currentZone = zoneKey;
         const data = ZONES_DATA[zoneKey];
+        const servicePreselect = SERVICE_BY_ZONE[zoneKey];
 
         // GA4 / Retargeting dataLayer event
         if (typeof window !== 'undefined') {
@@ -162,8 +90,8 @@
         if (exSubEl) exSubEl.textContent = data.exerciseSub;
 
         if (recBtn) {
-          recBtn.dataset.serviceName = data.servicePreselect;
-          recBtn.href = `#najdo-booking-container?service=${encodeURIComponent(data.servicePreselect)}&zone=${encodeURIComponent(zoneKey)}`;
+          recBtn.dataset.serviceName = servicePreselect;
+          recBtn.href = `#najdo-booking-container?service=${encodeURIComponent(servicePreselect)}&zone=${encodeURIComponent(zoneKey)}`;
         }
       }
 
@@ -223,17 +151,25 @@
       updateZone('neck');
     }
 
-    if (svgUrl && container && !container.querySelector('.vm-body-svg')) {
-      fetch(svgUrl)
+    const loadSvg = (svgUrl && container && !container.querySelector('.vm-body-svg'))
+      ? fetch(svgUrl)
         .then(res => res.text())
         .then(svgText => {
           container.insertAdjacentHTML('afterbegin', svgText);
-          setupSection();
+          const svgEl = container.querySelector('.vm-body-svg');
+          if (svgEl && container.dataset.svgLabel) svgEl.setAttribute('aria-label', container.dataset.svgLabel);
         })
-        .catch(() => setupSection());
-    } else {
-      setupSection();
-    }
+        .catch(() => {})
+      : Promise.resolve();
+
+    const loadZones = zonesUrl
+      ? fetch(zonesUrl)
+        .then(res => res.json())
+        .then(data => { ZONES_DATA = data; })
+        .catch(() => {})
+      : Promise.resolve();
+
+    Promise.all([loadSvg, loadZones]).then(setupSection);
   });
 }
 

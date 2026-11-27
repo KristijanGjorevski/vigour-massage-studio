@@ -1,82 +1,235 @@
 {
-  "general": {
-    "currency_symbol": "MKD",
-    "minutes_suffix": "min",
-    "book_now": "Book Appointment",
-    "view_services": "View Treatments",
-    "learn_more": "Learn more",
-    "read_more": "Read more",
-    "contact_us": "Contact Us"
-  },
-  "hero": {
-    "badge": "VIGOUR MASSAGE STUDIO · SKOPJE",
-    "title": "Professional Massage for Your Body Renewal",
-    "subtitle": "Relieve back, neck, and muscular pain with expert therapeutic and relaxation techniques tailored to your body.",
-    "cta_primary": "Book Now",
-    "cta_secondary": "View Services",
-    "next_slot_label": "Next Available Slot:",
-    "next_slot_loading": "Checking availability...",
-    "next_slot_today": "Today",
-    "next_slot_tomorrow": "Tomorrow",
-    "next_slot_none": "Inquire via phone or Viber",
-    "stats_clients": "Satisfied Clients",
-    "stats_rating": "Satisfaction Rating",
-    "stats_experience": "Years Experience"
-  },
-  "services": {
-    "eyebrow": "OUR TREATMENTS",
-    "title": "Services & Pricing",
-    "subtitle": "Choose targeted massage according to your needs — from deep relaxation to athletic relief.",
-    "tab_all": "All Services",
-    "tab_relax": "Relax",
-    "tab_sports": "Sports",
-    "tab_special": "Special",
-    "duration": "Duration",
-    "price": "Price",
-    "book_cta": "Reserve",
-    "card_discount_notice": "5% discount on card payments"
-  },
-  "founder": {
-    "eyebrow": "ABOUT THE THERAPIST",
-    "name": "Darko",
-    "title": "Founder & Certified Massage Therapist",
-    "bio": "Passionate about human anatomy and restorative bodywork, my mission at Vigour is to help you relieve chronic pain, ease tension, and restore natural mobility.",
-    "philosophy": "“Every body tells a story of stress and fatigue — genuine recovery begins with mindful listening and targeted touch.”",
-    "instagram_btn": "Follow on Instagram"
-  },
-  "how_it_works": {
-    "eyebrow": "SIMPLE PROCESS",
-    "title": "How to Book in 3 Easy Steps",
-    "subtitle": "Fast, seamless, and clear — pick the perfect slot for your wellness routine.",
-    "step1_num": "01",
-    "step1_title": "Choose Treatment",
-    "step1_desc": "Browse our treatments or consult our interactive pain map for recommendations.",
-    "step2_num": "02",
-    "step2_title": "Reserve Online",
-    "step2_desc": "Select the day and available hour that fits your schedule.",
-    "step3_num": "03",
-    "step3_title": "Arrive & Relax",
-    "step3_desc": "Visit our Skopje studio. Pay in cash or card (5% discount with card)."
-  },
-  "booking": {
-    "title": "Book Your Massage Session",
-    "subtitle": "Select your treatment, date and time for restorative relaxation.",
-    "step_service": "1. Select Treatment",
-    "step_date": "2. Select Date",
-    "step_time": "3. Select Available Slot",
-    "step_info": "4. Your Information",
-    "select_service_placeholder": "Select a treatment...",
-    "loading_slots": "Loading available slots...",
-    "no_slots": "No available slots on this date. Please pick another day.",
-    "name_placeholder": "Full Name *",
-    "email_placeholder": "Email Address *",
-    "phone_placeholder": "Phone Number *",
-    "notes_placeholder": "Focus areas (neck, back), injuries, or special notes...",
-    "button": "Confirm Appointment",
-    "submitting": "Submitting...",
-    "guarantee": "🔒 Secure reservation • Pay at salon (cash / card) • Free cancellation up to 24h prior",
-    "success_title": "Appointment Confirmed!",
-    "success_msg": "Thank you for trusting Vigour Massage Studio. A confirmation email has been sent.",
-    "book_another": "Book Another Treatment"
-  }
+"common": {
+"price": "{{ amount }} MKD",
+"thousands_separator": ",",
+"minutes": "{{ number }} min",
+"close_video": "Close video"
+},
+"dates": {
+"today": "Today",
+"tomorrow": "Tomorrow",
+"at_time": "{{ day }} at {{ time }}",
+"days": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
+"months": "January,February,March,April,May,June,July,August,September,October,November,December"
+},
+"header": {
+"logo_label": "Vigour Massage Studio, home",
+"nav_label": "Main navigation",
+"nav_home": "Home",
+"nav_services": "Services",
+"nav_programs": "Programs",
+"nav_shop": "Shop",
+"nav_contact": "Contact",
+"book": "Book a session",
+"cart": "Cart",
+"menu_open": "Open menu",
+"menu_close": "Close menu",
+"slots_today_one": "1 free slot left today",
+"slots_today_other": "{{ number }} free slots left today",
+"next_slot": "Next slot: {{ day }} at {{ time }}"
+},
+"mobile_bar": {
+"label": "Quick actions",
+"viber": "Viber"
+},
+"hero": {
+"eyebrow": "Massage and rehabilitation · Skopje · since 2025",
+"heading_start": "Less pain. More",
+"heading_accent": "energy.",
+"subheading": "Relaxation and sports massage in Skopje, plus rehabilitation programs you continue at home. Book online in a minute and pay by card or in cash.",
+"cta_primary": "Book online",
+"cta_secondary": "Where does it hurt?",
+"rating_text": "4.9 on Google",
+"meta_payment": "Pay online or in cash",
+"meta_confirmation": "Instant confirmation on Viber",
+"arch_caption": "Photo / video from the studio",
+"next_slot_label": "Next free slot",
+"next_slot_none": "See the calendar",
+"rating_score": "4.9 out of 5",
+"rating_label": "40+ Google reviews"
+},
+"pain_map": {
+"eyebrow": "INTERACTIVE GUIDE",
+"heading": "Where do you feel pain or tension?",
+"subheading": "Choose the area of your body where you feel discomfort to get an expert recommendation for the right massage and recovery exercises.",
+"instructions": "Click any area of the body to see the analysis",
+"body_label": "Interactive body map",
+"causes_label": "Why the pain appears:",
+"rec_eyebrow": "Recommended massage",
+"rec_button": "Book for this area",
+"exercise_video": "Video"
+},
+"pain_zones": {
+"neck": {
+"pill": "Neck and head"
+},
+"shoulders": {
+"pill": "Shoulders and trapezius"
+},
+"upper_back": {
+"pill": "Upper back"
+},
+"lower_back": {
+"pill": "Lower back"
+},
+"hips": {
+"pill": "Hip and glutes"
+},
+"legs": {
+"pill": "Knees and legs"
+},
+"feet": {
+"pill": "Feet"
+}
+},
+"services": {
+"eyebrow": "OUR TREATMENTS",
+"heading": "Professional treatments and prices",
+"subheading": "Every treatment is aimed at deep release of muscle tension, better circulation and full recovery of your body.",
+"tab_all": "All treatments",
+"tab_relax": "Relaxation massages",
+"tab_sports": "Sports massages",
+"tab_special": "Special treatments",
+"book": "Book",
+"card_price": "{{ price }} by card",
+"badge_popular": "Most popular",
+"badge_intense": "Intense",
+"badge_premium": "Premium choice",
+"video_technique": "Technique video",
+"video_ritual": "Complete ritual",
+"discount_notice_html": "<strong>Special offer:</strong> Get <strong>5% off</strong> every payment by credit or debit card in the studio!"
+},
+"reels": {
+"eyebrow": "WATCH BEFORE YOU COME",
+"heading": "Short videos that answer what people ask us most.",
+"subheading": "The same videos you see on Instagram and TikTok, collected in one place.",
+"reel_1": "What happens at your first treatment?",
+"reel_2": "Therapeutic or relaxation massage?",
+"reel_3": "A 2-minute neck exercise at work",
+"reel_4": "Why does your back hurt when you sit?"
+},
+"how_it_works": {
+"eyebrow": "A SIMPLE PROCESS",
+"heading": "How to get your appointment in 3 steps",
+"subheading": "Quick, easy and no waiting — choose the best treatment for your body with instant online booking.",
+"step1_title": "Choose a treatment",
+"step1_desc": "Browse our relaxation or sports massages, or use the interactive pain map for a recommendation.",
+"step1_pill": "Your own choice",
+"step2_title": "Book online",
+"step2_desc": "Pick the day and free time that fits your schedule, with instant confirmation.",
+"step2_pill": "Instant confirmation",
+"step3_title": "Come and enjoy",
+"step3_desc": "Visit our studio in Skopje. Pay in the studio in cash or by card (5% off).",
+"step3_pill": "5% off with a card",
+"cta": "Start booking"
+},
+"programs": {
+"eyebrow": "VIDEO EXERCISES AND REHABILITATION",
+"heading": "Exercise programs for long-term mobility",
+"subheading": "Massage resets the body and the right exercises keep the result. Watch the short video guides for recovery at home.",
+"play": "Play the exercise videos"
+},
+"founder": {
+"eyebrow": "ABOUT THE THERAPIST",
+"heading": "Hi, I'm Darko",
+"name": "Darko",
+"image_alt": "Darko - Vigour Massage Studio",
+"role": "Founder and Therapist at Vigour Massage Studio",
+"placeholder_role": "Founder and Certified Therapist",
+"bio": "With years of dedication to body anatomy and therapeutic techniques, my goal at Vigour is to help you get free of chronic back and neck pain, regain easy mobility and reset a tired body.",
+"badge_title": "Certified Specialist",
+"badge_sub": "An individual treatment for every client",
+"pill_treatments": "600+ completed treatments",
+"pill_studio": "Studio in Skopje (est. 2025)",
+"pill_pressure": "Individual pressure",
+"cta": "Book an appointment"
+},
+"reviews": {
+"eyebrow": "CLIENT EXPERIENCES",
+"heading": "What people say about our treatments",
+"subheading": "Honest impressions from people who got the ease back in their bodies thanks to the individual approach at Vigour.",
+"previous": "Previous",
+"next": "Next",
+"go_to_slide": "Go to slide {{ number }}"
+},
+"offer": {
+"heading": "Your first treatment is 10% cheaper.",
+"subheading": "Book online and enter the code at payment. Valid for new clients.",
+"cta": "Book a session",
+"viber": "Ask on Viber"
+},
+"booking": {
+"badge": "VIGOUR MASSAGE STUDIO · SKOPJE",
+"title": "Book a massage appointment",
+"description": "Choose a treatment, the date you want and a free time for a complete recovery of your body.",
+"unavailable_title": "The appointments can't be loaded",
+"unavailable_text": "The connection to the calendar failed. Try again in a moment or book directly with us.",
+"retry": "Try again",
+"viber": "Message on Viber",
+"call": "Call",
+"step_service": "Choose a treatment",
+"loading_services": "Loading the treatments...",
+"step_date": "Choose a date",
+"step_time": "Choose a free time",
+"pick_date_first": "Choose a date from the calendar first",
+"step_info": "Your details",
+"name_placeholder": "Full name *",
+"email_placeholder": "Email *",
+"phone_placeholder": "Phone number (e.g. 075 304 171) *",
+"notes_placeholder": "Focus areas (neck, back), injuries, tension or special notes...",
+"discount_notice_html": "<strong>Offer:</strong> 5% off when you pay by card in the studio!",
+"button": "Confirm booking",
+"guarantee_secure": "🔒 Secure online booking",
+"guarantee_payment": "Pay in the studio (cash / card)",
+"guarantee_cancel": "Free cancellation up to 24h before",
+"success_title": "Your appointment is booked!",
+"success_message": "Thank you for trusting Vigour Massage Studio. A confirmation of your appointment has been sent to your email.",
+"book_another": "Book another appointment"
+},
+"packages": {
+"eyebrow": "PRICES AND PACKAGES",
+"heading": "Treatment packages and gift vouchers",
+"subheading": "Invest in the long-term health of your body and save, or give your loved ones a top relaxation experience.",
+"popular": "Most popular choice",
+"from_price": "from {{ price }}",
+"savings": "Save {{ price }}",
+"savings_choice": "Your choice",
+"order_viber": "Order on Viber",
+"ask_voucher": "Ask for a voucher"
+},
+"contact": {
+"eyebrow": "LOCATION AND CONTACT",
+"heading": "Visit us or book right away",
+"subheading": "The fastest way to ask a question or talk directly to the therapist is a message on Viber or Instagram.",
+"viber_title": "Chat directly on Viber",
+"viber_sub": "An instant answer about free times and questions",
+"viber_button": "Message on Viber (+389 75 304 171)",
+"phone_label": "Phone call",
+"instagram_label": "Instagram DM",
+"hours_title": "Studio opening hours",
+"hours_weekdays": "Monday - Friday:",
+"hours_weekdays_time": "10:00 - 18:00",
+"hours_weekend": "Saturday - Sunday:",
+"hours_weekend_time": "Closed",
+"map_title": "Vigour Massage Studio location",
+"address": "Skopje, North Macedonia",
+"directions": "Open directions"
+},
+"footer": {
+"tagline": "Massage and rehabilitation in Skopje, since 2025. Relief in the studio, a solution with exercises from home.",
+"services_title": "Services",
+"service_relax": "Relaxation massage",
+"service_sports": "Sports massage",
+"service_feet": "Foot massage",
+"service_premium": "Premium massage",
+"studio_title": "Studio",
+"studio_programs": "Programs",
+"studio_packages": "Packages and vouchers",
+"studio_booking": "Online booking",
+"studio_contact": "Contact",
+"contact_title": "Contact",
+"city": "Skopje",
+"copyright": "© {{ year }} Vigour Massage Studio · Est. 2025",
+"payment_note": "Card payments through cPay"
+}
 }

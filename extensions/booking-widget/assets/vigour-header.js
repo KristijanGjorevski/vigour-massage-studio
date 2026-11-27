@@ -1,6 +1,7 @@
 /**
  * Vigour Massage Studio — header
- * - MK / EN switch (Macedonian unless the visitor picked English; broadcast to other blocks)
+ * - texts come from the locale files: the block writes them into a JSON script in the page language
+ *   (the MK / EN switch is the store's own language switch and reloads the page)
  * - phone menu (open/close, Escape, click outside, closes on link click)
  * - live "free slots today" chip from the booking calendar (hidden if it can't load)
  * - cart count, kept in sync when the theme updates the cart
@@ -9,61 +10,24 @@
 (function () {
   'use strict';
 
-  const I18N = {
-    mk: {
-      navHome: 'Почетна',
-      navServices: 'Услуги',
-      navPrograms: 'Програми',
-      navShop: 'Продавница',
-      navContact: 'Контакт',
-      ctaBook: 'Закажи термин',
-      cart: 'Кошничка',
-      menuOpen: 'Отвори мени',
-      menuClose: 'Затвори мени',
-      slotsToday: (n) => (n === 1 ? 'Уште 1 слободен термин денес' : `Уште ${n} слободни термини денес`),
-      nextSlot: (day, time) => `Следен термин: ${day} во ${time}`,
-      today: 'Денес',
-      tomorrow: 'Утре',
-      days: ['Нед', 'Пон', 'Вто', 'Сре', 'Чет', 'Пет', 'Саб'],
-      months: ['јануари', 'февруари', 'март', 'април', 'мај', 'јуни', 'јули', 'август', 'септември', 'октомври', 'ноември', 'декември']
-    },
-    en: {
-      navHome: 'Home',
-      navServices: 'Services',
-      navPrograms: 'Programs',
-      navShop: 'Shop',
-      navContact: 'Contact',
-      ctaBook: 'Book a session',
-      cart: 'Cart',
-      menuOpen: 'Open menu',
-      menuClose: 'Close menu',
-      slotsToday: (n) => (n === 1 ? '1 free slot left today' : `${n} free slots left today`),
-      nextSlot: (day, time) => `Next slot: ${day} at ${time}`,
-      today: 'Today',
-      tomorrow: 'Tomorrow',
-      days: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  // Texts written by the block (vigour_header.liquid) in the language of the page
+  function readTexts(header) {
+    const el = document.getElementById('vm-header-i18n-' + header.id.replace('vm-header-', ''));
+    try {
+      return JSON.parse(el.textContent);
+    } catch (e) {
+      return { cart: '', menuOpen: '', menuClose: '', slotsTodayOne: '', slotsTodayOther: '', nextSlot: '', today: '', tomorrow: '', days: [], months: [] };
     }
-  };
+  }
+
+  function slotsTodayText(t, n) {
+    return n === 1 ? t.slotsTodayOne : t.slotsTodayOther.replace('[number]', n);
+  }
 
   // Keep in sync with the breakpoints in vigour-header.css
   const MOBILE_QUERY = window.matchMedia('(max-width: 1060px)');
   const CHIP_QUERY = window.matchMedia('(min-width: 1321px)');
   const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  // Macedonian first: English only when the visitor picked EN in the switcher.
-  function savedLanguage() {
-    try {
-      if (localStorage.getItem('vm_language') === 'en') return 'en';
-    } catch (e) {}
-    return 'mk';
-  }
-
-  function saveLanguage(lang) {
-    try {
-      localStorage.setItem('vm_language', lang);
-    } catch (e) {}
-  }
 
   // Today's date in the studio's time zone, as YYYY-MM-DD
   function studioToday() {
@@ -106,67 +70,29 @@
     const cartCount = header.querySelector('.vm-cart-count');
     const cartBtn = header.querySelector('.vm-cart-btn');
     const apiBase = header.dataset.apiBase || '/apps/vigour';
-
-    let lang = savedLanguage();
+    const t = readTexts(header);
     let slotInfo = null; // { count } or { date, time }
 
     function renderChip() {
       if (!chip || !slotInfo) return;
-      const t = I18N[lang];
       chip.querySelector('.vm-slot-chip-text').textContent = slotInfo.count
-        ? t.slotsToday(slotInfo.count)
-        : t.nextSlot(dayLabel(slotInfo.date, t), slotInfo.time);
+        ? slotsTodayText(t, slotInfo.count)
+        : t.nextSlot.replace('[day]', dayLabel(slotInfo.date, t)).replace('[time]', slotInfo.time);
       chip.hidden = false;
     }
 
     function setCartLabel() {
       if (!cartBtn) return;
       const n = cartCount ? Number(cartCount.textContent) || 0 : 0;
-      cartBtn.setAttribute('aria-label', n ? `${I18N[lang].cart} (${n})` : I18N[lang].cart);
+      cartBtn.setAttribute('aria-label', n ? `${t.cart} (${n})` : t.cart);
     }
-
-    function applyLanguage(next) {
-      lang = I18N[next] ? next : 'mk';
-      const t = I18N[lang];
-      document.documentElement.lang = lang;
-
-      header.querySelectorAll('.vm-lang-btn').forEach((btn) => {
-        const on = btn.dataset.lang === lang;
-        btn.classList.toggle('active', on);
-        btn.setAttribute('aria-pressed', String(on));
-      });
-      header.querySelectorAll('[data-vm-t]').forEach((el) => {
-        const text = t[el.dataset.vmT];
-        if (typeof text === 'string') el.textContent = text;
-      });
-      if (burger) {
-        const open = burger.getAttribute('aria-expanded') === 'true';
-        burger.setAttribute('aria-label', open ? t.menuClose : t.menuOpen);
-      }
-      setCartLabel();
-      renderChip();
-
-      // Lets the other blocks (booking form, pain map, …) follow the switch
-      window.dispatchEvent(new CustomEvent('vigour:language-changed', {
-        detail: { lang, isMacedonia: lang === 'mk' }
-      }));
-    }
-
-    // Language switch
-    header.querySelectorAll('.vm-lang-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        if (btn.dataset.lang === lang) return;
-        saveLanguage(btn.dataset.lang);
-        applyLanguage(btn.dataset.lang);
-      });
-    });
 
     // Phone menu
     function setMenu(open) {
       if (!nav || !burger) return;
       nav.classList.toggle('open', open);
       burger.setAttribute('aria-expanded', String(open));
-      burger.setAttribute('aria-label', open ? I18N[lang].menuClose : I18N[lang].menuOpen);
+      burger.setAttribute('aria-label', open ? t.menuClose : t.menuOpen);
     }
 
     if (nav && burger) {
@@ -261,7 +187,7 @@
       } catch (e) {}
     }
 
-    applyLanguage(lang);
+    setCartLabel();
 
     // The chip only shows on wide screens (see vigour-header.css), so only fetch there
     if (chip) {
