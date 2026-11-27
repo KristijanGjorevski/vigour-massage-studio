@@ -91,7 +91,9 @@
 
         if (recBtn) {
           recBtn.dataset.serviceName = servicePreselect;
-          recBtn.href = `#najdo-booking-container?service=${encodeURIComponent(servicePreselect)}&zone=${encodeURIComponent(zoneKey)}`;
+          // The block writes the booking page address into the button; add the treatment to it
+          if (!recBtn.dataset.baseHref) recBtn.dataset.baseHref = (recBtn.getAttribute('href') || '').split('?')[0].split('#')[0];
+          recBtn.href = `${recBtn.dataset.baseHref}?service=${encodeURIComponent(servicePreselect)}&zone=${encodeURIComponent(zoneKey)}#najdo-booking-container`;
         }
       }
 

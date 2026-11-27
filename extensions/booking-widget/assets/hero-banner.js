@@ -55,7 +55,7 @@
     async function loadNextSlot() {
       if (!card) return;
       try {
-        const res = await fetch(`${apiBase}/bookings?nextSlot=true`, { credentials: 'omit', headers: { Accept: 'application/json' } });
+        const res = await fetch(`${apiBase}/bookings?nextSlot=true`, { headers: { Accept: 'application/json' } });
         if (!res.ok) throw new Error('calendar not ok');
         const data = await res.json();
         const next = data && data.nextSlot;
@@ -64,6 +64,11 @@
           return;
         }
         slot = { date: next.date, time: next.time };
+        // The form is on its own page: carry the slot in the address (the form reads ?date=&time=)
+        const base = card.getAttribute('href') || '';
+        if (base && base[0] !== '#') {
+          card.setAttribute('href', `${base.split('?')[0]}?date=${encodeURIComponent(next.date)}&time=${encodeURIComponent(next.time)}`);
+        }
         text.textContent = t.atTime.replace('[day]', dayLabel(next.date, t)).replace('[time]', next.time);
         card.hidden = false;
       } catch (e) {

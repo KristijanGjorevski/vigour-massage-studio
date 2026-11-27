@@ -81,23 +81,30 @@
       }
 
       // Check URL parameters for pre-fill
+      // Links from other pages (hero slot card, pain map) arrive as ?service=…&date=…&time=…
+      // Applied once, after the first load, so "new booking" starts clean.
+      let urlPrefillDone = false;
       function checkUrlPreFill() {
+        if (urlPrefillDone) return;
+        urlPrefillDone = true;
         try {
           const urlParams = new URLSearchParams(window.location.search);
           const serviceParam = urlParams.get('service') || urlParams.get('serviceId');
           const dateParam = urlParams.get('date');
           const timeParam = urlParams.get('time');
 
-          if (dateParam && dateInput) {
-            dateInput.value = dateParam;
-          }
-
           if (serviceParam && serviceSelect) {
             selectServiceByNameOrId(serviceParam);
           }
 
-          if (timeParam && selectedSlotInput) {
-            selectedSlotInput.value = timeParam;
+          if (dateParam && timeParam) {
+            prefillSlot(dateParam, timeParam);
+          } else if (dateParam && dateInput) {
+            dateInput.value = dateParam;
+            fetchSlotsForDate(dateParam);
+          } else if (serviceParam && dateInput && dateInput.value) {
+            // A longer treatment may not fit every slot: refresh the day's availability
+            fetchSlotsForDate(dateInput.value);
           }
         } catch (e) {
           console.warn("Could not parse URL prefill params", e);
@@ -238,14 +245,18 @@
         }
       });
 
-      // The hero's "next free slot" card: pre-select that date and time
-      window.addEventListener('vigour:prefill-slot', async (e) => {
-        const { date, time } = (e.detail || {});
+      // Pre-select a date and time: from the URL, or from the hero's card when the form is on the same page
+      async function prefillSlot(date, time) {
         if (!date || !time || !dateInput || (unavailableBox && !unavailableBox.hidden)) return;
         dateInput.value = date;
         await fetchSlotsForDate(date);
         const wanted = Array.from(slotsContainer.querySelectorAll(".najdo-slot-btn")).find((b) => b.dataset.slot === time);
         if (wanted) wanted.click();
+      }
+
+      window.addEventListener('vigour:prefill-slot', (e) => {
+        const { date, time } = (e.detail || {});
+        prefillSlot(date, time);
       });
 
       // Handle form submission
