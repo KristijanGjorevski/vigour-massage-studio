@@ -14,6 +14,14 @@
   z-index: 50;
 }
 
+/* A sticky element cannot leave its parent. Horizon holds the header group in its own
+   wrapper that is only as tall as the header, so that wrapper has to stick as well. */
+#header-group:has(.vm-header-wrapper) {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 50;
+}
+
 .vm-header-wrapper {
   position: sticky;
   top: env(safe-area-inset-top, 0px);

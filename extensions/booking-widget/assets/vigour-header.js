@@ -55,6 +55,12 @@
     return document.getElementById(id) || document.querySelector(`[id^="${CSS.escape(id)}-"]`);
   }
 
+  // On desktop the host theme scrolls inside .page-wrapper and the window never moves
+  function scrollRoot() {
+    const w = document.querySelector('.page-wrapper');
+    return w && w.scrollHeight > w.clientHeight && getComputedStyle(w).overflowY !== 'visible' ? w : null;
+  }
+
   // Layout position on the page. Unlike getBoundingClientRect it ignores the theme's
   // slide-in animation, which shifts a section down until it has been revealed.
   function pageTop(el) {
@@ -132,7 +138,7 @@
         e.preventDefault();
         // Stop just below the sticky header so it doesn't cover the section's top
         const top = pageTop(target) - header.offsetHeight;
-        window.scrollTo({ top: Math.max(0, top), behavior: REDUCED_MOTION.matches ? 'auto' : 'smooth' });
+        (scrollRoot() || window).scrollTo({ top: Math.max(0, top), behavior: REDUCED_MOTION.matches ? 'auto' : 'smooth' });
         if (link.classList.contains('vm-nav-item')) {
           header.querySelectorAll('.vm-nav-item').forEach((l) => {
             l.classList.toggle('active', l === link);
@@ -143,9 +149,11 @@
       });
     });
 
-    // Shadow once the page scrolls
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+    // Shadow once the page scrolls (the window, or the theme's own scroll container on desktop)
+    const root = scrollRoot();
+    const onScroll = () => header.classList.toggle('scrolled', Math.max(window.scrollY, root ? root.scrollTop : 0) > 20);
     window.addEventListener('scroll', onScroll, { passive: true });
+    if (root) root.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
     // Cart count: refresh when the theme changes the cart or the page comes back from history
