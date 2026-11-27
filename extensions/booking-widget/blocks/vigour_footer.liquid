@@ -5,6 +5,7 @@
   assign instagram_link = block.settings.instagram_link | default: 'https://www.instagram.com/vigour.massagestudio/'
   assign phone = block.settings.phone | default: '+38975304171'
   assign current_year = 'now' | date: '%Y'
+  assign pages = routes.root_url | append: '/pages/' | replace: '//', '/'
 -%}
 
 <footer class="vm-block-wrapper vm-footer-wrapper" id="vm-footer-{{ block.id }}">
@@ -13,40 +14,40 @@
     <div class="vm-footer-grid">
 
       <div class="vm-footer-brand-col">
-        <a href="{{ routes.root_url }}" class="vm-footer-logo-link" aria-label="Vigour Massage Studio, почетна">
+        <a href="{{ routes.root_url }}" class="vm-footer-logo-link" aria-label="{{ 'header.logo_label' | t | escape }}">
           {%- render 'vigour-logo', on_dark: true -%}
         </a>
         <p class="vm-footer-tagline">
-          {{ block.settings.tagline | default: 'Масажа и рехабилитација во Скопје, од 2025. Олеснување во студио, решение со вежби од дома.' }}
+          {% render 'vigour-text', value: block.settings.tagline, key: 'footer.tagline' %}
         </p>
       </div>
 
       <div class="vm-footer-col">
-        <h2 class="vm-footer-col-title">Услуги</h2>
+        <h2 class="vm-footer-col-title">{{ 'footer.services_title' | t }}</h2>
         <ul class="vm-footer-links-list">
-          <li><a href="#vigour-services">Релакс масажа</a></li>
-          <li><a href="#vigour-services">Спортска масажа</a></li>
-          <li><a href="#vigour-services">Масажа на стапала</a></li>
-          <li><a href="#vigour-services">Премиум масажа</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_relax' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_sports' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_feet' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_premium' | t }}</a></li>
         </ul>
       </div>
 
       <div class="vm-footer-col">
-        <h2 class="vm-footer-col-title">Студио</h2>
+        <h2 class="vm-footer-col-title">{{ 'footer.studio_title' | t }}</h2>
         <ul class="vm-footer-links-list">
-          <li><a href="#vigour-programs">Програми</a></li>
-          <li><a href="#vm-packages">Пакети и ваучери</a></li>
-          <li><a href="#najdo-booking-container">Онлајн закажување</a></li>
-          <li><a href="#vm-contact">Контакт</a></li>
+          <li><a href="{{ pages }}programs">{{ 'footer.studio_programs' | t }}</a></li>
+          <li><a href="{{ pages }}shop">{{ 'footer.studio_packages' | t }}</a></li>
+          <li><a href="{{ pages }}booking">{{ 'footer.studio_booking' | t }}</a></li>
+          <li><a href="{{ pages }}contact">{{ 'footer.studio_contact' | t }}</a></li>
         </ul>
       </div>
 
       <div class="vm-footer-col">
-        <h2 class="vm-footer-col-title">Контакт</h2>
+        <h2 class="vm-footer-col-title">{{ 'footer.contact_title' | t }}</h2>
         <ul class="vm-footer-links-list">
           <li><a href="tel:{{ phone }}">{{ block.settings.phone_display | default: '+389 75 304 171' }}</a></li>
           <li><a href="{{ instagram_link }}" target="_blank" rel="noopener">{{ block.settings.instagram_handle | default: '@vigour.massagestudio' }}</a></li>
-          <li><span>{{ block.settings.city | default: 'Скопје' }}</span></li>
+          <li><span>{% render 'vigour-text', value: block.settings.city, key: 'footer.city' %}</span></li>
         </ul>
       </div>
 
@@ -57,10 +58,10 @@
         {%- if block.settings.copyright != blank -%}
           {{ block.settings.copyright }}
         {%- else -%}
-          © {{ current_year }} Vigour Massage Studio · Est. 2025
+          {{ 'footer.copyright' | t: year: current_year }}
         {%- endif -%}
       </span>
-      <span>Плаќање со картичка преку cPay · <a href="{{ instagram_link }}" target="_blank" rel="noopener">Instagram</a></span>
+      <span>{{ 'footer.payment_note' | t }} · <a href="{{ instagram_link }}" target="_blank" rel="noopener">Instagram</a></span>
     </div>
 
   </div>

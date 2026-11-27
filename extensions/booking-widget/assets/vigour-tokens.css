@@ -104,6 +104,14 @@
   box-sizing: border-box;
 }
 
+/* The theme's Section stacks its content in a column that aligns left, so an app block
+   is only as wide as its content (the header and footer ended short of the screen edge).
+   The element that holds a block stretches to the full width of the column instead.
+   The mobile bar is excluded: it is fixed and moves itself into <body>. */
+:has(> .vm-block-wrapper:not(.vm-mobile-bar)) {
+  align-self: stretch;
+}
+
 /* In-page links (e.g. #vm-contact) stop below the 70px sticky header */
 .vm-block-wrapper[id] {
   scroll-margin-top: 70px;

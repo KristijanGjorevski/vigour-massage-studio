@@ -1,0 +1,17 @@
+{%- comment -%}
+  A price in the store's language: 1300 -> "1.300 ден." (Macedonian) or "1,300 MKD" (English).
+  The thousands separator and the currency text come from the locale files.
+
+  Usage: {% render 'vigour-price', amount: 1300 %}
+{%- endcomment -%}
+{%- liquid
+  assign thousands = amount | divided_by: 1000 | floor
+  if thousands > 0
+    assign rest = amount | modulo: 1000 | prepend: '000' | slice: -3, 3
+    assign separator = 'common.thousands_separator' | t
+    assign formatted = thousands | append: separator | append: rest
+  else
+    assign formatted = amount
+  endif
+-%}
+{{- 'common.price' | t: amount: formatted -}}

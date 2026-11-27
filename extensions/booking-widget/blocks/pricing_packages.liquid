@@ -9,15 +9,19 @@
     <div class="vm-packages-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'spark' %}
-        <span>{{ block.settings.eyebrow | default: 'ПАНОРАМА НА ЦЕНИ И ПАКЕТИ' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'packages.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-packages-title">
-        {{ block.settings.heading | default: 'Пакети третмани & Подарок ваучери' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'packages.heading' %}
       </h2>
       <p class="vm-packages-subtitle">
-        {{ block.settings.subheading | default: 'Инвестирајте во долгорочното здравје на вашето тело со заштеда, или подарете врвно релакс искуство на саканите.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'packages.subheading' %}
       </p>
     </div>
+
+    {%- capture savings_750 -%}{% render 'vigour-price', amount: 750 %}{%- endcapture -%}
+    {%- capture savings_1000 -%}{% render 'vigour-price', amount: 1000 %}{%- endcapture -%}
+    {%- capture price_from_800 -%}{% render 'vigour-price', amount: 800 %}{%- endcapture -%}
 
     <div class="vm-packages-grid">
       
@@ -26,8 +30,8 @@
         <p class="vm-package-desc">Идеален пакет за активни спортисти или луѓе со постојана канцелариска вкочанетост во грбот и рамената.</p>
         
         <div class="vm-package-price-wrap">
-          <span class="vm-package-price">4.250 ден.</span>
-          <span class="vm-package-savings">Заштеда 750 ден.</span>
+          <span class="vm-package-price">{% render 'vigour-price', amount: 4250 %}</span>
+          <span class="vm-package-savings">{{ 'packages.savings' | t: price: savings_750 }}</span>
         </div>
 
         <ul class="vm-package-features">
@@ -51,18 +55,18 @@
 
         <a href="viber://chat?number=38975304171" class="vm-btn-primary">
           {% render 'vigour-icons', name: 'viber' %}
-          <span>Нарачај на Viber</span>
+          <span>{{ 'packages.order_viber' | t }}</span>
         </a>
       </div>
 
       <div class="vm-package-card featured">
-        <div class="vm-package-featured-badge">Најпопуларен избор</div>
+        <div class="vm-package-featured-badge">{{ 'packages.popular' | t }}</div>
         <h3 class="vm-package-title">10× Релакс Масажа</h3>
         <p class="vm-package-desc">Комплетна програма за регенерација на телото и умствена релаксација во текот на целата сезона.</p>
         
         <div class="vm-package-price-wrap">
-          <span class="vm-package-price">12.000 ден.</span>
-          <span class="vm-package-savings">Заштеда 1.000 ден.</span>
+          <span class="vm-package-price">{% render 'vigour-price', amount: 12000 %}</span>
+          <span class="vm-package-savings">{{ 'packages.savings' | t: price: savings_1000 }}</span>
         </div>
 
         <ul class="vm-package-features">
@@ -86,7 +90,7 @@
 
         <a href="viber://chat?number=38975304171" class="vm-btn-primary">
           {% render 'vigour-icons', name: 'viber' %}
-          <span>Нарачај на Viber</span>
+          <span>{{ 'packages.order_viber' | t }}</span>
         </a>
       </div>
 
@@ -95,8 +99,8 @@
         <p class="vm-package-desc">Елегантно спакуван физички или дигитален ваучер за роденден, годишнина или внимание кон блиските.</p>
         
         <div class="vm-package-price-wrap">
-          <span class="vm-package-price">од 800 ден.</span>
-          <span class="vm-package-savings">По избор</span>
+          <span class="vm-package-price">{{ 'packages.from_price' | t: price: price_from_800 }}</span>
+          <span class="vm-package-savings">{{ 'packages.savings_choice' | t }}</span>
         </div>
 
         <ul class="vm-package-features">
@@ -120,7 +124,7 @@
 
         <a href="viber://chat?number=38975304171" class="vm-btn-secondary">
           {% render 'vigour-icons', name: 'spark' %}
-          <span>Побарај Ваучер</span>
+          <span>{{ 'packages.ask_voucher' | t }}</span>
         </a>
       </div>
 

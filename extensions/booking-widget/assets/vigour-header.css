@@ -294,6 +294,15 @@
     padding: 16px 14px 0;
     border-top: 1px solid var(--vm-line);
   }
+
+  /* The Book button takes the room left next to the switch and stays on one line */
+  .vm-nav-extra .vm-nav-book {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 380px) {

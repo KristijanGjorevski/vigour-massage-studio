@@ -9,32 +9,34 @@
     <div class="vm-painmap-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'spark' %}
-        <span>{{ block.settings.eyebrow | default: 'ИНТЕРАКТИВЕН ДИЈАГНОСТИЧКИ ВОДИЧ' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'pain_map.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-painmap-title">
-        {{ block.settings.heading | default: 'Каде чувствувате болка или напнатост?' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'pain_map.heading' %}
       </h2>
       <p class="vm-painmap-subtitle">
-        {{ block.settings.subheading | default: 'Изберете ја зоната на телото каде чувствувате непријатност за да добиете стручна препорака за соодветен масажен третман и закрепнувачки вежби.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'pain_map.subheading' %}
       </p>
     </div>
 
+    {%- comment -%} Zone texts are too long for a locale file (15 KB limit): one file per language in assets/ {%- endcomment -%}
+    {%- assign zones_file = 'pain-zones-en.json' -%}
+    {%- if request.locale.iso_code == 'mk' -%}{%- assign zones_file = 'pain-zones-mk.json' -%}{%- endif -%}
+    {%- assign zone_keys = 'neck,shoulders,upper_back,lower_back,hips,legs,feet' | split: ',' -%}
+
     <div class="vm-painmap-pills-bar">
-      <button type="button" class="vm-zone-pill-btn active" data-zone="neck">Врат и глава</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="shoulders">Рамена и трапез</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="upper_back">Горен грб</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="lower_back">Долен грб</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="hips">Колк и седало</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="legs">Колена и нозе</button>
-      <button type="button" class="vm-zone-pill-btn" data-zone="feet">Стапала</button>
+      {%- for key in zone_keys -%}
+        {%- assign pill_key = 'pain_zones.' | append: key | append: '.pill' -%}
+        <button type="button" class="vm-zone-pill-btn{% if forloop.first %} active{% endif %}" data-zone="{{ key }}">{{ pill_key | t }}</button>
+      {%- endfor -%}
     </div>
 
     <div class="vm-painmap-grid">
       
-      <div class="vm-bodymap-container" data-svg-url="{{ 'body-map.svg' | asset_url }}">
+      <div class="vm-bodymap-container" data-svg-url="{{ 'body-map.svg' | asset_url }}" data-svg-label="{{ 'pain_map.body_label' | t | escape }}" data-zones-url="{{ zones_file | asset_url }}">
         <div class="vm-bodymap-instructions">
           {% render 'vigour-icons', name: 'spark' %}
-          <span>Кликнете на било која зона на телото за анализа</span>
+          <span>{{ 'pain_map.instructions' | t }}</span>
         </div>
       </div>
 
@@ -43,38 +45,39 @@
         <div class="vm-zone-panel-header">
           <div class="vm-zone-tag">
             {% render 'vigour-icons', name: 'shield' %}
-            <span class="vm-zone-tag-text">Најчеста канцелариска тензија</span>
+            <span class="vm-zone-tag-text"></span>
           </div>
-          <h3 class="vm-zone-name">Врат и глава</h3>
+          <h3 class="vm-zone-name"></h3>
         </div>
 
         <div class="vm-zone-causes">
-          <strong>Зошто се јавува болката:</strong>
+          <strong>{{ 'pain_map.causes_label' | t }}</strong>
           <span class="vm-zone-causes-text">
-            Долго седење пред монитор, неправилна положба на спиење, психолошки стрес и акумулирана напнатост во горниот трапез.
+            
           </span>
         </div>
 
         <div class="vm-rec-card">
           <div class="vm-rec-card-eyebrow">
             {% render 'vigour-icons', name: 'spark' %}
-            <span>Препорачан масажен третман</span>
+            <span>{{ 'pain_map.rec_eyebrow' | t }}</span>
           </div>
-          <h4 class="vm-rec-card-title">Релакс или Терапевтска Масажа за Врат</h4>
+          <h4 class="vm-rec-card-title"></h4>
           <p class="vm-rec-card-desc">
-            Фокусирано ослободување на спазмите во цервикалниот дел, рамената и базата на черепот за моментално олеснување од главоболки и вкочанетост.
+            
           </p>
 
           <div class="vm-rec-card-footer">
             <div class="vm-rec-price-wrap">
-              <span class="vm-rec-price-badge vm-rec-price-text">800 - 1.000 ден.</span>
-              <small class="vm-rec-duration-text">45 мин</small>
+              <span class="vm-rec-price-badge vm-rec-price-text"></span>
+              <small class="vm-rec-duration-text"></small>
             </div>
 
-            <a href="{{ block.settings.booking_link | default: '#najdo-booking-container' }}" 
+            {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+            <a href="{{ block.settings.booking_link | default: d_book }}"
                class="vm-btn-primary vm-rec-book-btn"
                data-service-name="Релакс масажа - Грб">
-              <span>Резервирај за оваа зона</span>
+              <span>{{ 'pain_map.rec_button' | t }}</span>
               {% render 'vigour-icons', name: 'chevron-right' %}
             </a>
           </div>
@@ -86,12 +89,13 @@
               {% render 'vigour-icons', name: 'play' %}
             </div>
             <div>
-              <span class="vm-exercise-rec-title">2-минутно истегнување на врат</span>
-              <span class="vm-exercise-rec-sub">Вежби за мобилност и декомпресија на трапез</span>
+              <span class="vm-exercise-rec-title"></span>
+              <span class="vm-exercise-rec-sub"></span>
             </div>
           </div>
-          <a href="{{ block.settings.programs_link | default: '#vigour-programs' }}" class="vm-monogram-pill" style="color: var(--vm-green-deep); text-decoration: none;">
-            Видео
+          {% assign d_programs = routes.root_url | append: '/pages/programs' | replace: '//', '/' %}
+          <a href="{{ block.settings.programs_link | default: d_programs }}" class="vm-monogram-pill" style="color: var(--vm-green-deep); text-decoration: none;">
+            {{ 'pain_map.exercise_video' | t }}
           </a>
         </div>
 

@@ -35,6 +35,12 @@
       // Handle Reserve button click
       const bookButtons = section.querySelectorAll('.vm-book-service-btn');
       bookButtons.forEach(btn => {
+        // The booking form is on its own page: carry the treatment in the address (the form reads ?service=)
+        const base = btn.getAttribute('href') || '';
+        if (btn.dataset.serviceName && base && base[0] !== '#') {
+          btn.setAttribute('href', base.split('?')[0] + '?service=' + encodeURIComponent(btn.dataset.serviceName));
+        }
+
         btn.addEventListener('click', function(e) {
           const serviceName = this.dataset.serviceName;
           const serviceId = this.dataset.serviceId;

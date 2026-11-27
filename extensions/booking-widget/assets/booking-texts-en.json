@@ -1,0 +1,18 @@
+{
+ "slotsChecking": "Checking free times...",
+ "slotsNone": "No free times on this date. Please choose another day.",
+ "slotsFailed": "We couldn't load the times.",
+ "errorPickSlot": "Please choose a free time from the hours offered.",
+ "errorFailed": "Booking failed. The time may already be taken.",
+ "errorUnexpected": "Something unexpected went wrong. Please try again or contact us on Viber.",
+ "defaultService": "Massage treatment",
+ "receiptClient": "Client:",
+ "receiptService": "Treatment:",
+ "receiptDatetime": "Date and time:",
+ "receiptDatetimeValue": "[date] at [time]",
+ "receiptEmail": "Contact email:",
+ "receiptPhone": "Phone:",
+ "receiptStatus": "Status:",
+ "receiptConfirmed": "✓ Confirmed",
+ "receiptReminder": "💳 <strong>Reminder:</strong> You get 5% off when you pay by card in the studio!"
+}

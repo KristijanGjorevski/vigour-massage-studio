@@ -10,11 +10,11 @@
       <div class="vm-prvpat-grid">
         <div class="vm-prvpat-text-col">
           <h2 class="vm-prvpat-title">
-            {{ block.settings.heading | default: 'Првиот третман е 10% поевтин.' }}
+            {% render 'vigour-text', value: block.settings.heading, key: 'offer.heading' %}
           </h2>
 
           <p class="vm-prvpat-desc">
-            {{ block.settings.subheading | default: 'Закажи онлајн и внеси го кодот при плаќање. Важи за нови клиенти.' }}
+            {% render 'vigour-text', value: block.settings.subheading, key: 'offer.subheading' %}
           </p>
 
           <div class="vm-prvpat-code-badge">
@@ -23,12 +23,13 @@
         </div>
 
         <div class="vm-prvpat-actions-col">
-          <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-prvpat-btn-primary">
-            <span>{{ block.settings.cta_text | default: 'Закажи термин' }}</span>
+          {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+          <a href="{{ block.settings.cta_link | default: d_book }}" class="vm-prvpat-btn-primary">
+            <span>{% render 'vigour-text', value: block.settings.cta_text, key: 'offer.cta' %}</span>
           </a>
 
           <a href="viber://chat?number=38975304171" class="vm-prvpat-btn-outline">
-            <span>Прашај на Viber</span>
+            <span>{{ 'offer.viber' | t }}</span>
           </a>
         </div>
       </div>

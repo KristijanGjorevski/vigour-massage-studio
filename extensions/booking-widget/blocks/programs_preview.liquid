@@ -9,13 +9,13 @@
     <div class="vm-programs-header">
       <div class="vm-eyebrow">
         {% render 'vigour-icons', name: 'play' %}
-        <span>{{ block.settings.eyebrow | default: 'ВИДЕО ВЕЖБИ И РЕХАБИЛИТАЦИЈА' }}</span>
+        <span>{% render 'vigour-text', value: block.settings.eyebrow, key: 'programs.eyebrow' %}</span>
       </div>
       <h2 class="vm-heading-lg vm-programs-title">
-        {{ block.settings.heading | default: 'Програми за вежби и долгорочна мобилност' }}
+        {% render 'vigour-text', value: block.settings.heading, key: 'programs.heading' %}
       </h2>
       <p class="vm-programs-subtitle">
-        {{ block.settings.subheading | default: 'Масажата го ресетира телото, а правилните вежби го одржуваат резултатот. Погледнете ги кратките видео водичи за домашно закрепнување.' }}
+        {% render 'vigour-text', value: block.settings.subheading, key: 'programs.subheading' %}
       </p>
     </div>
 
@@ -64,7 +64,7 @@
 
           <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
             {% render 'vigour-icons', name: 'play' %}
-            <span>Пушти видео вежби</span>
+            <span>{{ 'programs.play' | t }}</span>
           </button>
         </div>
       </div>
@@ -112,7 +112,7 @@
 
           <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
             {% render 'vigour-icons', name: 'play' %}
-            <span>Пушти видео вежби</span>
+            <span>{{ 'programs.play' | t }}</span>
           </button>
         </div>
       </div>
@@ -153,7 +153,7 @@
 
           <button type="button" class="vm-btn-secondary vm-open-video-btn" data-video-id="dQw4w9WgXcQ">
             {% render 'vigour-icons', name: 'play' %}
-            <span>Пушти видео вежби</span>
+            <span>{{ 'programs.play' | t }}</span>
           </button>
         </div>
       </div>
@@ -162,7 +162,7 @@
 
     <div class="vm-video-modal" aria-hidden="true">
       <div class="vm-video-modal-content">
-        <button type="button" class="vm-video-modal-close" aria-label="Затвори видео">✕</button>
+        <button type="button" class="vm-video-modal-close" aria-label="{{ 'common.close_video' | t | escape }}">✕</button>
         <iframe class="vm-video-iframe" src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>

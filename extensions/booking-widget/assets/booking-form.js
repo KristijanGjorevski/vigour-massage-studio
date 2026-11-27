@@ -5,10 +5,14 @@
 (function () {
   'use strict';
 
-  function formatPriceMKD(amount) {
-    if (!amount) return '0 ден.';
-    // Macedonian thousand separator dot e.g. 1.300 ден.
-    return `${Math.round(amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} ден.`;
+  // Texts written by the block (booking_form.liquid) in the language of the page
+  function readTexts(container) {
+    const el = document.getElementById('vm-booking-i18n-' + container.dataset.blockId);
+    try {
+      return JSON.parse(el.textContent);
+    } catch (e) {
+      return {};
+    }
   }
 
   function initBookingWidgets() {
@@ -21,6 +25,17 @@
       // Storefront → app via the Shopify App Proxy. Shopify signs each request and
       // adds the shop server-side, so the client never sends (or can spoof) it.
       const apiBase = container.dataset.apiBase || "/apps/vigour";
+      const t = readTexts(container); // price / minutes / retry from the page; the rest is loaded from assets/booking-texts-<lang>.json
+      const textsReady = container.dataset.textsUrl
+        ? fetch(container.dataset.textsUrl).then((res) => res.json()).then((extra) => Object.assign(t, extra)).catch(() => {})
+        : Promise.resolve();
+
+      // 1300 -> "1.300 ден." (Macedonian) or "1,300 MKD" (English): separator and currency come from the locale files
+      function formatPrice(amount) {
+        const sep = t.thousandsSeparator || ".";
+        const digits = Math.round(amount || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+        return (t.price || "[amount]").replace("[amount]", digits);
+      }
 
       const form = container.querySelector(".najdo-form");
       const serviceSelect = container.querySelector('select[name="serviceId"]');
@@ -66,23 +81,30 @@
       }
 
       // Check URL parameters for pre-fill
+      // Links from other pages (hero slot card, pain map) arrive as ?service=…&date=…&time=…
+      // Applied once, after the first load, so "new booking" starts clean.
+      let urlPrefillDone = false;
       function checkUrlPreFill() {
+        if (urlPrefillDone) return;
+        urlPrefillDone = true;
         try {
           const urlParams = new URLSearchParams(window.location.search);
           const serviceParam = urlParams.get('service') || urlParams.get('serviceId');
           const dateParam = urlParams.get('date');
           const timeParam = urlParams.get('time');
 
-          if (dateParam && dateInput) {
-            dateInput.value = dateParam;
-          }
-
           if (serviceParam && serviceSelect) {
             selectServiceByNameOrId(serviceParam);
           }
 
-          if (timeParam && selectedSlotInput) {
-            selectedSlotInput.value = timeParam;
+          if (dateParam && timeParam) {
+            prefillSlot(dateParam, timeParam);
+          } else if (dateParam && dateInput) {
+            dateInput.value = dateParam;
+            fetchSlotsForDate(dateParam);
+          } else if (serviceParam && dateInput && dateInput.value) {
+            // A longer treatment may not fit every slot: refresh the day's availability
+            fetchSlotsForDate(dateInput.value);
           }
         } catch (e) {
           console.warn("Could not parse URL prefill params", e);
@@ -126,7 +148,7 @@
             .map(
               (s, i) =>
                 `<option value="${s.id}" ${i === 0 ? "selected" : ""}>
-                  ${s.name} — ${formatPriceMKD(s.price)} (${s.duration} мин)
+                  ${s.name} — ${formatPrice(s.price)} (${t.minutes.replace("[number]", s.duration)})
                 </option>`
             )
             .join("");
@@ -154,7 +176,7 @@
 
       async function fetchSlotsForDate(date) {
         if (slotsContainer) {
-          slotsContainer.innerHTML = `<div class="najdo-slots-empty">Проверка на слободни термини...</div>`;
+          slotsContainer.innerHTML = `<div class="najdo-slots-empty">${t.slotsChecking}</div>`;
         }
         if (selectedSlotInput) selectedSlotInput.value = "";
 
@@ -169,8 +191,8 @@
           console.warn("Vigour booking: could not load slots", err);
           if (!slotsContainer) return;
           slotsContainer.innerHTML = `<div class="najdo-slots-empty najdo-slots-failed">
-            <span>Не можевме да ги вчитаме термините.</span>
-            <button type="button" class="najdo-slots-retry">Обиди се повторно</button>
+            <span>${t.slotsFailed}</span>
+            <button type="button" class="najdo-slots-retry">${t.retry}</button>
           </div>`;
           slotsContainer.querySelector(".najdo-slots-retry").addEventListener("click", () => fetchSlotsForDate(date));
         }
@@ -179,7 +201,7 @@
       function renderSlots(slots) {
         if (!slotsContainer) return;
         if (!slots || slots.length === 0) {
-          slotsContainer.innerHTML = `<div class="najdo-slots-empty">Нема слободни термини за овој датум. Ве молиме изберете друг ден.</div>`;
+          slotsContainer.innerHTML = `<div class="najdo-slots-empty">${t.slotsNone}</div>`;
           return;
         }
 
@@ -223,14 +245,18 @@
         }
       });
 
-      // The hero's "next free slot" card: pre-select that date and time
-      window.addEventListener('vigour:prefill-slot', async (e) => {
-        const { date, time } = (e.detail || {});
+      // Pre-select a date and time: from the URL, or from the hero's card when the form is on the same page
+      async function prefillSlot(date, time) {
         if (!date || !time || !dateInput || (unavailableBox && !unavailableBox.hidden)) return;
         dateInput.value = date;
         await fetchSlotsForDate(date);
         const wanted = Array.from(slotsContainer.querySelectorAll(".najdo-slot-btn")).find((b) => b.dataset.slot === time);
         if (wanted) wanted.click();
+      }
+
+      window.addEventListener('vigour:prefill-slot', (e) => {
+        const { date, time } = (e.detail || {});
+        prefillSlot(date, time);
       });
 
       // Handle form submission
@@ -240,7 +266,7 @@
           showError(null);
 
           if (!selectedSlotInput || !selectedSlotInput.value) {
-            showError("Ве молиме изберете слободен термин од понудените часови.");
+            showError(t.errorPickSlot);
             return;
           }
 
@@ -275,7 +301,7 @@
             const result = await res.json();
 
             if (!res.ok) {
-              throw new Error(result.error || "Неуспешна резервација. Терминот можеби е веќе зафатен.");
+              throw new Error(result.error || t.errorFailed);
             }
 
             // Show confirmation
@@ -285,26 +311,26 @@
             const chosenServiceName =
               serviceSelect && serviceSelect.selectedIndex >= 0
                 ? serviceSelect.options[serviceSelect.selectedIndex]?.text
-                : "Масажен третман";
+                : t.defaultService;
 
             if (receiptBox) {
               receiptBox.innerHTML = `
                 <div style="display:flex; flex-direction:column; gap:8px; line-height:1.5;">
-                  <div><strong>Клиент:</strong> ${formData.customerName}</div>
-                  <div><strong>Третман:</strong> ${chosenServiceName}</div>
-                  <div><strong>Датум & Термин:</strong> ${formData.date} во ${formData.timeSlot} часот</div>
-                  <div><strong>Контакт е-пошта:</strong> ${formData.customerEmail}</div>
-                  ${formData.customerPhone ? `<div><strong>Телефон:</strong> ${formData.customerPhone}</div>` : ""}
-                  <div><strong>Статус:</strong> <span style="color: #2E7D32; font-weight: 700;">✓ Успешно потврдено</span></div>
+                  <div><strong>${t.receiptClient}</strong> ${formData.customerName}</div>
+                  <div><strong>${t.receiptService}</strong> ${chosenServiceName}</div>
+                  <div><strong>${t.receiptDatetime}</strong> ${t.receiptDatetimeValue.replace("[date]", formData.date).replace("[time]", formData.timeSlot)}</div>
+                  <div><strong>${t.receiptEmail}</strong> ${formData.customerEmail}</div>
+                  ${formData.customerPhone ? `<div><strong>${t.receiptPhone}</strong> ${formData.customerPhone}</div>` : ""}
+                  <div><strong>${t.receiptStatus}</strong> <span style="color: #2E7D32; font-weight: 700;">${t.receiptConfirmed}</span></div>
                   <div style="margin-top:12px; padding:10px 14px; background: rgba(46,125,50,0.1); border-radius:8px; font-size:14.08px; color:#1B5E20;">
-                    💳 <strong>Потсетник:</strong> Добивате 5% попуст при плаќање со картичка во студиото!
+                    ${t.receiptReminder}
                   </div>
                 </div>
               `;
             }
           } catch (err) {
             console.error("Booking error:", err);
-            showError(err.message || "Настана неочекувана грешка. Ве молиме обидете се повторно или контактирајте не на Viber.");
+            showError(err.message || t.errorUnexpected);
           } finally {
             setLoading(false);
           }
@@ -330,7 +356,7 @@
         });
       }
 
-      loadServicesAndSlots();
+      textsReady.then(loadServicesAndSlots);
     });
   }
 

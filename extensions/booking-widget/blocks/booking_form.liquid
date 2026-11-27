@@ -1,3 +1,5 @@
+{%- assign texts_file = 'booking-texts-en.json' -%}
+{%- if request.locale.iso_code == 'mk' -%}{%- assign texts_file = 'booking-texts-mk.json' -%}{%- endif -%}
 {{ 'vigour-tokens.css' | asset_url | stylesheet_tag }}
 {{ 'booking-form.css' | asset_url | stylesheet_tag }}
 
@@ -5,24 +7,26 @@
      id="najdo-booking-container" 
      data-shop="{{ shop.permanent_domain }}"
      data-api-base="/apps/vigour"
+     data-block-id="{{ block.id }}"
+     data-texts-url="{{ texts_file | asset_url }}"
      style="--nj-primary: {{ block.settings.primary_color | default: '#243F3A' }}; --nj-accent: {{ block.settings.accent_color | default: '#C7B6A6' }};">
   
   <div class="najdo-booking-card">
     <div class="najdo-booking-header">
       <div class="vm-monogram-pill" style="color: var(--vm-gold); border-color: var(--vm-gold); margin-bottom: 12px;">VM</div>
-      <div class="najdo-badge">{{ block.settings.badge | default: 'VIGOUR MASSAGE STUDIO · СКОПЈЕ' }}</div>
-      <h2 class="najdo-title">{{ block.settings.title | default: 'Резервирај термин за масажа' }}</h2>
-      <p class="najdo-subtitle">{{ block.settings.description | default: 'Изберете третман, посакуван датум и слободен термин за целосно регенерирање на вашето тело.' }}</p>
+      <div class="najdo-badge">{% render 'vigour-text', value: block.settings.badge, key: 'booking.badge' %}</div>
+      <h2 class="najdo-title">{% render 'vigour-text', value: block.settings.title, key: 'booking.title' %}</h2>
+      <p class="najdo-subtitle">{% render 'vigour-text', value: block.settings.description, key: 'booking.description' %}</p>
     </div>
 
     {%- assign contact_number = block.settings.viber_number | default: '38975304171' | remove: '+' | remove: ' ' -%}
     <div class="najdo-unavailable" role="alert" hidden>
-      <h3 class="najdo-unavailable-title">Термините не може да се вчитаат</h3>
-      <p class="najdo-unavailable-text">Врската со календарот не успеа. Обидете се повторно за момент или закажете директно со нас.</p>
+      <h3 class="najdo-unavailable-title">{{ 'booking.unavailable_title' | t }}</h3>
+      <p class="najdo-unavailable-text">{{ 'booking.unavailable_text' | t }}</p>
       <div class="najdo-unavailable-actions">
-        <button type="button" class="vm-btn-primary najdo-retry-btn">Обиди се повторно</button>
-        <a href="viber://chat?number={{ contact_number }}" class="vm-btn-skin">Пиши на Viber</a>
-        <a href="tel:+{{ contact_number }}" class="vm-btn-secondary">Повикај</a>
+        <button type="button" class="vm-btn-primary najdo-retry-btn">{{ 'booking.retry' | t }}</button>
+        <a href="viber://chat?number={{ contact_number }}" class="vm-btn-skin">{{ 'booking.viber' | t }}</a>
+        <a href="tel:+{{ contact_number }}" class="vm-btn-secondary">{{ 'booking.call' | t }}</a>
       </div>
     </div>
 
@@ -30,11 +34,11 @@
       
       <div class="najdo-form-group">
         <label class="najdo-label" for="najdo-service-{{ block.id }}">
-          <span class="step-num">1</span> Избери третман
+          <span class="step-num">1</span> {{ 'booking.step_service' | t }}
         </label>
         <div class="najdo-select-wrapper">
           <select id="najdo-service-{{ block.id }}" name="serviceId" class="najdo-select" required>
-            <option value="" disabled selected>Вчитување на третманите...</option>
+            <option value="" disabled selected>{{ 'booking.loading_services' | t }}</option>
           </select>
         </div>
         <div id="najdo-service-meta-{{ block.id }}" class="najdo-service-meta"></div>
@@ -43,17 +47,17 @@
       <div class="najdo-date-time-grid">
         <div class="najdo-form-group">
           <label class="najdo-label" for="najdo-date-{{ block.id }}">
-            <span class="step-num">2</span> Избери датум
+            <span class="step-num">2</span> {{ 'booking.step_date' | t }}
           </label>
           <input type="date" id="najdo-date-{{ block.id }}" name="date" class="najdo-input" required />
         </div>
 
         <div class="najdo-form-group">
           <label class="najdo-label">
-            <span class="step-num">3</span> Избери слободен час
+            <span class="step-num">3</span> {{ 'booking.step_time' | t }}
           </label>
           <div id="najdo-slots-container-{{ block.id }}" class="najdo-slots-grid">
-            <div class="najdo-slots-empty">Прво изберете датум од календарот</div>
+            <div class="najdo-slots-empty">{{ 'booking.pick_date_first' | t }}</div>
           </div>
           <input type="hidden" id="najdo-selected-slot-{{ block.id }}" name="timeSlot" required />
         </div>
@@ -61,56 +65,66 @@
 
       <div class="najdo-client-section">
         <label class="najdo-label">
-          <span class="step-num">4</span> Ваши податоци
+          <span class="step-num">4</span> {{ 'booking.step_info' | t }}
         </label>
         <div class="najdo-client-grid">
           <div class="najdo-field">
-            <input type="text" id="najdo-name-{{ block.id }}" name="customerName" placeholder="Име и презиме *" class="najdo-input" required />
+            <input type="text" id="najdo-name-{{ block.id }}" name="customerName" placeholder="{{ 'booking.name_placeholder' | t | escape }}" class="najdo-input" required />
           </div>
           <div class="najdo-field">
-            <input type="email" id="najdo-email-{{ block.id }}" name="customerEmail" placeholder="Е-пошта *" class="najdo-input" required />
+            <input type="email" id="najdo-email-{{ block.id }}" name="customerEmail" placeholder="{{ 'booking.email_placeholder' | t | escape }}" class="najdo-input" required />
           </div>
           <div class="najdo-field">
-            <input type="tel" id="najdo-phone-{{ block.id }}" name="customerPhone" placeholder="Телефонски број (на пр. 075 304 171) *" class="najdo-input" required />
+            <input type="tel" id="najdo-phone-{{ block.id }}" name="customerPhone" placeholder="{{ 'booking.phone_placeholder' | t | escape }}" class="najdo-input" required />
           </div>
           <div class="najdo-field full-width">
-            <textarea id="najdo-notes-{{ block.id }}" name="notes" placeholder="Фокус зони (врат, грб), повреди, напнатост или посебни напомени..." class="najdo-textarea" rows="2"></textarea>
+            <textarea id="najdo-notes-{{ block.id }}" name="notes" placeholder="{{ 'booking.notes_placeholder' | t | escape }}" class="najdo-textarea" rows="2"></textarea>
           </div>
         </div>
       </div>
 
       <div class="vm-booking-discount-notice" style="background: rgba(46, 125, 50, 0.1); border: 1px solid rgba(46, 125, 50, 0.25); border-radius: var(--vm-radius-sm); padding: 10px 14px; font-size: 13.6px; color: #1B5E20; display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
         {% render 'vigour-icons', name: 'tag' %}
-        <span><strong>Поволност:</strong> 5% попуст при плаќање со картичка во студиото!</span>
+        <span>{{ 'booking.discount_notice_html' | t }}</span>
       </div>
 
       <div id="najdo-error-{{ block.id }}" class="najdo-alert-error" style="display: none;"></div>
 
       <button type="submit" id="najdo-submit-btn-{{ block.id }}" class="najdo-submit-btn">
-        <span class="btn-text">{{ block.settings.button_text | default: 'Потврди Резервација' }}</span>
+        <span class="btn-text">{% render 'vigour-text', value: block.settings.button_text, key: 'booking.button' %}</span>
         <span class="btn-spinner" style="display: none;"></span>
       </button>
 
       <p class="najdo-guarantee">
-        <span>🔒 Безбедна онлајн резервација</span> • <span>Плаќање во студио (кеш / картичка)</span> • <span>Бесплатно откажување до 24ч однапред</span>
+        <span>{{ 'booking.guarantee_secure' | t }}</span> • <span>{{ 'booking.guarantee_payment' | t }}</span> • <span>{{ 'booking.guarantee_cancel' | t }}</span>
       </p>
     </form>
 
     <div id="najdo-success-{{ block.id }}" class="najdo-success-box" style="display: none;">
       <div class="najdo-success-icon">✓</div>
-      <h3>Терминот е успешно резервиран!</h3>
-      <p class="success-message">Ви благодариме за довербата во Vigour Massage Studio. Потврда за вашиот термин е испратена на вашата е-пошта.</p>
+      <h3>{{ 'booking.success_title' | t }}</h3>
+      <p class="success-message">{{ 'booking.success_message' | t }}</p>
       
       <div class="najdo-receipt-details" id="najdo-receipt-{{ block.id }}">
         </div>
 
       <button type="button" class="najdo-btn-secondary" id="najdo-new-booking-btn-{{ block.id }}">
-        Резервирај друг термин
+        {{ 'booking.book_another' | t }}
       </button>
     </div>
 
   </div>
 </div>
+
+{%- comment -%} Texts the script needs, in the language of the page {%- endcomment -%}
+<script type="application/json" id="vm-booking-i18n-{{ block.id }}">
+  {
+    "price": {{ 'common.price' | t: amount: '[amount]' | json }},
+    "thousandsSeparator": {{ 'common.thousands_separator' | t | json }},
+    "minutes": {{ 'common.minutes' | t: number: '[number]' | json }},
+    "retry": {{ 'booking.retry' | t | json }}
+  }
+</script>
 
 <script src="{{ 'booking-form.js' | asset_url }}" defer="defer"></script>
 

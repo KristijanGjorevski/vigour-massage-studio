@@ -1,0 +1,20 @@
+{%- comment -%}
+  Language switch (MK / EN). It is the store's own language switch: submitting the form
+  reloads the same page in the chosen language, and every block then renders its text from
+  the locale files. Hidden when the store has only one language.
+{%- endcomment -%}
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', class: 'vm-lang-switcher' -%}
+    {%- for language in localization.available_languages -%}
+      {%- assign is_current = false -%}
+      {%- if language.iso_code == localization.language.iso_code -%}{%- assign is_current = true -%}{%- endif -%}
+      <button type="submit" name="language_code" value="{{ language.iso_code }}"
+              class="vm-lang-btn{% if is_current %} active{% endif %}"
+              lang="{{ language.iso_code }}"
+              aria-label="{{ language.endonym_name | escape }}"
+              aria-pressed="{{ is_current }}">
+        {{- language.iso_code | split: '-' | first | upcase -}}
+      </button>
+    {%- endfor -%}
+  {%- endform -%}
+{%- endif -%}

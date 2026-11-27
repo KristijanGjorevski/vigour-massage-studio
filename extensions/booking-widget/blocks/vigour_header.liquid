@@ -3,12 +3,20 @@
 
 {%- liquid
   assign home_url = block.settings.link_home | default: routes.root_url
-  assign services_url = block.settings.link_services | default: '#vigour-services'
-  assign programs_url = block.settings.link_programs | default: '#vigour-programs'
-  assign shop_url = block.settings.link_shop | default: '#vm-packages'
-  assign contact_url = block.settings.link_contact | default: '#vm-contact'
-  assign book_url = block.settings.cta_link | default: '#najdo-booking-container'
-  assign book_text = block.settings.cta_text | default: 'Закажи термин'
+  assign pages = routes.root_url | append: '/pages/' | replace: '//', '/'
+  assign d_services = pages | append: 'services'
+  assign d_programs = pages | append: 'programs'
+  assign d_shop = pages | append: 'shop'
+  assign d_contact = pages | append: 'contact'
+  assign d_book = pages | append: 'booking'
+  assign services_url = block.settings.link_services | default: d_services
+  assign programs_url = block.settings.link_programs | default: d_programs
+  assign shop_url = block.settings.link_shop | default: d_shop
+  assign contact_url = block.settings.link_contact | default: d_contact
+  assign book_url = block.settings.cta_link | default: d_book
+  capture book_text
+    render 'vigour-text', value: block.settings.cta_text, key: 'header.book'
+  endcapture
   assign nav_id = 'vm-header-nav-' | append: block.id
 
   assign current = ''
@@ -33,24 +41,21 @@
         data-api-base="/apps/vigour">
   <div class="vm-header-row">
 
-    <a href="{{ routes.root_url }}" class="vm-header-logo" aria-label="Vigour Massage Studio, почетна">
+    <a href="{{ routes.root_url }}" class="vm-header-logo" aria-label="{{ 'header.logo_label' | t | escape }}">
       {%- render 'vigour-logo' -%}
     </a>
 
-    <nav class="vm-header-nav" id="{{ nav_id }}" aria-label="Главна навигација">
-      <a href="{{ home_url }}" class="vm-nav-item{% if current == 'home' %} active{% endif %}"{% if current == 'home' %} aria-current="page"{% endif %} data-vm-t="navHome">Почетна</a>
-      <a href="{{ services_url }}" class="vm-nav-item{% if current == 'services' %} active{% endif %}"{% if current == 'services' %} aria-current="page"{% endif %} data-vm-t="navServices">Услуги</a>
-      <a href="{{ programs_url }}" class="vm-nav-item{% if current == 'programs' %} active{% endif %}"{% if current == 'programs' %} aria-current="page"{% endif %} data-vm-t="navPrograms">Програми</a>
-      <a href="{{ shop_url }}" class="vm-nav-item{% if current == 'shop' %} active{% endif %}"{% if current == 'shop' %} aria-current="page"{% endif %} data-vm-t="navShop">Продавница</a>
-      <a href="{{ contact_url }}" class="vm-nav-item{% if current == 'contact' %} active{% endif %}"{% if current == 'contact' %} aria-current="page"{% endif %} data-vm-t="navContact">Контакт</a>
+    <nav class="vm-header-nav" id="{{ nav_id }}" aria-label="{{ 'header.nav_label' | t | escape }}">
+      <a href="{{ home_url }}" class="vm-nav-item{% if current == 'home' %} active{% endif %}"{% if current == 'home' %} aria-current="page"{% endif %}>{{ 'header.nav_home' | t }}</a>
+      <a href="{{ services_url }}" class="vm-nav-item{% if current == 'services' %} active{% endif %}"{% if current == 'services' %} aria-current="page"{% endif %}>{{ 'header.nav_services' | t }}</a>
+      <a href="{{ programs_url }}" class="vm-nav-item{% if current == 'programs' %} active{% endif %}"{% if current == 'programs' %} aria-current="page"{% endif %}>{{ 'header.nav_programs' | t }}</a>
+      <a href="{{ shop_url }}" class="vm-nav-item{% if current == 'shop' %} active{% endif %}"{% if current == 'shop' %} aria-current="page"{% endif %}>{{ 'header.nav_shop' | t }}</a>
+      <a href="{{ contact_url }}" class="vm-nav-item{% if current == 'contact' %} active{% endif %}"{% if current == 'contact' %} aria-current="page"{% endif %}>{{ 'header.nav_contact' | t }}</a>
 
       {%- comment -%} Phone menu only: language switch and the Book button {%- endcomment -%}
       <div class="vm-nav-extra">
-        <div class="vm-lang-switcher" role="group" aria-label="Јазик / Language">
-          <button type="button" class="vm-lang-btn active" data-lang="mk" aria-pressed="true">MK</button>
-          <button type="button" class="vm-lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-        <a href="{{ book_url }}" class="vm-btn-primary vm-nav-book" data-vm-t="ctaBook">{{ book_text }}</a>
+        {%- render 'vigour-lang-switcher' -%}
+        <a href="{{ book_url }}" class="vm-btn-primary vm-nav-book">{{ book_text }}</a>
       </div>
     </nav>
 
@@ -64,7 +69,7 @@
       {%- endif -%}
 
       {%- if block.settings.show_cart_icon -%}
-        <a href="{{ routes.cart_url }}" class="vm-icon-btn vm-cart-btn" aria-label="Кошничка" data-vm-t-label="cart">
+        <a href="{{ routes.cart_url }}" class="vm-icon-btn vm-cart-btn" aria-label="{{ 'header.cart' | t | escape }}">
           <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8L5 8Z M9 8V6.5a3 3 0 0 1 6 0V8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
           </svg>
@@ -72,16 +77,13 @@
         </a>
       {%- endif -%}
 
-      <div class="vm-lang-switcher" role="group" aria-label="Јазик / Language">
-        <button type="button" class="vm-lang-btn active" data-lang="mk" aria-pressed="true">MK</button>
-        <button type="button" class="vm-lang-btn" data-lang="en" aria-pressed="false">EN</button>
-      </div>
+      {%- render 'vigour-lang-switcher' -%}
 
-      <a href="{{ book_url }}" class="vm-btn-primary vm-btn-sm vm-header-book" data-vm-t="ctaBook">{{ book_text }}</a>
+      <a href="{{ book_url }}" class="vm-btn-primary vm-btn-sm vm-header-book">{{ book_text }}</a>
 
       <button type="button" class="vm-icon-btn vm-burger"
               aria-controls="{{ nav_id }}" aria-expanded="false"
-              aria-label="Отвори мени" data-vm-t-label="menuOpen">
+              aria-label="{{ 'header.menu_open' | t | escape }}">
         <svg class="vm-burger-open" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
@@ -93,6 +95,22 @@
 
   </div>
 </header>
+
+{%- comment -%} Texts the script needs, in the language of the page {%- endcomment -%}
+<script type="application/json" id="vm-header-i18n-{{ block.id }}">
+  {
+    "cart": {{ 'header.cart' | t | json }},
+    "menuOpen": {{ 'header.menu_open' | t | json }},
+    "menuClose": {{ 'header.menu_close' | t | json }},
+    "slotsTodayOne": {{ 'header.slots_today_one' | t | json }},
+    "slotsTodayOther": {{ 'header.slots_today_other' | t: number: '[number]' | json }},
+    "nextSlot": {{ 'header.next_slot' | t: day: '[day]', time: '[time]' | json }},
+    "today": {{ 'dates.today' | t | json }},
+    "tomorrow": {{ 'dates.tomorrow' | t | json }},
+    "days": {{ 'dates.days' | t | split: ',' | json }},
+    "months": {{ 'dates.months' | t | split: ',' | json }}
+  }
+</script>
 
 <script src="{{ 'vigour-header.js' | asset_url }}" defer="defer"></script>
 

@@ -1,3 +1,12 @@
+{%- comment -%}
+  One service card. The card texts are passed in by the block (they are content, too long for a
+  locale file); the price and minutes are formatted here in the language of the page.
+  Params: title, variant, desc, benefit, category, amount (MKD), minutes, icon, service_id, booking_link,
+          badge, badge_style, media_style, video_label, pill_style (all optional)
+{%- endcomment -%}
+{%- capture price_text -%}{% render 'vigour-price', amount: amount %}{%- endcapture -%}
+{%- assign card_amount = amount | times: 95 | divided_by: 100 | floor -%}
+{%- capture card_price_text -%}{% render 'vigour-price', amount: card_amount %}{%- endcapture -%}
 <div class="vm-service-card" data-category="{{ category }}">
   <div class="vm-service-media">
     {%- if badge != blank -%}
@@ -22,7 +31,7 @@
     <div class="vm-service-meta-row">
       <div class="vm-service-meta-item">
         {% render 'vigour-icons', name: 'clock' %}
-        <span>{{ duration }}</span>
+        <span>{{ 'common.minutes' | t: number: minutes }}</span>
       </div>
       <div class="vm-service-meta-item">
         {% render 'vigour-icons', name: 'shield' %}
@@ -31,13 +40,14 @@
     </div>
     <div class="vm-service-footer">
       <div class="vm-service-price-wrap">
-        <span class="vm-service-price">{{ price }}</span>
-        <span class="vm-service-discount-tag">💳 {{ card_price }}</span>
+        <span class="vm-service-price">{{ price_text }}</span>
+        <span class="vm-service-discount-tag">💳 {{ 'services.card_price' | t: price: card_price_text }}</span>
       </div>
-      <a href="{{ booking_link | default: '#najdo-booking-container' }}" 
+      {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+      <a href="{{ booking_link | default: d_book }}"
          class="vm-btn-primary vm-book-service-btn"
          data-service-name="{{ service_id }}">
-        <span>Резервирај</span>
+        <span>{{ 'services.book' | t }}</span>
         {% render 'vigour-icons', name: 'chevron-right' %}
       </a>
     </div>
