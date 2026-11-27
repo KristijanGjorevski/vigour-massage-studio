@@ -43,7 +43,8 @@
         <span class="vm-service-price">{{ price_text }}</span>
         <span class="vm-service-discount-tag">💳 {{ 'services.card_price' | t: price: card_price_text }}</span>
       </div>
-      <a href="{{ booking_link | default: '#najdo-booking-container' }}" 
+      {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+      <a href="{{ booking_link | default: d_book }}"
          class="vm-btn-primary vm-book-service-btn"
          data-service-name="{{ service_id }}">
         <span>{{ 'services.book' | t }}</span>

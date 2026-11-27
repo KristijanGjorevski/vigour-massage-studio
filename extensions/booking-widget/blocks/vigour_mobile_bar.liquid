@@ -2,7 +2,8 @@
 {{ 'vigour-mobile-bar.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign book_url = block.settings.book_link | default: '#najdo-booking-container'
+  assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/'
+  assign book_url = block.settings.book_link | default: d_book
   capture book_text
     render 'vigour-text', value: block.settings.book_text, key: 'header.book'
   endcapture

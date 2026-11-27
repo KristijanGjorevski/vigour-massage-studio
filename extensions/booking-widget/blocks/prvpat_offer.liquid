@@ -23,7 +23,8 @@
         </div>
 
         <div class="vm-prvpat-actions-col">
-          <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-prvpat-btn-primary">
+          {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+          <a href="{{ block.settings.cta_link | default: d_book }}" class="vm-prvpat-btn-primary">
             <span>{% render 'vigour-text', value: block.settings.cta_text, key: 'offer.cta' %}</span>
           </a>
 

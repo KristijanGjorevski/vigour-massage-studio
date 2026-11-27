@@ -3,11 +3,17 @@
 
 {%- liquid
   assign home_url = block.settings.link_home | default: routes.root_url
-  assign services_url = block.settings.link_services | default: '#vigour-services'
-  assign programs_url = block.settings.link_programs | default: '#vigour-programs'
-  assign shop_url = block.settings.link_shop | default: '#vm-packages'
-  assign contact_url = block.settings.link_contact | default: '#vm-contact'
-  assign book_url = block.settings.cta_link | default: '#najdo-booking-container'
+  assign pages = routes.root_url | append: '/pages/' | replace: '//', '/'
+  assign d_services = pages | append: 'services'
+  assign d_programs = pages | append: 'programs'
+  assign d_shop = pages | append: 'shop'
+  assign d_contact = pages | append: 'contact'
+  assign d_book = pages | append: 'booking'
+  assign services_url = block.settings.link_services | default: d_services
+  assign programs_url = block.settings.link_programs | default: d_programs
+  assign shop_url = block.settings.link_shop | default: d_shop
+  assign contact_url = block.settings.link_contact | default: d_contact
+  assign book_url = block.settings.cta_link | default: d_book
   capture book_text
     render 'vigour-text', value: block.settings.cta_text, key: 'header.book'
   endcapture

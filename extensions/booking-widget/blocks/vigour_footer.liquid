@@ -5,6 +5,7 @@
   assign instagram_link = block.settings.instagram_link | default: 'https://www.instagram.com/vigour.massagestudio/'
   assign phone = block.settings.phone | default: '+38975304171'
   assign current_year = 'now' | date: '%Y'
+  assign pages = routes.root_url | append: '/pages/' | replace: '//', '/'
 -%}
 
 <footer class="vm-block-wrapper vm-footer-wrapper" id="vm-footer-{{ block.id }}">
@@ -24,20 +25,20 @@
       <div class="vm-footer-col">
         <h2 class="vm-footer-col-title">{{ 'footer.services_title' | t }}</h2>
         <ul class="vm-footer-links-list">
-          <li><a href="#vigour-services">{{ 'footer.service_relax' | t }}</a></li>
-          <li><a href="#vigour-services">{{ 'footer.service_sports' | t }}</a></li>
-          <li><a href="#vigour-services">{{ 'footer.service_feet' | t }}</a></li>
-          <li><a href="#vigour-services">{{ 'footer.service_premium' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_relax' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_sports' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_feet' | t }}</a></li>
+          <li><a href="{{ pages }}services">{{ 'footer.service_premium' | t }}</a></li>
         </ul>
       </div>
 
       <div class="vm-footer-col">
         <h2 class="vm-footer-col-title">{{ 'footer.studio_title' | t }}</h2>
         <ul class="vm-footer-links-list">
-          <li><a href="#vigour-programs">{{ 'footer.studio_programs' | t }}</a></li>
-          <li><a href="#vm-packages">{{ 'footer.studio_packages' | t }}</a></li>
-          <li><a href="#najdo-booking-container">{{ 'footer.studio_booking' | t }}</a></li>
-          <li><a href="#vm-contact">{{ 'footer.studio_contact' | t }}</a></li>
+          <li><a href="{{ pages }}programs">{{ 'footer.studio_programs' | t }}</a></li>
+          <li><a href="{{ pages }}shop">{{ 'footer.studio_packages' | t }}</a></li>
+          <li><a href="{{ pages }}booking">{{ 'footer.studio_booking' | t }}</a></li>
+          <li><a href="{{ pages }}contact">{{ 'footer.studio_contact' | t }}</a></li>
         </ul>
       </div>
 

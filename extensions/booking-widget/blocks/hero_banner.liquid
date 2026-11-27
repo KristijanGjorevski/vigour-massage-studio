@@ -2,7 +2,8 @@
 {{ 'hero-banner.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign book_url = block.settings.cta_primary_link | default: '#najdo-booking-container'
+  assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/'
+  assign book_url = block.settings.cta_primary_link | default: d_book
   assign map_url = block.settings.cta_secondary_link | default: '#vm-painmap'
   capture title_start
     render 'vigour-text', value: block.settings.heading_start, key: 'hero.heading_start'

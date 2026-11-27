@@ -73,7 +73,8 @@
 
     {%- if block.settings.show_cta -%}
       <div class="vm-process-cta-wrap">
-        <a href="{{ block.settings.cta_link | default: '#najdo-booking-container' }}" class="vm-btn-primary">
+        {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+        <a href="{{ block.settings.cta_link | default: d_book }}" class="vm-btn-primary">
           {% render 'vigour-icons', name: 'calendar' %}
           <span>{% render 'vigour-text', value: block.settings.cta_text, key: 'how_it_works.cta' %}</span>
         </a>

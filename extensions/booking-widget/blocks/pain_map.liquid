@@ -73,7 +73,8 @@
               <small class="vm-rec-duration-text"></small>
             </div>
 
-            <a href="{{ block.settings.booking_link | default: '#najdo-booking-container' }}" 
+            {% assign d_book = routes.root_url | append: '/pages/booking' | replace: '//', '/' %}
+            <a href="{{ block.settings.booking_link | default: d_book }}"
                class="vm-btn-primary vm-rec-book-btn"
                data-service-name="Релакс масажа - Грб">
               <span>{{ 'pain_map.rec_button' | t }}</span>
@@ -92,7 +93,8 @@
               <span class="vm-exercise-rec-sub"></span>
             </div>
           </div>
-          <a href="{{ block.settings.programs_link | default: '#vigour-programs' }}" class="vm-monogram-pill" style="color: var(--vm-green-deep); text-decoration: none;">
+          {% assign d_programs = routes.root_url | append: '/pages/programs' | replace: '//', '/' %}
+          <a href="{{ block.settings.programs_link | default: d_programs }}" class="vm-monogram-pill" style="color: var(--vm-green-deep); text-decoration: none;">
             {{ 'pain_map.exercise_video' | t }}
           </a>
         </div>
