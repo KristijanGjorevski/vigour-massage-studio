@@ -141,6 +141,9 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
   - The Macedonian output is word-for-word the same as before (checked by rendering the old and new blocks and comparing the text).
   - **Store setup (manual, in Shopify admin → Settings → Languages):** add Macedonian and make it the default language, publish English
     as the second language. Until then the storefront shows the English fallback texts and no switch.
+    **Also add the languages to the market** (Admin → Markets → the market → Domain / language): a language that is published but not
+    in any market is not offered, and the MK/EN switch stays hidden. Done 2026-11-27: the one market ("United States", which also includes
+    North Macedonia) offers Macedonian (default, no prefix) and English (`/en`). A North Macedonia market comes with Phase 5.
   - **Shopify limits that shaped this** (enforced when `shopify app dev` / `deploy` uploads the extension, checked 2026-11-26):
     - **15 KB per locale file.** `mk.json` is 13.8 KB (Cyrillic is 2 bytes a character), so there is almost no room left. Do not add
       long texts to it. Keep it one key per line without indentation, and run the key check (below) before committing.
@@ -200,9 +203,27 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
 
 #### Phase 6: Pages and navigation
 
-- [ ] 6.1 Create the Shopify pages: home, services, programs, shop, booking, contact
-- [ ] 6.2 Place the app blocks on each page
-- [ ] 6.3 Set up the header and footer menus
+Started early (2026-11-27), before Phases 3 to 5, so the real site can be checked page by page while the blocks are rebuilt.
+The pages use the existing blocks; Phases 3 and 4 improve them in place.
+
+- [x] 6.1 Create the Shopify pages: home, services, programs, shop, booking, contact
+  - Admin pages `services`, `programs`, `shop`, `booking`, `contact` (the handles must match: the header, footer and buttons link to
+    `/pages/<handle>`). Home is the theme's `index.json`. The links are built from `routes.root_url`, so they keep the language prefix (`/en/pages/…`).
+- [x] 6.2 Place the app blocks on each page
+  - Templates in the theme (`templates/index.json`, `page.services|programs|shop|booking|contact.json`), one generic Section per VM block, full width.
+    Home: hero, pain map, services, reels, how it works, programs, founder, reviews, first-time offer. Services: services + offer.
+    Programs: programs + reviews. Shop: pricing block (a stand-in until Phase 5 builds real products and collections). Booking: booking form.
+    Contact: contact block (Horizon's contact form is gone; the message form comes with 3.9).
+  - Still missing against the prototype: trust strip (3.1) on Home, FAQ and message form (3.9) on Contact.
+- [x] 6.3 Set up the header and footer menus
+  - VM Header Nav and VM Mobile Bar sit in the theme's header group, VM Footer in the footer group (shown on every page, full width).
+    The theme's own header, announcement bar, hero, featured collection and footer are removed. The links inside the blocks do the navigation,
+    so the theme's menus are not used.
+  - Booking is its own page. The hero's next-slot card, the pain-map treatment button and the services cards open it with `?date=&time=` or
+    `?service=`, and the form pre-selects them (`booking-form.js`).
+- How to test: use the live storefront `https://<store>.myshopify.com` (store password needed while it is protected), not `127.0.0.1:9293`.
+  That preview serves an older development theme without our templates.
+- The theme code (templates, header and footer groups) lives only in the store. Pull it with `shopify theme pull` into a folder outside this repo.
 
 #### Phase 7: Final check
 
