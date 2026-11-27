@@ -128,8 +128,44 @@ Each phase is done in order, on its own git branch. Tick a step when it's done.
     Clicking it now pre-selects that date and time in the booking form (the old link put the date in a part of the address the form never read).
   - Fixed: the pain map section had a suffixed id, so the "Каде те боли?" button could not find it; it is now `#vm-painmap`.
   - Known: the card shows the next slot for the shortest treatment; if the form's selected treatment is longer, that exact time may not be offered and nothing is pre-selected.
-- [ ] 2.7 Macedonian + English: move all block text into the `mk` / `en` locale files (`| t` filter; no block uses them yet),
-      add Macedonian as the store's default language in Shopify admin, keep the MK/EN switch
+- [x] 2.7 Macedonian + English: the interface texts of all blocks come from the `mk` / `en` locale files
+  - Texts live in `extensions/booking-widget/locales/mk.json` and `en.default.json` (same 183 keys in both; English is the fallback file).
+    Blocks use `{{ 'key' | t }}`. A text the merchant typed in the theme editor still wins, in both languages; when the field is empty the
+    locale text is used (snippet `vigour-text`). Prices go through the snippet `vigour-price` (`1.300 ден.` / `1,300 MKD`).
+  - The MK/EN switch is now the store's own language switch (snippet `vigour-lang-switcher`, a Shopify localization form). It reloads the
+    page in the other language and is hidden while the store has only one language. The old browser-side switch (`vm_language`,
+    the `vigour:language-changed` event) is gone.
+  - Scripts no longer hold texts. The header, hero and reviews blocks write the few texts their script needs into a JSON `<script>`
+    in the page language; the pain map and the booking form load longer texts from one file per language in `assets/`
+    (`pain-zones-mk|en.json`, `booking-texts-mk|en.json`).
+  - The Macedonian output is word-for-word the same as before (checked by rendering the old and new blocks and comparing the text).
+  - **Store setup (manual, in Shopify admin → Settings → Languages):** add Macedonian and make it the default language, publish English
+    as the second language. Until then the storefront shows the English fallback texts and no switch.
+  - **Shopify limits that shaped this** (enforced when `shopify app dev` / `deploy` uploads the extension, checked 2026-11-26):
+    - **15 KB per locale file.** `mk.json` is 13.8 KB (Cyrillic is 2 bytes a character), so there is almost no room left. Do not add
+      long texts to it. Keep it one key per line without indentation, and run the key check (below) before committing.
+    - **100 KB of Liquid across the whole extension** (now 89.5 KB). Phase 3 and 4 will hit this, so new sections must stay lean.
+    - A `}` inside a string in `{{ ... }}` ends the tag early on Shopify's server (the local checks do not catch it). Placeholders
+      handed to scripts therefore use `[name]`, never `{name}`.
+  - **Still Macedonian in the English version, on purpose:** the card texts of the services grid, programs, reviews and packages (and the
+    service names, which come from the Service table and are matched by name). They are content, too long for a locale file, and
+    Phase 3 rebuilds them. Do that rebuild with merchant-editable data that Shopify can translate (block settings or metaobjects, then
+    translate them in Shopify admin), not with locale files. Also not translated: text typed into block settings; the theme-editor
+    labels (English).
+  - Key check (scratch script, not in the repo): every key used exists in both files, no unused keys, same placeholders, both files
+    under 14 KB, Liquid total under 95 KB.
+- [ ] 2.8 Theme settings pass: make the pages we don't rebuild match the brand
+  - The store runs on the Horizon theme ("Updated copy of Horizon"). Product, collection, cart, search, account and 404 pages stay
+    Horizon's own, so they must look on-brand and not half-default.
+  - Admin → Online Store → Themes → Customize → Theme settings: set colours (paper `#F7F3EE`, house-green, blush `#C7B6A6` / `#8A6A55`),
+    fonts (Onest + Cormorant Garamond; if Onest is not in Shopify's font picker, load it in the theme code), buttons and corner radius
+    to the prototype values in `docs/design/README.md`.
+  - Checkout: Settings → Checkout and customer accounts → Customize (logo, colours, fonts, corner radius only; Shopify controls the layout).
+  - Anything the settings cannot reach (layout differences on product, cart, 404) gets decided in Phase 5, as a VM block or a small
+    theme code edit. Re-check these pages again in 7.1.
+  - Theme cleanup done 2026-11-27: the theme's own header, announcement bar, hero and featured collection were removed from the theme code
+    (`sections/header-group.json`, `templates/index.json` now empty), so the VM header is the only header and Home starts empty.
+    The theme code lives only in the store. Pull it with `shopify theme pull` into a folder outside this repo if needed.
 
 #### Phase 3: Home page sections
 
